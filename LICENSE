@@ -1,0 +1,119 @@
+QUARK FRAMEWORK LICENSE
+Copyright (c) 2026 TXMSKA (Tomás Daniel Tasca)
+https://txmska.com
+
+─────────────────────────────────────────────────────────────────────────────
+IMPORTANT: READ CAREFULLY BEFORE USING THIS SOFTWARE
+─────────────────────────────────────────────────────────────────────────────
+
+This license governs the use of the Quark Framework and all associated
+source code, documentation, and assets (collectively, "the Software").
+By using, copying, modifying, or distributing the Software, you agree to
+the terms of this license.
+
+─────────────────────────────────────────────────────────────────────────────
+1. FREE USE
+─────────────────────────────────────────────────────────────────────────────
+
+The Software may be used, copied, modified, and distributed free of charge
+under the following conditions:
+
+  a) Academic, educational, and research use — with no restrictions.
+
+  b) Personal, non-commercial projects.
+
+  c) Commercial use by individuals or organizations whose total annual
+     gross revenue does not exceed USD 100,000 (one hundred thousand
+     US dollars) in the current or prior fiscal year.
+
+If you fall under any of the above categories, you may use the Software
+without contacting TXMSKA, provided you comply with Section 4 (Restrictions)
+and Section 5 (Attribution).
+
+─────────────────────────────────────────────────────────────────────────────
+2. COMMERCIAL LICENSE REQUIRED
+─────────────────────────────────────────────────────────────────────────────
+
+A paid commercial license must be obtained from TXMSKA if your individual
+or organizational total annual gross revenue equals or exceeds USD 100,000,
+regardless of whether the Software is directly used in a revenue-generating
+product.
+
+To obtain a commercial license:
+  business@txmska.com
+
+Licenses are negotiated on a case-by-case basis.
+
+─────────────────────────────────────────────────────────────────────────────
+3. SPECIAL EXCEPTIONS
+─────────────────────────────────────────────────────────────────────────────
+
+TXMSKA reserves the right to grant free or discounted commercial licenses
+at its sole discretion — based on relationship, context, community
+contribution, or any other reason TXMSKA deems appropriate.
+
+Such exceptions are granted in writing by TXMSKA and are non-transferable.
+No exception may be claimed or assumed without explicit written confirmation
+from TXMSKA.
+
+─────────────────────────────────────────────────────────────────────────────
+4. RESTRICTIONS
+─────────────────────────────────────────────────────────────────────────────
+
+Regardless of license tier, the following is strictly prohibited:
+
+  a) Repackaging, reselling, or sublicensing the Software — in whole or
+     in part, modified or unmodified — as a standalone framework, toolkit,
+     library, or product under any name.
+
+  b) Representing the Software or any derivative work as your own original
+     framework without clear and visible attribution to TXMSKA.
+
+  c) Removing or obscuring any copyright notices, license headers, or
+     attribution references present in the Software.
+
+─────────────────────────────────────────────────────────────────────────────
+5. ATTRIBUTION
+─────────────────────────────────────────────────────────────────────────────
+
+All projects — commercial or free — that use the Software must include the
+following notice in a reasonably visible location (documentation, about
+screen, README, or similar):
+
+    Built with Quark — developed by TXMSKA (txmska.com)
+
+─────────────────────────────────────────────────────────────────────────────
+6. MODIFICATIONS AND CONTRIBUTIONS
+─────────────────────────────────────────────────────────────────────────────
+
+You may modify the Software for your own internal use. Modified versions
+may not be distributed as a replacement, fork, or alternative to Quark
+without prior written consent from TXMSKA.
+
+Contributions submitted to the official Quark repository are accepted under
+the terms of this license and become part of the Software. By submitting a
+contribution, you grant TXMSKA a perpetual, irrevocable, royalty-free
+license to use, modify, and distribute your contribution as part of the
+Software.
+
+─────────────────────────────────────────────────────────────────────────────
+7. DISCLAIMER OF WARRANTIES
+─────────────────────────────────────────────────────────────────────────────
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+TXMSKA OR ITS AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY
+ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE.
+
+─────────────────────────────────────────────────────────────────────────────
+8. TERMINATION
+─────────────────────────────────────────────────────────────────────────────
+
+Any violation of the terms of this license automatically terminates your
+rights to use the Software. TXMSKA reserves the right to pursue legal
+remedies for breach of these terms under applicable intellectual property law.
+
+─────────────────────────────────────────────────────────────────────────────
+For licensing inquiries: business@txmska.com
+─────────────────────────────────────────────────────────────────────────────
