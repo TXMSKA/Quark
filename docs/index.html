@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — La Biblia del Framework</title>
+<style>
+:root{
+  --bg:#0b0e14; --panel:#11151d; --panel2:#0d1117; --border:#1f2530;
+  --text:#d6dbe4; --muted:#8b93a3; --accent:#a78bfa; --accent2:#7dd3fc; --ok:#86efac; --warn:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:16px/1.65 system-ui,Segoe UI,Roboto,sans-serif;display:flex}
+nav{position:sticky;top:0;height:100vh;width:240px;flex-shrink:0;background:var(--panel2);border-right:1px solid var(--border);padding:24px 0;overflow-y:auto}
+nav .brand{padding:0 20px 16px;border-bottom:1px solid var(--border);margin-bottom:12px}
+nav .brand b{font-size:22px;color:var(--accent)}
+nav .brand span{display:block;font-size:12px;color:var(--muted)}
+nav a{display:block;padding:6px 20px;color:var(--muted);text-decoration:none;font-size:14px;border-left:2px solid transparent}
+nav a:hover{color:var(--text);border-left-color:var(--accent2)}
+nav .sep{margin:10px 20px;border-top:1px solid var(--border)}
+main{flex:1;min-width:0;max-width:900px;padding:40px 48px 120px;margin:0 auto}
+.hero{padding:28px 0 8px}
+.hero h1{font-size:44px;color:#fff;letter-spacing:-1px}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero p.tag{color:var(--accent2);font-size:15px;margin-top:4px}
+.hero p.sub{color:var(--muted);margin-top:12px;max-width:640px}
+section{margin-top:56px}
+h2{font-size:26px;color:#fff;border-left:4px solid var(--accent);padding-left:14px;margin-bottom:18px}
+h3{font-size:18px;color:var(--accent2);margin:26px 0 10px}
+p{margin:10px 0}
+p.muted,li.muted{color:var(--muted)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:5px 0}
+code{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:1px 6px;font:13px/1.5 Consolas,Menlo,monospace;color:var(--accent2)}
+pre{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:12px 0}
+pre code{background:none;border:none;padding:0;color:#c9d1d9;font-size:13px}
+.path{display:block;font:12px Consolas,monospace;color:var(--muted);margin:18px 0 4px}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14.5px}
+th,td{border:1px solid var(--border);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:var(--panel);color:#fff}
+td b{color:var(--accent2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px}
+.card h4{color:#fff;font-size:18px;margin-bottom:6px}
+.card h4 small{color:var(--muted);font-weight:normal;font-size:12px}
+.card p{font-size:14px;color:var(--muted)}
+.card .ex{margin-top:8px;font-size:13px;color:var(--text)}
+.cmds{counter-reset:c;list-style:none;margin-left:0}
+.cmds li{counter-increment:c;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px 14px 64px;margin:10px 0;position:relative}
+.cmds li::before{content:counter(c,upper-roman);position:absolute;left:16px;top:12px;font-size:20px;font-weight:bold;color:var(--accent)}
+.cmds b{color:#fff}
+.note{background:var(--panel);border-left:4px solid var(--accent2);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:14.5px}
+.note.warn{border-left-color:var(--warn)}
+.note.ok{border-left-color:var(--ok)}
+.flow{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 20px;font:13.5px/1.9 Consolas,monospace;color:var(--text);overflow-x:auto;white-space:pre}
+.pill{display:inline-block;background:var(--panel);border:1px solid var(--border);border-radius:99px;padding:2px 12px;font-size:12.5px;color:var(--accent2);margin:2px 4px 2px 0}
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--border);color:var(--muted);font-size:13.5px}
+@media(max-width:860px){nav{display:none}main{padding:24px 20px 80px}}
+@media print{nav{display:none}body{background:#fff;color:#111}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><b>⚛ Quark</b><span>La Biblia · v1 · 2026</span></div>
+  <a href="#manifiesto">Manifiesto</a>
+  <a href="#mandamientos">Los 10 Mandamientos</a>
+  <a href="#bases">Las tres bases</a>
+  <a href="#vocabulario">Vocabulario</a>
+  <a href="#capas">Capas y carpetas</a>
+  <a href="#ciclo">Ciclo de vida</a>
+  <a href="#estilo">Estilo de código</a>
+  <div class="sep"></div>
+  <a href="#codigo">El código (fuente de verdad)</a>
+  <a href="#editor">Editor / Drawer</a>
+  <a href="#testing">Testing y primer tutorial</a>
+  <div class="sep"></div>
+  <a href="#docs">Protocolo de documentación</a>
+  <a href="#workflow">Workflow</a>
+  <a href="#licencia">Licencia</a>
+  <a href="#vision">Visión a futuro</a>
+</nav>
+
+<main>
+
+<header class="hero">
+  <h1><em>Quark</em> — La Biblia</h1>
+  <p class="tag">Framework lite para enseñar a programar en Unity con buenas prácticas.</p>
+  <p class="sub">Este documento es <b>la única fuente de verdad</b> del diseño de Quark: sus principios, sus bases y su visión.
+  Todo lo que se construya de acá a 10 años se mide contra esta página. Si algo la contradice, o se corrige el código, o se corrige la Biblia — nunca conviven en desacuerdo.</p>
+  <p class="sub" style="margin-top:8px">Por <b>TXMSKA</b> (Tomás Daniel Tasca) · txmska.com</p>
+</header>
+
+<section id="manifiesto">
+  <h2>Manifiesto</h2>
+  <p>Quark existe para <b>enseñar buenas prácticas con la menor cantidad de código posible</b>. No compite con frameworks grandes: compite con la confusión.</p>
+  <ul>
+    <li>Cada clase debe poder leerse completa en una pantalla.</li>
+    <li>Cada nombre debe enseñar qué es la cosa (los alumnos aprenden de los nombres).</li>
+    <li><b>El framework se enseña a sí mismo:</b> sus propias clases usan sus propios patrones (Atom se compone con Addons; Nucleus existe porque el pipeline se repetía 3 veces — composición aplicada al propio problema).</li>
+    <li>Sostenible por una sola persona, a largo plazo. La rama <code>release</code> siempre queda usable de punta a punta.</li>
+  </ul>
+</section>
+
+<section id="mandamientos">
+  <h2>Los 10 Mandamientos</h2>
+  <ol class="cmds">
+    <li><b>Reusarás antes de crear.</b> Librería estándar → función de Unity → paquete ya instalado → recién ahí, código nuevo.</li>
+    <li><b>No construirás lo que no necesitás (YAGNI).</b> Mencionar una idea no es pedirla: la visión se anota, el código se escribe cuando de verdad hace falta.</li>
+    <li><b>Menos código gana.</b> Si un borrador más chico funciona, el grande se borra. Borrar antes que agregar.</li>
+    <li><b>Todo es lazy.</b> Los recursos se generan cuando un sistema los necesita (el <code>Uid</code> nace en su primer acceso), nunca "por las dudas".</li>
+    <li><b>Compondrás, no heredarás.</b> El comportamiento se arma con Addons y Mods. La herencia es solo para identidad (Entity, Prop, Service), no para features.</li>
+    <li><b>El código habla; los comentarios callan.</b> Sin comentarios narrativos, sin historia del fix. Solo invariantes no obvios o rarezas de Unity.</li>
+    <li><b>Una línea si alcanza.</b> One-liners salvo que de verdad se necesite más.</li>
+    <li><b>Con Unity Objects, null explícito.</b> Nada de <code>?.</code> ni <code>??</code> sobre lo que herede de <code>UnityEngine.Object</code> (saltean el <code>==</code> sobrecargado y un objeto destruido pasa por vivo). Las clases planas sí pueden.</li>
+    <li><b>Ni constantes de un solo uso, ni serialización prematura.</b> El literal va inline salvo que el nombre documente un significado compartido; un campo entra al inspector cuando su valor importa de verdad.</li>
+    <li><b>Documentarás solo lo terminado.</b> El doc-pass llega cuando el script está listo — nunca mientras se desarrolla (los summaries engordan el archivo y marean).</li>
+  </ol>
+</section>
+
+<section id="bases">
+  <h2>Las tres bases</h2>
+  <p><b>Todo lo que existe en un juego hecho con Quark es una de estas tres cosas.</b> No hay una cuarta. Si parece que falta una categoría, en realidad falta un Addon o un Mod.</p>
+  <div class="cards">
+    <div class="card">
+      <h4>Entity <small>: Identifiable</small></h4>
+      <p>Cualquier <b>personaje</b>, jugador o no. Si "actúa" y "vive", es Entity.</p>
+      <p class="ex">Ej.: jugador, NPC, enemigo, mascota, boss, criatura.</p>
+    </div>
+    <div class="card">
+      <h4>Prop <small>: Identifiable</small></h4>
+      <p>Cualquier <b>objeto de escena</b> con comportamiento propio. Si "está" y hace algo, es Prop.</p>
+      <p class="ex">Ej.: puerta, cofre, palanca, item agarrable, trampa, antorcha.</p>
+    </div>
+    <div class="card">
+      <h4>Service <small>: MonoBehaviour</small></h4>
+      <p>Una <b>implementación autónoma de escena</b>, sin cuerpo. Un sistema que corre. Tiene <code>Priority</code>.</p>
+      <p class="ex">Ej.: spawner, director de audio, ciclo día/noche, score, guardado.</p>
+    </div>
+  </div>
+  <h3>Guía de decisión</h3>
+  <table>
+    <tr><th>Pregunta</th><th>Respuesta</th></tr>
+    <tr><td>¿Tiene cuerpo y actúa por sí mismo?</td><td><b>Entity</b></td></tr>
+    <tr><td>¿Es una cosa tangible de la escena con comportamiento?</td><td><b>Prop</b></td></tr>
+    <tr><td>¿Es un sistema invisible que corre en la escena?</td><td><b>Service</b></td></tr>
+    <tr><td>¿Es comportamiento que pertenece a otro?</td><td><b>Addon</b> (parte interna) o <b>Mod</b> (pieza de escena que lo altera)</td></tr>
+    <tr><td>¿Orquesta todo el juego?</td><td><b>GameManager</b> (un Service singleton; <b>Atom</b> es el default)</td></tr>
+  </table>
+  <div class="note">Jerarquía completa: <code>Identifiable → Entity / Prop</code> · <code>Service → GameManager → Atom</code>. Eso es todo el árbol. Cualquier tentación de agregarle profundidad va contra el Mandamiento V.</div>
+</section>
+
+<section id="vocabulario">
+  <h2>Vocabulario</h2>
+  <table>
+    <tr><th>Tipo</th><th>Qué es</th></tr>
+    <tr><td><b>Identifiable</b></td><td>Raíz con identidad: <code>Id</code> legible a mano (puede repetirse: "player", "crate") + <code>Uid</code> único auto-generado lazy.</td></tr>
+    <tr><td><b>Entity</b></td><td>Personaje (jugador o no).</td></tr>
+    <tr><td><b>Prop</b></td><td>Objeto de escena con comportamiento propio.</td></tr>
+    <tr><td><b>Service</b></td><td>Implementación autónoma de escena + <code>Priority</code> (dato; lo consumirá el GameManager cuando exista la orquestación).</td></tr>
+    <tr><td><b>GameManager</b></td><td>El orquestador ("Overlord"), hereda de Service: singleton <code>Instance</code>, persiste entre escenas, duplicados se autodestruyen.</td></tr>
+    <tr><td><b>Atom</b></td><td>El GameManager default, súper thin (clase vacía): todo viene del abstract + Addons por inspector.</td></tr>
+    <tr><td><b>Addon&lt;T&gt;</b></td><td>Clase plana <code>[Serializable]</code> que delega comportamiento del owner. Se agrega como campo en código <b>o desde el inspector</b> (lista <code>[SerializeReference]</code>).</td></tr>
+    <tr><td><b>Mod&lt;T&gt;</b></td><td>MonoBehaviour que altera a su owner; vive en su jerarquía (mismo GO o hijos) y el owner lo detecta solo.</td></tr>
+    <tr><td><b>Nucleus&lt;T&gt;</b></td><td>Clase plana sellada que empaqueta addons + mods + su ciclo de vida, UNA sola vez. Cada host la tiene como campo.</td></tr>
+    <tr><td><b>Quantum</b></td><td>Utils static sin estado (generación de Uid anti-colisión, conexiones indirectas).</td></tr>
+  </table>
+  <p class="muted">Tema de nombres: Quark → Atom → Quantum → Nucleus. La física para la infraestructura; nombres descriptivos y planos para lo que el alumno toca.</p>
+</section>
+
+<section id="capas">
+  <h2>Capas y carpetas</h2>
+  <p>Tres capas por nivel de abstracción. La dependencia va en <b>una sola dirección</b> (a futuro la fija un <code>.asmdef</code> por capa):</p>
+  <div class="flow">0 - ROOT      static    helpers sin estado (Quantum)        ← no depende de nada
+1 - CORE      abstract  los tipos base que se extienden     ← usa ROOT
+2 - EXTENSIONS concreto  deriva de CORE: defaults, tutoriales ← usa CORE</div>
+  <ul>
+    <li><code>1 - CORE/</code> se subdivide por dominio: <code>Identity/</code> (Identifiable, Entity, Prop) · <code>Composition/</code> (Addon, Mod, Nucleus) · <code>Management/</code> (GameManager, Service).</li>
+    <li><code>2 - EXTENSIONS/</code> hoy: <code>Atom.cs</code> y <code>Testing/</code>. Acá viven los módulos y tutoriales por venir.</li>
+    <li>Los dominios nuevos (UI, Gameplay, Audio…) son <b>subcarpetas dentro de la capa</b>, on-demand — nunca capas nuevas.</li>
+    <li>Carpetas <code>Editor/</code> (a cualquier profundidad) = código solo-editor, excluido del build.</li>
+  </ul>
+</section>
+
+<section id="ciclo">
+  <h2>Ciclo de vida (auto-init)</h2>
+  <p><b>Nada se inicializa solo: siempre lo dispara su dueño.</b> El owner delega en su Nucleus.</p>
+  <div class="flow">Awake     → nucleus.Initialize(this)
+              1. addons de la lista  → Initialize(owner)   (los null se ignoran)
+              2. mods detectados     → GetComponentsInChildren&lt;Mod&lt;T&gt;&gt;(true)
+                 (solo los que responden a ESTE owner: guard del padre más cercano)
+              3. cada mod            → Initialize(owner)
+
+OnDestroy → nucleus.Teardown()      (orden inverso: mods → addons)</div>
+  <div class="note warn"><b>Regla de oro de las subclases:</b> si usás <code>Awake</code>, <code>Start</code> u <code>OnDestroy</code>, es <code>override</code> y <b>llamás <code>base.</code></b> — el pipeline vive ahí.</div>
+  <p>El GameManager agrega su parte antes del <code>base.Awake()</code>: chequeo de duplicado (se autodestruye) → <code>Instance = this</code> → <code>DontDestroyOnLoad</code>.</p>
+</section>
+
+<section id="estilo">
+  <h2>Estilo de código</h2>
+  <h3>Regiones (componentes)</h3>
+  <p>En este orden fijo; la región vacía se salta; línea en blanco tras <code>#region X</code> y antes de <code>#endregion</code>:</p>
+  <table>
+    <tr><th>Región</th><th>Contenido</th></tr>
+    <tr><td><code>FIELDS</code></td><td>Vars y props <b>serializadas</b> (lo que ve el inspector).</td></tr>
+    <tr><td><code>LIFETIME</code></td><td>Mensajes de Unity (<code>Awake</code>, <code>OnEnable</code>, <code>Start</code>, <code>OnDestroy</code>…).</td></tr>
+    <tr><td><code>API</code></td><td>Métodos / props <b>públicos</b>.</td></tr>
+    <tr><td><code>MISC</code></td><td>Privados.</td></tr>
+  </table>
+  <ul>
+    <li>Las vars <b>no serializadas</b> van <b>al lado de la función que las usa</b>, no en un bloque arriba.</li>
+    <li>Inspector prolijo <b>sin Odin</b> (repo público): atributos nativos — <code>[Header]</code>, <code>[Space]</code>, <code>[Tooltip]</code>. Agrupado tipo Odin recién si hace falta, vía custom editor.</li>
+    <li>Imitá siempre el código vecino (nombres, llaves, modificadores).</li>
+  </ul>
+</section>
+
+<section id="codigo">
+  <h2>El código — fuente de verdad</h2>
+  <p class="muted">Las bases reales, completas. Once archivos. Si el repo y esta página difieren, uno de los dos está mal: decidí cuál y corregilo.</p>
+
+  <span class="path">0 - ROOT/Quantum.cs</span>
+<pre><code>using System;
+using System.Collections.Generic;
+
+namespace Quark
+{
+    public static class Quantum
+    {
+        static readonly HashSet&lt;string&gt; uids = new();
+
+        public static string NewUid()
+        {
+            string uid;
+            do { uid = Guid.NewGuid().ToString(); }
+            while (!uids.Add(uid));
+            return uid;
+        }
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Identity/Identifiable.cs</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class Identifiable : MonoBehaviour
+    {
+        #region FIELDS
+
+        [field: SerializeField] public string Id { get; private set; }
+
+        #endregion
+
+        #region API
+
+        string uid;
+        public string Uid =&gt; string.IsNullOrEmpty(uid) ? (uid = Quantum.NewUid()) : uid;
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Identity/Entity.cs</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class Entity : Identifiable
+    {
+        #region FIELDS
+
+        [SerializeField] Nucleus&lt;Entity&gt; nucleus = new();
+
+        #endregion
+
+        #region LIFETIME
+
+        protected virtual void Awake() =&gt; nucleus.Initialize(this);
+        protected virtual void OnDestroy() =&gt; nucleus.Teardown();
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Identity/Prop.cs — gemela de Entity</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class Prop : Identifiable
+    {
+        #region FIELDS
+
+        [SerializeField] Nucleus&lt;Prop&gt; nucleus = new();
+
+        #endregion
+
+        #region LIFETIME
+
+        protected virtual void Awake() =&gt; nucleus.Initialize(this);
+        protected virtual void OnDestroy() =&gt; nucleus.Teardown();
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Management/Service.cs</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class Service : MonoBehaviour
+    {
+        #region FIELDS
+
+        [field: SerializeField] public int Priority { get; private set; }
+        [SerializeField] Nucleus&lt;Service&gt; nucleus = new();
+
+        #endregion
+
+        #region LIFETIME
+
+        protected virtual void Awake() =&gt; nucleus.Initialize(this);
+        protected virtual void OnDestroy() =&gt; nucleus.Teardown();
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Management/GameManager.cs</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class GameManager : Service
+    {
+        #region LIFETIME
+
+        protected override void Awake()
+        {
+            if (Instance != null) { Destroy(gameObject); return; }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            base.Awake();
+        }
+
+        protected override void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+            base.OnDestroy();
+        }
+
+        #endregion
+
+        #region API
+
+        public static GameManager Instance { get; private set; }
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Composition/Addon.cs</span>
+<pre><code>using System;
+
+namespace Quark
+{
+    [Serializable]
+    public abstract class Addon&lt;T&gt;
+    {
+        public T Owner { get; private set; }
+
+        public virtual void Initialize(T owner) =&gt; Owner = owner;
+        public virtual void Teardown() =&gt; Owner = default;
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Composition/Mod.cs</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public abstract class Mod&lt;T&gt; : MonoBehaviour where T : Component
+    {
+        #region API
+
+        public T Owner { get; private set; }
+
+        public virtual void Initialize(T owner) =&gt; Owner = owner;
+        public virtual void Teardown() =&gt; Owner = null;
+
+        #endregion
+    }
+}</code></pre>
+
+  <span class="path">1 - CORE/Composition/Nucleus.cs</span>
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Quark
+{
+    [Serializable]
+    public sealed class Nucleus&lt;T&gt; where T : Component
+    {
+        [SerializeReference] List&lt;Addon&lt;T&gt;&gt; addons = new();
+        Mod&lt;T&gt;[] mods;
+
+        public bool Initialized =&gt; mods != null;
+
+        public void Initialize(T owner)
+        {
+            addons.ForEach(a =&gt; a?.Initialize(owner));
+            mods = owner.GetComponentsInChildren&lt;Mod&lt;T&gt;&gt;(true)
+                        .Where(m =&gt; m.GetComponentInParent&lt;T&gt;() == owner).ToArray();
+            foreach (var m in mods) m.Initialize(owner);
+        }
+
+        public void Teardown()
+        {
+            if (mods == null) return;
+            foreach (var m in mods) if (m != null) m.Teardown();
+            addons.ForEach(a =&gt; a?.Teardown());
+        }
+    }
+}</code></pre>
+
+  <span class="path">2 - EXTENSIONS/Atom.cs</span>
+<pre><code>namespace Quark
+{
+    public class Atom : GameManager
+    {
+
+    }
+}</code></pre>
+
+  <div class="note ok"><b>Por qué Nucleus existe:</b> el pipeline addons+mods estaba copiado 3 veces (Entity, Prop, Service). En vez de herencia genérica (CRTP, ilegible para novatos) o un helper static (campos igual duplicados), se eligió <b>composición</b>: la lógica y el estado juntos, una sola vez, y cada host queda en 3 líneas. El framework aplicándose a sí mismo.</div>
+  <div class="note"><b>Detalles finos del Nucleus:</b> el <code>?.</code> sobre addons es legal (clases planas) y tolera los huecos null de la lista. El guard <code>GetComponentInParent&lt;T&gt;() == owner</code> evita que un owner anidado le "robe" los mods al de adentro. <code>mods == null</code> = nunca inicializado → Teardown no hace nada.</div>
+</section>
+
+<section id="editor">
+  <h2>Editor / Drawer</h2>
+  <p>Unity no trae selector de tipos para listas <code>[SerializeReference]</code> (el <b>+</b> mete null). Odin lo daba; acá es un PropertyDrawer propio, editor-only:</p>
+  <ul>
+    <li><b>NucleusDrawer</b> — aplana <code>Nucleus &gt; Addons</code> a una lista "Addons" directa.</li>
+    <li><b>AddonDrawer</b> — elemento null → botón <b>"Select Addon…"</b> → menú con los tipos concretos válidos para ese owner (<code>TypeCache</code> filtrado); al elegir: <code>Activator.CreateInstance</code> → <code>managedReferenceValue</code>. Elemento con valor → campos normales + botón para cambiar de tipo o volver a None.</li>
+  </ul>
+  <span class="path">1 - CORE/Composition/Editor/NucleusDrawer.cs</span>
+<pre><code>using System;
+using UnityEditor;
+using UnityEngine;
+
+namespace Quark
+{
+    [CustomPropertyDrawer(typeof(Nucleus&lt;&gt;))]
+    sealed class NucleusDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =&gt;
+            EditorGUI.GetPropertyHeight(property.FindPropertyRelative("addons"), label, true);
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =&gt;
+            EditorGUI.PropertyField(position, property.FindPropertyRelative("addons"), new GUIContent("Addons"), true);
+    }
+
+    [CustomPropertyDrawer(typeof(Addon&lt;&gt;), true)]
+    sealed class AddonDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =&gt;
+            property.managedReferenceValue == null
+                ? EditorGUIUtility.singleLineHeight
+                : EditorGUI.GetPropertyHeight(property, label, true);
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            var current = property.managedReferenceValue;
+
+            if (current != null)
+                EditorGUI.PropertyField(position, property, new GUIContent(current.GetType().Name), true);
+            else
+                EditorGUI.LabelField(position, label);
+
+            var header = new Rect(position.x + EditorGUIUtility.labelWidth, position.y,
+                                  position.width - EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+            if (EditorGUI.DropdownButton(header, new GUIContent(current == null ? "Select Addon…" : current.GetType().Name), FocusType.Keyboard))
+                ShowMenu(property);
+        }
+
+        static void ShowMenu(SerializedProperty property)
+        {
+            var prop = property.Copy();
+            var menu = new GenericMenu();
+            var baseType = ResolveType(prop.managedReferenceFieldTypename);
+
+            foreach (var type in TypeCache.GetTypesDerivedFrom(baseType))
+            {
+                if (type.IsAbstract || type.IsGenericTypeDefinition) continue;
+                menu.AddItem(new GUIContent(type.Name), false, () =&gt; Assign(prop, Activator.CreateInstance(type)));
+            }
+
+            if (menu.GetItemCount() == 0) menu.AddDisabledItem(new GUIContent("No addons available"));
+            menu.AddSeparator("");
+            menu.AddItem(new GUIContent("None"), false, () =&gt; Assign(prop, null));
+            menu.ShowAsContext();
+        }
+
+        static void Assign(SerializedProperty property, object value)
+        {
+            property.managedReferenceValue = value;
+            property.serializedObject.ApplyModifiedProperties();
+        }
+
+        static Type ResolveType(string typename)
+        {
+            var parts = typename.Split(new[] { ' ' }, 2);
+            return Type.GetType($"{parts[1]}, {parts[0]}");
+        }
+    }
+}</code></pre>
+  <p class="muted">Es IMGUI a propósito: para elementos managed-reference, UI Toolkit todavía renguea con el rebinding al cambiar de tipo. El agrupado visual tipo Odin del futuro sí irá en UI Toolkit.</p>
+</section>
+
+<section id="testing">
+  <h2>Testing y primer tutorial</h2>
+  <p>En <code>2 - EXTENSIONS/Testing/</code> viven los dobles de prueba: <code>TestEntity</code>, <code>TestProp</code>, <code>TestService</code> (hosts concretos vacíos) + un Addon y un Mod por base, que loguean su ciclo de vida. Este es, a la vez, <b>el molde de todo tutorial futuro</b>: así se extiende Quark.</p>
+
+  <span class="path">Extender con un Addon (se agrega por inspector o por código)</span>
+<pre><code>using System;
+using UnityEngine;
+
+namespace Quark
+{
+    [Serializable]
+    public class TestEntityAddon : Addon&lt;Entity&gt;
+    {
+        public override void Initialize(Entity owner)
+        {
+            base.Initialize(owner);
+            Debug.Log($"TestEntityAddon.Initialize → {owner.name}");
+        }
+
+        public override void Teardown()
+        {
+            Debug.Log($"TestEntityAddon.Teardown ← {Owner.name}");
+            base.Teardown();
+        }
+    }
+}</code></pre>
+
+  <span class="path">Extender con un Mod (componente en el GO del owner o un hijo)</span>
+<pre><code>using UnityEngine;
+
+namespace Quark
+{
+    public class TestEntityMod : Mod&lt;Entity&gt;
+    {
+        public override void Initialize(Entity owner)
+        {
+            base.Initialize(owner);
+            Debug.Log($"TestEntityMod.Initialize → {owner.name}");
+        }
+
+        public override void Teardown()
+        {
+            Debug.Log($"TestEntityMod.Teardown ← {Owner.name}");
+            base.Teardown();
+        }
+    }
+}</code></pre>
+
+  <h3>La prueba canónica (escena Test)</h3>
+  <ol>
+    <li>GameObject vacío → componente <code>TestEntity</code>.</li>
+    <li>En su lista <b>Addons</b>: <b>+</b> → "Select Addon…" → <code>TestEntityAddon</code>.</li>
+    <li>Al mismo GO (o un hijo): componente <code>TestEntityMod</code>.</li>
+    <li><b>Play</b> → consola: los dos <code>Initialize</code>. <b>Stop</b> → los dos <code>Teardown</code> (orden inverso).</li>
+    <li>Repetí con Prop y Service. Un Prop solo ofrece Addons de Prop — el menú filtra por owner.</li>
+  </ol>
+  <div class="note ok">Las tres reglas que este molde enseña: <b>override → base primero</b> (en Teardown, base al final) · el owner es quien inicializa · Addon = capacidad interna, Mod = pieza de escena.</div>
+</section>
+
+<section id="docs">
+  <h2>Protocolo de documentación</h2>
+  <ul>
+    <li><b>Cuándo:</b> solo scripts terminados (Mandamiento X). Lo dispara el autor a mano ("docpass"), nunca automático.</li>
+    <li><b>Qué:</b> (1) un XML <code>&lt;summary&gt;</code> corto de una línea por tipo terminado; (2) su página markdown en <code>docs/</code>.</li>
+    <li><b>Bilingüe:</b> castellano primero (<code>part.es.md</code>), inglés opcional (<code>part.en.md</code>); lo que falte en inglés cae al español.</li>
+    <li><b>Plantilla de página:</b> Título → descripción de una línea → "Qué es" → "Cuándo usarlo" → "Ejemplo" → "Recursos".</li>
+    <li><b>Sitio:</b> esta página es la doc hasta que haya contenido real. El día del sitio: MkDocs + Material + mkdocs-static-i18n (~15 min: <code>pip install mkdocs-material mkdocs-static-i18n</code> → <code>mkdocs.yml</code> con idioma default <code>es</code> → <code>mkdocs serve</code> → <code>mkdocs gh-deploy</code>).</li>
+  </ul>
+</section>
+
+<section id="workflow">
+  <h2>Workflow</h2>
+  <ul>
+    <li><b>Los commits los hace el autor</b>, por GitHub Desktop. Ningún asistente commitea jamás.</li>
+    <li><b>Cero rastros de IA en el repo público:</b> <code>CLAUDE.md</code>, <code>.cursor/</code>, <code>.claude/</code> quedan fuera vía <code>.git/info/exclude</code> (local — no <code>.gitignore</code>, que es compartido y delataría los nombres).</li>
+    <li><b>Reglas de agente espejadas:</b> <code>CLAUDE.md</code> (canónico) ↔ <code>.cursor/rules/quark.mdc</code> (mismo cuerpo + frontmatter). Tocás uno → actualizás el otro.</li>
+    <li><b>Rama <code>release</code>:</b> lo estable y usable. Tags <code>v0.1.0</code>… para que los consumidores fijen versión.</li>
+    <li>Mensajes de commit en inglés, cortos: qué cambió y por qué.</li>
+  </ul>
+</section>
+
+<section id="licencia">
+  <h2>Licencia</h2>
+  <p><b>QUARK FRAMEWORK LICENSE</b> — source-available (no es open source OSI). El texto legal vinculante es el archivo <code>LICENSE</code> del repo; <code>COMMERCIAL_LICENSE.md</code> es el resumen humano.</p>
+  <ul>
+    <li><b>Gratis:</b> uso académico/educativo/investigación, personal no comercial, y comercial con ingresos anuales totales &lt; USD 100.000.</li>
+    <li><b>Licencia comercial</b> (business@txmska.com): ingresos ≥ USD 100.000, caso por caso. Excepciones a discreción de TXMSKA, solo por escrito.</li>
+    <li><b>Prohibido siempre:</b> revender, re-empaquetar o sublicenciar Quark como framework propio; distribuir forks como reemplazo sin consentimiento; quitar atribución.</li>
+    <li><b>Atribución obligatoria:</b> <em>"Built with Quark — developed by TXMSKA (txmska.com)"</em> en un lugar visible.</li>
+    <li>Las contribuciones al repo oficial quedan licenciadas a TXMSKA bajo estos mismos términos.</li>
+  </ul>
+</section>
+
+<section id="vision">
+  <h2>Visión a futuro</h2>
+  <p class="muted">Todo lo de abajo está <b>anotado, no construido</b> — Mandamiento II. Se construye el día que un sistema real lo necesite, en este orden de probabilidad:</p>
+  <table>
+    <tr><th>Pieza</th><th>Diseño previsto</th></tr>
+    <tr><td><b>Orquestación de Services</b></td><td>El GameManager alista los Services y los arranca ordenados por <code>Priority</code> (menor primero). El campo ya existe; la maquinaria (enlist/boot diferido) se probó y se retiró por no necesitarse aún.</td></tr>
+    <tr><td><b>Tick system</b></td><td>Dentro del GameManager, estilo Universe de Cosmic: <code>OnTick</code>, <code>TickRate</code>, contador. Pausa = <code>Time.timeScale</code> nativo (reusar, no reinventar). Sería el único <code>Update</code> legítimo del framework.</td></tr>
+    <tr><td><b>Addons de Atom</b></td><td><code>Scenes</code> (envuelve <code>UnityEngine.SceneManagement.SceneManager</code>, carga con sobrecargas) y <code>Audio</code> (música + SFX 2D/3D, estilo SFXEmitter). Quien necesite lógica propia subclasea el Addon, no crea un manager paralelo.</td></tr>
+    <tr><td><b>Dominios near-core</b></td><td><code>UI</code> (Canvas/HUD/menús — un Flow simplificado) · <code>Simulation</code> · <code>Localization</code> (opcional, no dependencia dura del core) · <code>Storage</code> (inventario + persistencia; ahí se revisa si el Uid pasa a estable en edit-time).</td></tr>
+    <tr><td><b>Packaging</b></td><td>Un <code>.asmdef</code> por capa (fija la dirección de dependencias) → CORE como package <code>com.quark.core</code> embebido en <code>Packages/</code> → distribución por Git URL → OpenUPM al madurar. Package = distribución; asmdef = compilación.</td></tr>
+    <tr><td><b>Editor</b></td><td>Drawer UI Toolkit con agrupado visual tipo Odin (cajas/foldouts), cuando IMGUI quede corto.</td></tr>
+    <tr><td><b>Docs</b></td><td>Sitio MkDocs bilingüe (es primero) en GitHub Pages, generado de <code>docs/*.md</code>.</td></tr>
+  </table>
+  <div class="note warn"><b>Cómo decidir si algo entra a CORE:</b> ¿es fundamental y depende solo de Unity? CORE. ¿Es opcional, de dominio puntual, o trae dependencia externa? EXTENSIONS (o package aparte). Ante la duda: EXTENSIONS — promover después es fácil; degradar rompe.</div>
+</section>
+
+<footer>
+  <p><b>⚛ Quark</b> — framework lite para enseñar Unity. © 2026 TXMSKA (Tomás Daniel Tasca) · txmska.com · business@txmska.com</p>
+  <p style="margin-top:8px">Esta página vive en <code>docs/index.html</code>. Es la fuente única de verdad: si cambiás el diseño, actualizala en el mismo commit. Menos código gana. ⚛</p>
+</footer>
+
+</main>
+</body>
+</html>
