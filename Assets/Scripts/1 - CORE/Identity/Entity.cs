@@ -6,15 +6,24 @@ namespace Quark
     {
         #region FIELDS
 
-        [SerializeField] Nucleus<Entity> nucleus = new();
+        [SerializeField] private Nucleus<Entity> nucleus = new();
 
         #endregion
 
         #region LIFETIME
 
         protected virtual void Awake() => nucleus.Initialize(this);
+        protected virtual void Update() => nucleus.Handle();
         protected virtual void OnDestroy() => nucleus.Teardown();
-        
+
+        #endregion
+
+        #region API
+
+        public Values Values => nucleus.Values;
+
+        public T Get<T>() where T : class => nucleus.Get<T>();
+
         #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace Quark
             EditorGUI.PropertyField(position, property.FindPropertyRelative("addons"), new GUIContent("Addons"), true);
     }
 
-    [CustomPropertyDrawer(typeof(Addon<>), true)]
+    [CustomPropertyDrawer(typeof(Addon), true)]
     sealed class AddonDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
@@ -41,11 +41,13 @@ namespace Quark
         {
             var prop = property.Copy();
             var menu = new GenericMenu();
-            var baseType = ResolveType(prop.managedReferenceFieldTypename);
+            var host = property.serializedObject.targetObject.GetType();
 
-            foreach (var type in TypeCache.GetTypesDerivedFrom(baseType))
+            foreach (var type in TypeCache.GetTypesDerivedFrom(typeof(Addon)))
             {
                 if (type.IsAbstract || type.IsGenericTypeDefinition) continue;
+                var ownerType = AddonOwnerType(type);
+                if (ownerType == null || !ownerType.IsAssignableFrom(host)) continue;
                 menu.AddItem(new GUIContent(type.Name), false, () => Assign(prop, Activator.CreateInstance(type)));
             }
 
@@ -55,16 +57,20 @@ namespace Quark
             menu.ShowAsContext();
         }
 
+        static Type AddonOwnerType(Type type)
+        {
+            for (var t = type; t != null; t = t.BaseType)
+            {
+                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Addon<>))
+                    return t.GetGenericArguments()[0];
+            }
+            return null;
+        }
+
         static void Assign(SerializedProperty property, object value)
         {
             property.managedReferenceValue = value;
             property.serializedObject.ApplyModifiedProperties();
-        }
-
-        static Type ResolveType(string typename)
-        {
-            var parts = typename.Split(new[] { ' ' }, 2);
-            return Type.GetType($"{parts[1]}, {parts[0]}");
         }
     }
 }

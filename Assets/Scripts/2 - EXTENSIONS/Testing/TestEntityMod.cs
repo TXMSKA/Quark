@@ -4,16 +4,17 @@ namespace Quark
 {
     public class TestEntityMod : Mod<Entity>
     {
-        public override void Initialize(Entity owner)
+        public override void Hook(Entity owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestEntityMod.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestEntityMod.Hook → {owner.name}");
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestEntityMod.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Debug.Log($"TestEntityMod.Unhook ← {Owner.name}");
+            base.Unhook();
         }
     }
 }

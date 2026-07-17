@@ -6,16 +6,17 @@ namespace Quark
     [Serializable]
     public class TestServiceAddon : Addon<Service>
     {
-        public override void Initialize(Service owner)
+        public override void Hook(Service owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestServiceAddon.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestServiceAddon.Hook → {owner.name}");
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestServiceAddon.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Debug.Log($"TestServiceAddon.Unhook ← {Owner.name}");
+            base.Unhook();
         }
     }
 }

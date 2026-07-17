@@ -6,16 +6,30 @@ namespace Quark
     [Serializable]
     public class TestPropAddon : Addon<Prop>
     {
-        public override void Initialize(Prop owner)
+        public override void Hook(Prop owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestPropAddon.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestPropAddon.Hook → {owner.name}");
+            owner.OnFocus += LogFocus;
+            owner.OnUnfocus += LogUnfocus;
+            owner.OnUse += LogUse;
+            owner.OnInteract += LogInteract;
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestPropAddon.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Owner.OnFocus -= LogFocus;
+            Owner.OnUnfocus -= LogUnfocus;
+            Owner.OnUse -= LogUse;
+            Owner.OnInteract -= LogInteract;
+            Debug.Log($"TestPropAddon.Unhook ← {Owner.name}");
+            base.Unhook();
         }
+
+        void LogFocus(Context context) => Debug.Log($"TestPropAddon: {Owner.name} Focus");
+        void LogUnfocus(Context context) => Debug.Log($"TestPropAddon: {Owner.name} Unfocus");
+        void LogUse(Context context) => Debug.Log($"TestPropAddon: {Owner.name} Use");
+        void LogInteract(Context context) => Debug.Log($"TestPropAddon: {Owner.name} Interact");
     }
 }

@@ -4,16 +4,17 @@ namespace Quark
 {
     public class TestServiceMod : Mod<Service>
     {
-        public override void Initialize(Service owner)
+        public override void Hook(Service owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestServiceMod.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestServiceMod.Hook → {owner.name}");
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestServiceMod.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Debug.Log($"TestServiceMod.Unhook ← {Owner.name}");
+            base.Unhook();
         }
     }
 }

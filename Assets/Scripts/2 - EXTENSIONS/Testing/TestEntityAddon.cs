@@ -6,16 +6,24 @@ namespace Quark
     [Serializable]
     public class TestEntityAddon : Addon<Entity>
     {
-        public override void Initialize(Entity owner)
+        public override void Hook(Entity owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestEntityAddon.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestEntityAddon.Hook → {owner.name}");
+            owner.OnFocus += LogFocus;
+            owner.OnUnfocus += LogUnfocus;
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestEntityAddon.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Owner.OnFocus -= LogFocus;
+            Owner.OnUnfocus -= LogUnfocus;
+            Debug.Log($"TestEntityAddon.Unhook ← {Owner.name}");
+            base.Unhook();
         }
+
+        void LogFocus(Context context) => Debug.Log($"TestEntityAddon: {Owner.name} Focus");
+        void LogUnfocus(Context context) => Debug.Log($"TestEntityAddon: {Owner.name} Unfocus");
     }
 }

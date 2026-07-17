@@ -4,16 +4,17 @@ namespace Quark
 {
     public class TestPropMod : Mod<Prop>
     {
-        public override void Initialize(Prop owner)
+        public override void Hook(Prop owner)
         {
-            base.Initialize(owner);
-            Debug.Log($"TestPropMod.Initialize → {owner.name}");
+            base.Hook(owner);
+            Debug.Log($"TestPropMod.Hook → {owner.name}");
         }
 
-        public override void Teardown()
+        public override void Unhook()
         {
-            Debug.Log($"TestPropMod.Teardown ← {Owner.name}");
-            base.Teardown();
+            if (Owner == null) return;
+            Debug.Log($"TestPropMod.Unhook ← {Owner.name}");
+            base.Unhook();
         }
     }
 }
