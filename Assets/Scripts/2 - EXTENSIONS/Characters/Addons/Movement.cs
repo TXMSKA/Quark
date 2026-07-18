@@ -16,6 +16,7 @@ namespace Quark
         private InputAction move;
         private Vector2 axis;
         private float velocityY;
+        // Checkear si no hay forma de compactar las variables
 
         public override void Hook(Player owner)
         {
@@ -24,6 +25,7 @@ namespace Quark
                 move = controls.Get(Control.Move);
         }
 
+        // Comprobar cómo va a funcionar esto bien.
         public override void Handle()
         {
             axis = move?.ReadValue<Vector2>() ?? default;
@@ -44,10 +46,34 @@ namespace Quark
         }
 
         [Serializable]
-        public class Jump : Addon<Movement> { }
+        public class Jump : Addon<Movement>
+        {
+            // Hook y Unhook para keys y eventos.
+            // Debería nomás detectar el salto posible y agregar speed Y.
+        }
 
         [Serializable]
-        public class Crouch : Addon<Movement> { }
+        public class Crouch : Addon<Movement>
+        {
+            #region FIELDS
+
+            [SerializeField, Min(0f)] private float timeToCrouch = 0.133f;
+
+            [Header("Standing")]
+            [SerializeField] private Vector3 standingCenter = new(0f, 0.95f, 0f);
+            [SerializeField, Min(0.01f)] private float standingHeight = 1.7f;
+            [SerializeField, Min(0.01f)] private float standingRadius = 0.25f;
+
+            [Header("Crouching")]
+            [SerializeField] private Vector3 crouchingCenter = new(0f, 0.7f, 0f);
+            [SerializeField, Min(0.01f)] private float crouchHeight = 1.2f;
+            [SerializeField, Min(0.01f)] private float crouchRadius = 0.5f;
+
+            #endregion
+
+            // Hook y Unhook para las keys y los eventos.
+            // O bien Handle o una Coroutine que maneja el target del Crouch.
+        }
 
         [Serializable]
         public class Sprint : Addon<Movement>

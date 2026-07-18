@@ -1,10 +1,13 @@
 using System;
+using UnityEngine;
 
 namespace Quark
 {
     [Serializable]
     public abstract class Addon
     {
+        [field: SerializeField] public bool Enabled { get; set; } = true;
+
         public abstract void Hook(object owner);
         public virtual void Handle() { }
         public virtual void Unhook() { }

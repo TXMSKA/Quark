@@ -6,6 +6,8 @@ namespace Quark
     {
         #region API
 
+        [field: SerializeField] public bool Enabled { get; set; } = true;
+
         public T Owner { get; private set; }
 
         public virtual void Hook(T owner) => Owner = owner;
