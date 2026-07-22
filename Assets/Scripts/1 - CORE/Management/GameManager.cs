@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Quark
 {
+    [DefaultExecutionOrder(-100)]
     public abstract class GameManager : Service
     {
         #region LIFETIME
@@ -30,6 +31,9 @@ namespace Quark
         #region API
 
         public static GameManager Instance { get; private set; }
+
+        public static T Find<T>(string key = null) where T : class =>
+            Instance != null && Instance.Values.TryGet(key ?? typeof(T).Name, out T value) ? value : null;
 
         #endregion
     }

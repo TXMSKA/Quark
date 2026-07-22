@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — Design</title>
+<link rel="stylesheet" href="css/quark.css">
+<script src="js/quark.js"></script>
+<script src="js/search.js"></script>
+</head>
+<body>
+<div class="dotgrid"></div>
+<div class="app">
+
+<aside class="side">
+  <a class="logo" href="../index.html"><span class="q">⚛</span> Quark <em>docs</em></a>
+  <button class="sidesearch" onclick="openSearch()"><span>Buscar…</span><kbd>Ctrl K</kbd></button>
+  <nav>
+    <div class="ngroup">Fundamentos</div>
+    <a href="../index.html">Overview</a>
+    <a href="design.html" class="active">Design</a>
+    <a href="style.html">Style</a>
+    <div class="ngroup">Recursos</div>
+    <a href="palettes.html">Palettes</a>
+    <a href="controls.html">Controls</a>
+    <a href="icons.html">Input Icons</a>
+  </nav>
+  <div class="sidefoot">
+    <button class="iconbtn" onclick="toggleTheme()" title="Tema">◐</button>
+    <span class="sp"></span>
+    <span class="ver">v0.1 · genesis</span>
+  </div>
+</aside>
+
+<main>
+<article>
+
+<header>
+  <div class="kicker">Fundamentos</div>
+  <h1>Design</h1>
+  <p class="lead">Quark es un framework de composición para Unity, pensado para enseñar buenas prácticas con poco código. Esta página resume cómo está diseñado y por qué.</p>
+  <div class="hr"></div>
+</header>
+
+<section id="filosofia">
+  <h2><span class="sec">01</span> Filosofía</h2>
+  <p>Todo el diseño responde a una idea: <b>el framework se tiene que poder leer</b>. Una clase entra en una pantalla, un nombre explica qué hace la pieza, y el propio código de Quark usa los patrones que promueve. De ahí bajan los cuatro criterios que deciden cualquier duda:</p>
+  <div class="grid2">
+    <div class="cell">
+      <h4><span class="cn">01</span> Lo mínimo que funcione</h4>
+      <p>Primero la librería estándar, Unity o los paquetes instalados; código propio recién cuando ninguno alcanza. Las ideas se anotan y se construyen cuando hacen falta; entre dos versiones que andan queda la más corta.</p>
+    </div>
+    <div class="cell">
+      <h4><span class="cn">02</span> Composición, no herencia</h4>
+      <p>El comportamiento se agrega con Addons y Mods. Heredar sirve para decir qué <i>es</i> algo — Entity, Prop, Service — nunca para sumarle funcionalidad.</p>
+    </div>
+    <div class="cell">
+      <h4><span class="cn">03</span> El código habla</h4>
+      <p>Métodos de una línea cuando alcanza y comentarios solo para el invariante que el código no puede mostrar. Se documenta al final, con el script ya estable.</p>
+    </div>
+    <div class="cell">
+      <h4><span class="cn">04</span> Respeto por Unity</h4>
+      <p>Null explícito con tipos de Unity: <code>?.</code> y <code>??</code> ignoran su <code>==</code> y un objeto destruido pasa por vivo. Al inspector va solo lo que de verdad se ajusta; lo demás se crea en su primer uso.</p>
+    </div>
+  </div>
+</section>
+
+<section id="arquitectura">
+  <h2><span class="sec">02</span> Arquitectura</h2>
+  <p>Todo lo que existe en un juego hecho con Quark es un <b>Entity</b> (personaje), un <b>Prop</b> (objeto de escena con comportamiento) o un <b>Service</b> (sistema sin cuerpo). Si algo no encaja en las tres, es comportamiento para componer sobre una de ellas.</p>
+  <table>
+    <tr><th>Pieza</th><th>Rol</th></tr>
+    <tr><td><b>Identifiable</b></td><td>Raíz de Entity y Prop: un <code>Id</code> legible más un <code>Uid</code> único generado en el primer acceso.</td></tr>
+    <tr><td><b>Addon&lt;T&gt;</b></td><td>Comportamiento serializable que vive dentro de su dueño y se arma desde el inspector. Puede anidar sus propios addons.</td></tr>
+    <tr><td><b>Mod&lt;T&gt;</b></td><td>Componente que modifica a su dueño desde la escena; el dueño lo detecta solo en su jerarquía.</td></tr>
+    <tr><td><b>Nucleus&lt;T&gt;</b></td><td>Resuelve addons, mods y su ciclo de vida en un solo lugar; cada base lo usa en tres líneas.</td></tr>
+    <tr><td><b>Values</b></td><td>Estado compartido por dueño (<code>IsCrouching</code>, referencias a servicios) sin acoplar addons entre sí.</td></tr>
+    <tr><td><b>GameManager</b></td><td>Service singleton que orquesta el juego; <b>Atom</b> es la implementación por defecto.</td></tr>
+  </table>
+  <p class="muted">Piezas de soporte: <b>Palette</b> (assets por nombre), <b>Quantum</b> (utilidades estáticas), <b>Charm</b> (skin del editor). La jerarquía completa es corta a propósito: <code>Identifiable → Entity / Prop</code> · <code>Service → GameManager → Atom</code>.</p>
+</section>
+
+<section id="proyecto">
+  <h2><span class="sec">03</span> Proyecto</h2>
+  <p>Tres capas con dependencias en una sola dirección. Un dominio nuevo es una subcarpeta dentro de su capa, nunca una capa nueva:</p>
+  <div class="flow"><b>0 - ROOT</b>          static      no depende de nada
+<b>1 - CORE</b>          abstract    Identity / Composition / Management / Charm
+<b>2 - EXTENSIONS</b>    concreto    lo que deriva de CORE</div>
+  <p>El ciclo de vida es simétrico y siempre lo dispara el dueño a través de su Nucleus:</p>
+  <div class="flow">Awake      → <b>Hook</b>       addons en orden de lista, después mods
+Update     → <b>Handle</b>     solo piezas con Enabled
+OnDestroy  → <b>Unhook</b>     orden inverso</div>
+  <p>Por eso, si una subclase necesita <code>Awake</code> u <code>OnDestroy</code>, los declara <code>override</code> y llama a <code>base</code>: el pipeline vive en la clase base.</p>
+  <p class="muted">Convenciones de carpetas: <code>Editor/</code> queda fuera del build a cualquier profundidad · <code>Assets/_/Library/</code> assets de terceros integrados · <code>Assets/Resources/</code> assets cargables por nombre · <code>Source/</code> material crudo fuera de <code>Assets/</code>, que Unity no importa.</p>
+</section>
+
+<section id="roadmap">
+  <h2><span class="sec">04</span> Roadmap</h2>
+  <p class="muted">Anotado, sin construir. Se implementa cuando un sistema real lo pida:</p>
+  <ul>
+    <li><b>Settings</b> — layers de mundo e interacción, sonidos por superficie, preferencias del jugador.</li>
+    <li><b>Services</b> — arranque ordenado por <code>Priority</code> desde el GameManager.</li>
+    <li><b>Scenes · Audio</b> — addons de Atom; la lógica particular se subclasea.</li>
+    <li><b>Packaging</b> — un <code>.asmdef</code> por capa, CORE como package, OpenUPM.</li>
+  </ul>
+  <div class="note ok">¿CORE o EXTENSIONS? Fundamental y solo Unity → CORE. Opcional o con dependencia externa → EXTENSIONS. Ante la duda, EXTENSIONS: promover es barato, degradar rompe.</div>
+</section>
+
+<footer>
+  <p>© 2026 TXMSKA · txmska.com</p>
+  <span class="sp"></span>
+  <p class="stamp">fundamentos / design</p>
+</footer>
+
+</article>
+</main>
+
+</div>
+</body>
+</html>

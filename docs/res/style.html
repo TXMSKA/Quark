@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — Style</title>
+<link rel="stylesheet" href="css/quark.css">
+<script src="js/quark.js"></script>
+<script src="js/search.js"></script>
+</head>
+<body>
+<div class="dotgrid"></div>
+<div class="app">
+
+<aside class="side">
+  <a class="logo" href="../index.html"><span class="q">⚛</span> Quark <em>docs</em></a>
+  <button class="sidesearch" onclick="openSearch()"><span>Buscar…</span><kbd>Ctrl K</kbd></button>
+  <nav>
+    <div class="ngroup">Fundamentos</div>
+    <a href="../index.html">Overview</a>
+    <a href="design.html">Design</a>
+    <a href="style.html" class="active">Style</a>
+    <div class="ngroup">Recursos</div>
+    <a href="palettes.html">Palettes</a>
+    <a href="controls.html">Controls</a>
+    <a href="icons.html">Input Icons</a>
+  </nav>
+  <div class="sidefoot">
+    <button class="iconbtn" onclick="toggleTheme()" title="Tema">◐</button>
+    <span class="sp"></span>
+    <span class="ver">v0.1 · genesis</span>
+  </div>
+</aside>
+
+<main>
+<article>
+
+<header>
+  <div class="kicker">Fundamentos</div>
+  <h1>Style</h1>
+  <p class="lead">Convenciones de escritura. El objetivo es uniformidad: <b>todo archivo se lee igual que el de al lado.</b></p>
+  <div class="hr"></div>
+</header>
+
+<section id="regiones">
+  <h2><span class="sec">01</span> Regiones</h2>
+  <table>
+    <tr><th>Región</th><th>Contenido</th></tr>
+    <tr><td><code>FIELDS</code></td><td>Serializado — lo que ve el inspector.</td></tr>
+    <tr><td><code>LIFETIME</code></td><td>Mensajes de Unity · ciclo Hook / Handle / Unhook.</td></tr>
+    <tr><td><code>API</code></td><td>Superficie pública.</td></tr>
+    <tr><td><code>MISC</code></td><td>Soporte privado.</td></tr>
+  </table>
+  <ul>
+    <li>Orden fijo; la región vacía se omite; línea en blanco tras <code>#region</code> y antes de <code>#endregion</code>.</li>
+    <li>Variables no serializadas: junto a la función que las usa, no en un bloque superior.</li>
+    <li>Tipos nested al final del archivo: enums públicos, clases privadas, foldouts serializables.</li>
+  </ul>
+</section>
+
+<section id="reglas">
+  <h2><span class="sec">02</span> Prácticas</h2>
+  <table>
+    <tr><th>Tema</th><th>Convención</th></tr>
+    <tr><td>Inspector</td><td>Atributos nativos (<code>[Header]</code>, <code>[Tooltip]</code>, <code>[Range]</code>). El agrupado visual lo aporta Charm, no Odin.</td></tr>
+    <tr><td>API</td><td>El consumidor habla con la clase pública; las nested privadas operan por dentro. Se exponen métodos, no estructuras internas.</td></tr>
+    <tr><td>Config agrupada</td><td>Clase nested <code>[Serializable]</code> como campo (foldout) — no un Addon.</td></tr>
+    <tr><td>Estado compartido</td><td>Flags efímeros entre addons → <code>Values</code>. Referencias directas → se cachean en <code>Hook</code>, nunca se resuelven por frame.</td></tr>
+  </table>
+</section>
+
+<section id="workflow">
+  <h2><span class="sec">03</span> Workflow</h2>
+  <table>
+    <tr><th>Tema</th><th>Regla</th></tr>
+    <tr><td>Commits</td><td>Solo el autor, vía GitHub Desktop. En inglés, cortos: qué y por qué.</td></tr>
+    <tr><td>Ramas</td><td><code>genesis</code> desarrollo · <code>release</code> estable con tags <code>v0.x.y</code>.</td></tr>
+    <tr><td>Higiene</td><td>Configuración de agentes fuera del repo vía <code>.git/info/exclude</code> — nunca <code>.gitignore</code>.</td></tr>
+  </table>
+</section>
+
+<section id="docs">
+  <h2><span class="sec">04</span> Documentación</h2>
+  <ul>
+    <li>Se documenta lo terminado; lo dispara el autor (<a href="design.html#filosofia">Design · Filosofía</a>).</li>
+    <li>Una página por tema en <code>docs/res/</code>, compartiendo <code>css/quark.css</code> y <code>js/quark.js</code>.</li>
+    <li>Toda página o sección nueva se registra en el índice del buscador (<code>res/js/search.js</code>).</li>
+    <li>Alcance actual: diseño y recursos. La referencia de código entra cuando la API esté estable.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>© 2026 TXMSKA · txmska.com</p>
+  <span class="sp"></span>
+  <p class="stamp">fundamentos / style</p>
+</footer>
+
+</article>
+</main>
+
+</div>
+</body>
+</html>

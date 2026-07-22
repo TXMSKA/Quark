@@ -119,73 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &157463343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 157463344}
-  - component: {fileID: 157463346}
-  - component: {fileID: 157463345}
-  m_Layer: 0
-  m_Name: Service
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &157463344
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157463343}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &157463345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157463343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba3a30ed1762bb94690564adb5393a0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestServiceMod
---- !u!114 &157463346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157463343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe592e41d9a9ae46811536561b48fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestService
-  <Priority>k__BackingField: 0
-  nucleus:
-    addons:
-    - rid: 4095787803583971396
-  references:
-    version: 2
-    RefIds:
-    - rid: 4095787803583971396
-      type: {class: TestServiceAddon, ns: Quark, asm: Assembly-CSharp}
-      data: 
 --- !u!1 &165123730
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,13 +153,79 @@ MonoBehaviour:
   nucleus:
     addons:
     - rid: 4095787841045135651
+    - rid: 4095787964879601664
   references:
     version: 2
     RefIds:
     - rid: 4095787841045135651
       type: {class: Movement, ns: Quark, asm: Assembly-CSharp}
       data:
+        <Enabled>k__BackingField: 1
         speed: 3
+        acceleration: 15
+        deceleration: 10
+        addons:
+        - rid: 4095787959339188289
+        - rid: 4095787959339188290
+        - rid: 4095787959339188291
+    - rid: 4095787959339188289
+      type: {class: Jump, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        force: 5
+        airControl: 1
+    - rid: 4095787959339188290
+      type: {class: Sprint, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        speed: 6
+        drain: 3
+    - rid: 4095787959339188291
+      type: {class: Crouch, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        speed: 1.5
+        timeToCrouch: 0.133
+        standingCenter: {x: 0, y: 0.95, z: 0}
+        standingHeight: 1.7
+        standingRadius: 0.25
+        crouchingCenter: {x: 0, y: 0.7, z: 0}
+        crouchHeight: 1.2
+        crouchRadius: 0.5
+        blockers:
+          serializedVersion: 2
+          m_Bits: 193
+    - rid: 4095787964879601664
+      type: {class: FirstPersonCamera, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        cameraRoot: {fileID: 1323055034}
+        eyeOffset: 0.15
+        sensitivity: 0.15
+        turnRate: 150
+        smoothing: 0
+        minPitch: -89
+        maxPitch: 89
+        addons:
+        - rid: 4095787964879601665
+        - rid: 4095787964879601666
+    - rid: 4095787964879601665
+      type: {class: Interaction, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        caster:
+          distance: 3
+          layer:
+            serializedVersion: 2
+            m_Bits: 193
+    - rid: 4095787964879601666
+      type: {class: Headbob, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        frequency: 6
+        amplitude: {x: 0.025, y: 0.035}
+        speedReference: 3.3333333
+        returnSpeed: 12
 --- !u!143 &165123732
 CharacterController:
   m_ObjectHideFlags: 0
@@ -406,6 +405,118 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &335441681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335441685}
+  - component: {fileID: 335441684}
+  - component: {fileID: 335441683}
+  - component: {fileID: 335441682}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &335441682
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &335441683
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &335441684
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &335441685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 1.5, z: -1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +612,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 832575519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
@@ -546,7 +658,7 @@ GameObject:
   - component: {fileID: 423540991}
   - component: {fileID: 423540990}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,12 +751,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423540989}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.23953, y: -0.43716, z: -0.01504}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 852846983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452562004
 GameObject:
@@ -767,12 +879,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832575517}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.40821788, y: 0.23456968, z: -0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: -1.928363, z: 2.2981334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 410087041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &850636359
 GameObject:
@@ -896,7 +1008,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!1 &1166690476
+--- !u!1 &852846982
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -904,61 +1016,92 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1166690477}
-  - component: {fileID: 1166690479}
-  - component: {fileID: 1166690478}
+  - component: {fileID: 852846983}
   m_Layer: 0
-  m_Name: Entity
+  m_Name: Scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1166690477
+--- !u!4 &852846983
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166690476}
+  m_GameObject: {fileID: 852846982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.23953, y: 0.43716, z: 0.01504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 423540993}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1151121313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1151121315}
+  - component: {fileID: 1151121314}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1151121314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151121313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eaafa00b7b3a7e42b964a7dd2692e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Quark.Atom
+  <Priority>k__BackingField: 0
+  nucleus:
+    addons:
+    - rid: 4095787959339188288
+  references:
+    version: 2
+    RefIds:
+    - rid: 4095787959339188288
+      type: {class: Controls, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        actions: {fileID: -944628639613478452, guid: 7742bba9ff6455749bf711715cde1dc4, type: 3}
+        prompts:
+          keyboardMouse: {fileID: 0}
+          gamepad: {fileID: 0}
+          xbox: {fileID: 0}
+          playstation: {fileID: 0}
+          fallback: {fileID: 0}
+--- !u!4 &1151121315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151121313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.23953, y: 0.43716, z: 0.01504}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1166690478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166690476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 725a50e8c90863341a23f883e50abfb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestEntityMod
---- !u!114 &1166690479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166690476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48115af79eb23843afc757521752159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestEntity
-  <Id>k__BackingField: 
-  nucleus:
-    addons: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &1323055033
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,73 +1134,6 @@ Transform:
   - {fileID: 330585546}
   m_Father: {fileID: 165123733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1640291418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1640291419}
-  - component: {fileID: 1640291421}
-  - component: {fileID: 1640291420}
-  m_Layer: 0
-  m_Name: Prop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1640291419
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640291418}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1640291420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640291418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e64c0fd8a66d9f4bb0d7c02d73348d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestPropMod
---- !u!114 &1640291421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640291418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51542a0601a4c4441a584197b4b06e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quark.TestProp
-  <Id>k__BackingField: 
-  nucleus:
-    addons:
-    - rid: 4095787616299647060
-  references:
-    version: 2
-    RefIds:
-    - rid: 4095787616299647060
-      type: {class: TestPropAddon, ns: Quark, asm: Assembly-CSharp}
-      data: 
 --- !u!1 &1769478026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,11 +1229,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 410087041}
-  - {fileID: 832575519}
-  - {fileID: 1166690477}
-  - {fileID: 157463344}
-  - {fileID: 1640291419}
-  - {fileID: 423540993}
+  - {fileID: 165123733}
+  - {fileID: 852846983}
   - {fileID: 850636363}
   - {fileID: 452562007}
-  - {fileID: 165123733}
+  - {fileID: 1151121315}
+  - {fileID: 335441685}

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — Input Icons</title>
+<link rel="stylesheet" href="css/quark.css">
+<script src="js/quark.js"></script>
+<script src="js/search.js"></script>
+</head>
+<body>
+<div class="dotgrid"></div>
+<div class="app">
+
+<aside class="side">
+  <a class="logo" href="../index.html"><span class="q">⚛</span> Quark <em>docs</em></a>
+  <button class="sidesearch" onclick="openSearch()"><span>Buscar…</span><kbd>Ctrl K</kbd></button>
+  <nav>
+    <div class="ngroup">Fundamentos</div>
+    <a href="../index.html">Overview</a>
+    <a href="design.html">Design</a>
+    <a href="style.html">Style</a>
+    <div class="ngroup">Recursos</div>
+    <a href="palettes.html">Palettes</a>
+    <a href="controls.html">Controls</a>
+    <a href="icons.html" class="active">Input Icons</a>
+  </nav>
+  <div class="sidefoot">
+    <button class="iconbtn" onclick="toggleTheme()" title="Tema">◐</button>
+    <span class="sp"></span>
+    <span class="ver">v0.1 · genesis</span>
+  </div>
+</aside>
+
+<main>
+<article>
+
+<header>
+  <div class="kicker">Recursos</div>
+  <h1>Input Icons</h1>
+  <p class="lead">Librería en <code>Assets/_/Library/Input/</code>, nombrada según los paths del Input System: <b>el nombre del archivo es la key del Palette.</b> Click sobre un ícono copia la key. Cada device tiene además estilos alternativos en <code>Styles/</code>, ya renombrados y listos para palette.</p>
+  <div class="hr"></div>
+</header>
+
+<section>
+  <div class="toolrow">
+    <input id="q" class="search" type="search" placeholder="Filtrar keys…">
+    <div class="chips">
+      <button class="chip" data-f="kbm">KBM</button>
+      <button class="chip" data-f="xbox">Xbox</button>
+      <button class="chip" data-f="ps4">PS4</button>
+      <button class="chip" data-f="ps5">PS5</button>
+      <button class="chip" data-f="switch">Switch</button>
+    </div>
+    <span class="count" id="n"></span>
+  </div>
+
+  <div id="grid">
+    <div class="iconsec">Keyboard &amp; Mouse · 98</div>
+    <div class="icons">
+      <div class="icon" data-k="0" data-g="kbm" onclick="copy('0')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/0.png" alt="0"><span class="n">0</span></div>
+      <div class="icon" data-k="1" data-g="kbm" onclick="copy('1')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/1.png" alt="1"><span class="n">1</span></div>
+      <div class="icon" data-k="2" data-g="kbm" onclick="copy('2')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/2.png" alt="2"><span class="n">2</span></div>
+      <div class="icon" data-k="3-1" data-g="kbm" onclick="copy('3-1')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/3-1.png" alt="3-1"><span class="n">3-1</span></div>
+      <div class="icon" data-k="3" data-g="kbm" onclick="copy('3')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/3.png" alt="3"><span class="n">3</span></div>
+      <div class="icon" data-k="4" data-g="kbm" onclick="copy('4')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/4.png" alt="4"><span class="n">4</span></div>
+      <div class="icon" data-k="5" data-g="kbm" onclick="copy('5')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/5.png" alt="5"><span class="n">5</span></div>
+      <div class="icon" data-k="6" data-g="kbm" onclick="copy('6')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/6.png" alt="6"><span class="n">6</span></div>
+      <div class="icon" data-k="7" data-g="kbm" onclick="copy('7')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/7.png" alt="7"><span class="n">7</span></div>
+      <div class="icon" data-k="8" data-g="kbm" onclick="copy('8')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/8.png" alt="8"><span class="n">8</span></div>
+      <div class="icon" data-k="9" data-g="kbm" onclick="copy('9')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/9.png" alt="9"><span class="n">9</span></div>
+      <div class="icon" data-k="Backspace_Alt" data-g="kbm" onclick="copy('Backspace_Alt')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Backspace_Alt.png" alt="Backspace_Alt"><span class="n">Backspace_Alt</span></div>
+      <div class="icon" data-k="Enter_Alt" data-g="kbm" onclick="copy('Enter_Alt')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Enter_Alt.png" alt="Enter_Alt"><span class="n">Enter_Alt</span></div>
+      <div class="icon" data-k="Enter_Tall" data-g="kbm" onclick="copy('Enter_Tall')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Enter_Tall.png" alt="Enter_Tall"><span class="n">Enter_Tall</span></div>
+      <div class="icon" data-k="Keyboard_R-1" data-g="kbm" onclick="copy('Keyboard_R-1')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Keyboard_R-1.png" alt="Keyboard_R-1"><span class="n">Keyboard_R-1</span></div>
+      <div class="icon" data-k="Keyboard_R" data-g="kbm" onclick="copy('Keyboard_R')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Keyboard_R.png" alt="Keyboard_R"><span class="n">Keyboard_R</span></div>
+      <div class="icon" data-k="Plus_Tall" data-g="kbm" onclick="copy('Plus_Tall')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Plus_Tall.png" alt="Plus_Tall"><span class="n">Plus_Tall</span></div>
+      <div class="icon" data-k="Shift_Super_Wide" data-g="kbm" onclick="copy('Shift_Super_Wide')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/Shift_Super_Wide.png" alt="Shift_Super_Wide"><span class="n">Shift_Super_Wide</span></div>
+      <div class="icon" data-k="a" data-g="kbm" onclick="copy('a')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/a.png" alt="a"><span class="n">a</span></div>
+      <div class="icon" data-k="alt" data-g="kbm" onclick="copy('alt')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/alt.png" alt="alt"><span class="n">alt</span></div>
+      <div class="icon" data-k="b" data-g="kbm" onclick="copy('b')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/b.png" alt="b"><span class="n">b</span></div>
+      <div class="icon" data-k="backquote" data-g="kbm" onclick="copy('backquote')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/backquote.png" alt="backquote"><span class="n">backquote</span></div>
+      <div class="icon" data-k="backspace" data-g="kbm" onclick="copy('backspace')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/backspace.png" alt="backspace"><span class="n">backspace</span></div>
+      <div class="icon" data-k="c" data-g="kbm" onclick="copy('c')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/c.png" alt="c"><span class="n">c</span></div>
+      <div class="icon" data-k="capsLock" data-g="kbm" onclick="copy('capsLock')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/capsLock.png" alt="capsLock"><span class="n">capsLock</span></div>
+      <div class="icon" data-k="ctrl" data-g="kbm" onclick="copy('ctrl')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/ctrl.png" alt="ctrl"><span class="n">ctrl</span></div>
+      <div class="icon" data-k="cursor" data-g="kbm" onclick="copy('cursor')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/cursor.png" alt="cursor"><span class="n">cursor</span></div>
+      <div class="icon" data-k="d" data-g="kbm" onclick="copy('d')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/d.png" alt="d"><span class="n">d</span></div>
+      <div class="icon" data-k="delete" data-g="kbm" onclick="copy('delete')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/delete.png" alt="delete"><span class="n">delete</span></div>
+      <div class="icon" data-k="delta" data-g="kbm" onclick="copy('delta')"><span class="custom">CUSTOM</span><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/delta.png" alt="delta"><span class="n">delta</span></div>
+      <div class="icon" data-k="downArrow" data-g="kbm" onclick="copy('downArrow')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/downArrow.png" alt="downArrow"><span class="n">downArrow</span></div>
+      <div class="icon" data-k="e" data-g="kbm" onclick="copy('e')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/e.png" alt="e"><span class="n">e</span></div>
+      <div class="icon" data-k="end" data-g="kbm" onclick="copy('end')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/end.png" alt="end"><span class="n">end</span></div>
+      <div class="icon" data-k="enter" data-g="kbm" onclick="copy('enter')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/enter.png" alt="enter"><span class="n">enter</span></div>
+      <div class="icon" data-k="equals" data-g="kbm" onclick="copy('equals')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/equals.png" alt="equals"><span class="n">equals</span></div>
+      <div class="icon" data-k="escape" data-g="kbm" onclick="copy('escape')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/escape.png" alt="escape"><span class="n">escape</span></div>
+      <div class="icon" data-k="f" data-g="kbm" onclick="copy('f')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f.png" alt="f"><span class="n">f</span></div>
+      <div class="icon" data-k="f1" data-g="kbm" onclick="copy('f1')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f1.png" alt="f1"><span class="n">f1</span></div>
+      <div class="icon" data-k="f10" data-g="kbm" onclick="copy('f10')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f10.png" alt="f10"><span class="n">f10</span></div>
+      <div class="icon" data-k="f11" data-g="kbm" onclick="copy('f11')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f11.png" alt="f11"><span class="n">f11</span></div>
+      <div class="icon" data-k="f12" data-g="kbm" onclick="copy('f12')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f12.png" alt="f12"><span class="n">f12</span></div>
+      <div class="icon" data-k="f2" data-g="kbm" onclick="copy('f2')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f2.png" alt="f2"><span class="n">f2</span></div>
+      <div class="icon" data-k="f3" data-g="kbm" onclick="copy('f3')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f3.png" alt="f3"><span class="n">f3</span></div>
+      <div class="icon" data-k="f4" data-g="kbm" onclick="copy('f4')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f4.png" alt="f4"><span class="n">f4</span></div>
+      <div class="icon" data-k="f5" data-g="kbm" onclick="copy('f5')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f5.png" alt="f5"><span class="n">f5</span></div>
+      <div class="icon" data-k="f6" data-g="kbm" onclick="copy('f6')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f6.png" alt="f6"><span class="n">f6</span></div>
+      <div class="icon" data-k="f7" data-g="kbm" onclick="copy('f7')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f7.png" alt="f7"><span class="n">f7</span></div>
+      <div class="icon" data-k="f8" data-g="kbm" onclick="copy('f8')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f8.png" alt="f8"><span class="n">f8</span></div>
+      <div class="icon" data-k="f9" data-g="kbm" onclick="copy('f9')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/f9.png" alt="f9"><span class="n">f9</span></div>
+      <div class="icon" data-k="g" data-g="kbm" onclick="copy('g')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/g.png" alt="g"><span class="n">g</span></div>
+      <div class="icon" data-k="h" data-g="kbm" onclick="copy('h')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/h.png" alt="h"><span class="n">h</span></div>
+      <div class="icon" data-k="home" data-g="kbm" onclick="copy('home')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/home.png" alt="home"><span class="n">home</span></div>
+      <div class="icon" data-k="i" data-g="kbm" onclick="copy('i')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/i.png" alt="i"><span class="n">i</span></div>
+      <div class="icon" data-k="insert" data-g="kbm" onclick="copy('insert')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/insert.png" alt="insert"><span class="n">insert</span></div>
+      <div class="icon" data-k="j" data-g="kbm" onclick="copy('j')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/j.png" alt="j"><span class="n">j</span></div>
+      <div class="icon" data-k="k" data-g="kbm" onclick="copy('k')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/k.png" alt="k"><span class="n">k</span></div>
+      <div class="icon" data-k="l" data-g="kbm" onclick="copy('l')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/l.png" alt="l"><span class="n">l</span></div>
+      <div class="icon" data-k="leftArrow" data-g="kbm" onclick="copy('leftArrow')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/leftArrow.png" alt="leftArrow"><span class="n">leftArrow</span></div>
+      <div class="icon" data-k="leftBracket" data-g="kbm" onclick="copy('leftBracket')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/leftBracket.png" alt="leftBracket"><span class="n">leftBracket</span></div>
+      <div class="icon" data-k="leftButton" data-g="kbm" onclick="copy('leftButton')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/leftButton.png" alt="leftButton"><span class="n">leftButton</span></div>
+      <div class="icon" data-k="m" data-g="kbm" onclick="copy('m')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/m.png" alt="m"><span class="n">m</span></div>
+      <div class="icon" data-k="middleButton" data-g="kbm" onclick="copy('middleButton')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/middleButton.png" alt="middleButton"><span class="n">middleButton</span></div>
+      <div class="icon" data-k="minus" data-g="kbm" onclick="copy('minus')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/minus.png" alt="minus"><span class="n">minus</span></div>
+      <div class="icon" data-k="mouse" data-g="kbm" onclick="copy('mouse')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/mouse.png" alt="mouse"><span class="n">mouse</span></div>
+      <div class="icon" data-k="n" data-g="kbm" onclick="copy('n')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/n.png" alt="n"><span class="n">n</span></div>
+      <div class="icon" data-k="numLock" data-g="kbm" onclick="copy('numLock')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/numLock.png" alt="numLock"><span class="n">numLock</span></div>
+      <div class="icon" data-k="numpadMultiply" data-g="kbm" onclick="copy('numpadMultiply')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/numpadMultiply.png" alt="numpadMultiply"><span class="n">numpadMultiply</span></div>
+      <div class="icon" data-k="o" data-g="kbm" onclick="copy('o')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/o.png" alt="o"><span class="n">o</span></div>
+      <div class="icon" data-k="p" data-g="kbm" onclick="copy('p')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/p.png" alt="p"><span class="n">p</span></div>
+      <div class="icon" data-k="pageDown" data-g="kbm" onclick="copy('pageDown')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/pageDown.png" alt="pageDown"><span class="n">pageDown</span></div>
+      <div class="icon" data-k="pageUp" data-g="kbm" onclick="copy('pageUp')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/pageUp.png" alt="pageUp"><span class="n">pageUp</span></div>
+      <div class="icon" data-k="printScreen" data-g="kbm" onclick="copy('printScreen')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/printScreen.png" alt="printScreen"><span class="n">printScreen</span></div>
+      <div class="icon" data-k="q" data-g="kbm" onclick="copy('q')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/q.png" alt="q"><span class="n">q</span></div>
+      <div class="icon" data-k="quote" data-g="kbm" onclick="copy('quote')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/quote.png" alt="quote"><span class="n">quote</span></div>
+      <div class="icon" data-k="r" data-g="kbm" onclick="copy('r')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/r.png" alt="r"><span class="n">r</span></div>
+      <div class="icon" data-k="rightArrow" data-g="kbm" onclick="copy('rightArrow')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/rightArrow.png" alt="rightArrow"><span class="n">rightArrow</span></div>
+      <div class="icon" data-k="rightBracket" data-g="kbm" onclick="copy('rightBracket')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/rightBracket.png" alt="rightBracket"><span class="n">rightBracket</span></div>
+      <div class="icon" data-k="rightButton" data-g="kbm" onclick="copy('rightButton')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/rightButton.png" alt="rightButton"><span class="n">rightButton</span></div>
+      <div class="icon" data-k="s" data-g="kbm" onclick="copy('s')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/s.png" alt="s"><span class="n">s</span></div>
+      <div class="icon" data-k="scroll" data-g="kbm" onclick="copy('scroll')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/scroll.png" alt="scroll"><span class="n">scroll</span></div>
+      <div class="icon" data-k="scrollDown" data-g="kbm" onclick="copy('scrollDown')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/scrollDown.png" alt="scrollDown"><span class="n">scrollDown</span></div>
+      <div class="icon" data-k="scrollHorizontal" data-g="kbm" onclick="copy('scrollHorizontal')"><span class="custom">CUSTOM</span><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/scrollHorizontal.png" alt="scrollHorizontal"><span class="n">scrollHorizontal</span></div>
+      <div class="icon" data-k="scrollUp" data-g="kbm" onclick="copy('scrollUp')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/scrollUp.png" alt="scrollUp"><span class="n">scrollUp</span></div>
+      <div class="icon" data-k="scrollVertical" data-g="kbm" onclick="copy('scrollVertical')"><span class="custom">CUSTOM</span><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/scrollVertical.png" alt="scrollVertical"><span class="n">scrollVertical</span></div>
+      <div class="icon" data-k="semicolon" data-g="kbm" onclick="copy('semicolon')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/semicolon.png" alt="semicolon"><span class="n">semicolon</span></div>
+      <div class="icon" data-k="shift" data-g="kbm" onclick="copy('shift')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/shift.png" alt="shift"><span class="n">shift</span></div>
+      <div class="icon" data-k="slash" data-g="kbm" onclick="copy('slash')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/slash.png" alt="slash"><span class="n">slash</span></div>
+      <div class="icon" data-k="space" data-g="kbm" onclick="copy('space')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/space.png" alt="space"><span class="n">space</span></div>
+      <div class="icon" data-k="t" data-g="kbm" onclick="copy('t')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/t.png" alt="t"><span class="n">t</span></div>
+      <div class="icon" data-k="tab" data-g="kbm" onclick="copy('tab')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/tab.png" alt="tab"><span class="n">tab</span></div>
+      <div class="icon" data-k="u" data-g="kbm" onclick="copy('u')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/u.png" alt="u"><span class="n">u</span></div>
+      <div class="icon" data-k="upArrow" data-g="kbm" onclick="copy('upArrow')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/upArrow.png" alt="upArrow"><span class="n">upArrow</span></div>
+      <div class="icon" data-k="v" data-g="kbm" onclick="copy('v')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/v.png" alt="v"><span class="n">v</span></div>
+      <div class="icon" data-k="w" data-g="kbm" onclick="copy('w')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/w.png" alt="w"><span class="n">w</span></div>
+      <div class="icon" data-k="wasd" data-g="kbm" onclick="copy('wasd')"><span class="custom">CUSTOM</span><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/wasd.png" alt="wasd"><span class="n">wasd</span></div>
+      <div class="icon" data-k="x" data-g="kbm" onclick="copy('x')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/x.png" alt="x"><span class="n">x</span></div>
+      <div class="icon" data-k="y" data-g="kbm" onclick="copy('y')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/y.png" alt="y"><span class="n">y</span></div>
+      <div class="icon" data-k="z" data-g="kbm" onclick="copy('z')"><img loading="lazy" src="../../Assets/_/Library/Input/KeyboardMouse/z.png" alt="z"><span class="n">z</span></div>
+    </div>
+    <div class="iconsec">Xbox · 42</div>
+    <div class="icons">
+      <div class="icon" data-k="buttonEast" data-g="xbox" onclick="copy('buttonEast')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonEast.png" alt="buttonEast"><span class="n">buttonEast</span></div>
+      <div class="icon" data-k="buttonEastWhite" data-g="xbox" onclick="copy('buttonEastWhite')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonEastWhite.png" alt="buttonEastWhite"><span class="n">buttonEastWhite</span></div>
+      <div class="icon" data-k="buttonNorth" data-g="xbox" onclick="copy('buttonNorth')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonNorth.png" alt="buttonNorth"><span class="n">buttonNorth</span></div>
+      <div class="icon" data-k="buttonNorthWhite" data-g="xbox" onclick="copy('buttonNorthWhite')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonNorthWhite.png" alt="buttonNorthWhite"><span class="n">buttonNorthWhite</span></div>
+      <div class="icon" data-k="buttonSouth" data-g="xbox" onclick="copy('buttonSouth')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonSouth.png" alt="buttonSouth"><span class="n">buttonSouth</span></div>
+      <div class="icon" data-k="buttonSouthWhite" data-g="xbox" onclick="copy('buttonSouthWhite')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonSouthWhite.png" alt="buttonSouthWhite"><span class="n">buttonSouthWhite</span></div>
+      <div class="icon" data-k="buttonWest" data-g="xbox" onclick="copy('buttonWest')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonWest.png" alt="buttonWest"><span class="n">buttonWest</span></div>
+      <div class="icon" data-k="buttonWestSimple" data-g="xbox" onclick="copy('buttonWestSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonWestSimple.png" alt="buttonWestSimple"><span class="n">buttonWestSimple</span></div>
+      <div class="icon" data-k="buttonWestWhite" data-g="xbox" onclick="copy('buttonWestWhite')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/buttonWestWhite.png" alt="buttonWestWhite"><span class="n">buttonWestWhite</span></div>
+      <div class="icon" data-k="dpad" data-g="xbox" onclick="copy('dpad')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpad.png" alt="dpad"><span class="n">dpad</span></div>
+      <div class="icon" data-k="dpadDown" data-g="xbox" onclick="copy('dpadDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadDown.png" alt="dpadDown"><span class="n">dpadDown</span></div>
+      <div class="icon" data-k="dpadLeft" data-g="xbox" onclick="copy('dpadLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadLeft.png" alt="dpadLeft"><span class="n">dpadLeft</span></div>
+      <div class="icon" data-k="dpadRight" data-g="xbox" onclick="copy('dpadRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadRight.png" alt="dpadRight"><span class="n">dpadRight</span></div>
+      <div class="icon" data-k="dpadUp" data-g="xbox" onclick="copy('dpadUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadUp.png" alt="dpadUp"><span class="n">dpadUp</span></div>
+      <div class="icon" data-k="dpadX" data-g="xbox" onclick="copy('dpadX')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadX.png" alt="dpadX"><span class="n">dpadX</span></div>
+      <div class="icon" data-k="dpadY" data-g="xbox" onclick="copy('dpadY')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/dpadY.png" alt="dpadY"><span class="n">dpadY</span></div>
+      <div class="icon" data-k="leftShoulder" data-g="xbox" onclick="copy('leftShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftShoulder.png" alt="leftShoulder"><span class="n">leftShoulder</span></div>
+      <div class="icon" data-k="leftStick" data-g="xbox" onclick="copy('leftStick')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStick.png" alt="leftStick"><span class="n">leftStick</span></div>
+      <div class="icon" data-k="leftStickDown" data-g="xbox" onclick="copy('leftStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickDown.png" alt="leftStickDown"><span class="n">leftStickDown</span></div>
+      <div class="icon" data-k="leftStickLeft" data-g="xbox" onclick="copy('leftStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickLeft.png" alt="leftStickLeft"><span class="n">leftStickLeft</span></div>
+      <div class="icon" data-k="leftStickPress" data-g="xbox" onclick="copy('leftStickPress')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickPress.png" alt="leftStickPress"><span class="n">leftStickPress</span></div>
+      <div class="icon" data-k="leftStickPressAlt" data-g="xbox" onclick="copy('leftStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickPressAlt.png" alt="leftStickPressAlt"><span class="n">leftStickPressAlt</span></div>
+      <div class="icon" data-k="leftStickRight" data-g="xbox" onclick="copy('leftStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickRight.png" alt="leftStickRight"><span class="n">leftStickRight</span></div>
+      <div class="icon" data-k="leftStickSimple" data-g="xbox" onclick="copy('leftStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickSimple.png" alt="leftStickSimple"><span class="n">leftStickSimple</span></div>
+      <div class="icon" data-k="leftStickUp" data-g="xbox" onclick="copy('leftStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickUp.png" alt="leftStickUp"><span class="n">leftStickUp</span></div>
+      <div class="icon" data-k="leftStickX" data-g="xbox" onclick="copy('leftStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickX.png" alt="leftStickX"><span class="n">leftStickX</span></div>
+      <div class="icon" data-k="leftStickY" data-g="xbox" onclick="copy('leftStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftStickY.png" alt="leftStickY"><span class="n">leftStickY</span></div>
+      <div class="icon" data-k="leftTrigger" data-g="xbox" onclick="copy('leftTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/leftTrigger.png" alt="leftTrigger"><span class="n">leftTrigger</span></div>
+      <div class="icon" data-k="rightShoulder" data-g="xbox" onclick="copy('rightShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightShoulder.png" alt="rightShoulder"><span class="n">rightShoulder</span></div>
+      <div class="icon" data-k="rightStick" data-g="xbox" onclick="copy('rightStick')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStick.png" alt="rightStick"><span class="n">rightStick</span></div>
+      <div class="icon" data-k="rightStickDown" data-g="xbox" onclick="copy('rightStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickDown.png" alt="rightStickDown"><span class="n">rightStickDown</span></div>
+      <div class="icon" data-k="rightStickLeft" data-g="xbox" onclick="copy('rightStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickLeft.png" alt="rightStickLeft"><span class="n">rightStickLeft</span></div>
+      <div class="icon" data-k="rightStickPress" data-g="xbox" onclick="copy('rightStickPress')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickPress.png" alt="rightStickPress"><span class="n">rightStickPress</span></div>
+      <div class="icon" data-k="rightStickPressAlt" data-g="xbox" onclick="copy('rightStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickPressAlt.png" alt="rightStickPressAlt"><span class="n">rightStickPressAlt</span></div>
+      <div class="icon" data-k="rightStickRight" data-g="xbox" onclick="copy('rightStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickRight.png" alt="rightStickRight"><span class="n">rightStickRight</span></div>
+      <div class="icon" data-k="rightStickSimple" data-g="xbox" onclick="copy('rightStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickSimple.png" alt="rightStickSimple"><span class="n">rightStickSimple</span></div>
+      <div class="icon" data-k="rightStickUp" data-g="xbox" onclick="copy('rightStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickUp.png" alt="rightStickUp"><span class="n">rightStickUp</span></div>
+      <div class="icon" data-k="rightStickX" data-g="xbox" onclick="copy('rightStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickX.png" alt="rightStickX"><span class="n">rightStickX</span></div>
+      <div class="icon" data-k="rightStickY" data-g="xbox" onclick="copy('rightStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightStickY.png" alt="rightStickY"><span class="n">rightStickY</span></div>
+      <div class="icon" data-k="rightTrigger" data-g="xbox" onclick="copy('rightTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/rightTrigger.png" alt="rightTrigger"><span class="n">rightTrigger</span></div>
+      <div class="icon" data-k="selectButton" data-g="xbox" onclick="copy('selectButton')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/selectButton.png" alt="selectButton"><span class="n">selectButton</span></div>
+      <div class="icon" data-k="selectButtonAlt" data-g="xbox" onclick="copy('selectButtonAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/Xbox/selectButtonAlt.png" alt="selectButtonAlt"><span class="n">selectButtonAlt</span></div>
+    </div>
+    <div class="iconsec">PlayStation 4 · 42</div>
+    <div class="icons">
+      <div class="icon" data-k="buttonEast" data-g="ps4" onclick="copy('buttonEast')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonEast.png" alt="buttonEast"><span class="n">buttonEast</span></div>
+      <div class="icon" data-k="buttonEastSimple" data-g="ps4" onclick="copy('buttonEastSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonEastSimple.png" alt="buttonEastSimple"><span class="n">buttonEastSimple</span></div>
+      <div class="icon" data-k="buttonNorth" data-g="ps4" onclick="copy('buttonNorth')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonNorth.png" alt="buttonNorth"><span class="n">buttonNorth</span></div>
+      <div class="icon" data-k="buttonNorthSimple" data-g="ps4" onclick="copy('buttonNorthSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonNorthSimple.png" alt="buttonNorthSimple"><span class="n">buttonNorthSimple</span></div>
+      <div class="icon" data-k="buttonSouth" data-g="ps4" onclick="copy('buttonSouth')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonSouth.png" alt="buttonSouth"><span class="n">buttonSouth</span></div>
+      <div class="icon" data-k="buttonSouthSimple" data-g="ps4" onclick="copy('buttonSouthSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonSouthSimple.png" alt="buttonSouthSimple"><span class="n">buttonSouthSimple</span></div>
+      <div class="icon" data-k="buttonWest" data-g="ps4" onclick="copy('buttonWest')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonWest.png" alt="buttonWest"><span class="n">buttonWest</span></div>
+      <div class="icon" data-k="buttonWestSimple" data-g="ps4" onclick="copy('buttonWestSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/buttonWestSimple.png" alt="buttonWestSimple"><span class="n">buttonWestSimple</span></div>
+      <div class="icon" data-k="dpad" data-g="ps4" onclick="copy('dpad')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpad.png" alt="dpad"><span class="n">dpad</span></div>
+      <div class="icon" data-k="dpadDown" data-g="ps4" onclick="copy('dpadDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadDown.png" alt="dpadDown"><span class="n">dpadDown</span></div>
+      <div class="icon" data-k="dpadLeft" data-g="ps4" onclick="copy('dpadLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadLeft.png" alt="dpadLeft"><span class="n">dpadLeft</span></div>
+      <div class="icon" data-k="dpadRight" data-g="ps4" onclick="copy('dpadRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadRight.png" alt="dpadRight"><span class="n">dpadRight</span></div>
+      <div class="icon" data-k="dpadUp" data-g="ps4" onclick="copy('dpadUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadUp.png" alt="dpadUp"><span class="n">dpadUp</span></div>
+      <div class="icon" data-k="dpadX" data-g="ps4" onclick="copy('dpadX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadX.png" alt="dpadX"><span class="n">dpadX</span></div>
+      <div class="icon" data-k="dpadY" data-g="ps4" onclick="copy('dpadY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/dpadY.png" alt="dpadY"><span class="n">dpadY</span></div>
+      <div class="icon" data-k="leftShoulder" data-g="ps4" onclick="copy('leftShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftShoulder.png" alt="leftShoulder"><span class="n">leftShoulder</span></div>
+      <div class="icon" data-k="leftStick" data-g="ps4" onclick="copy('leftStick')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStick.png" alt="leftStick"><span class="n">leftStick</span></div>
+      <div class="icon" data-k="leftStickDown" data-g="ps4" onclick="copy('leftStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickDown.png" alt="leftStickDown"><span class="n">leftStickDown</span></div>
+      <div class="icon" data-k="leftStickLeft" data-g="ps4" onclick="copy('leftStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickLeft.png" alt="leftStickLeft"><span class="n">leftStickLeft</span></div>
+      <div class="icon" data-k="leftStickPress" data-g="ps4" onclick="copy('leftStickPress')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickPress.png" alt="leftStickPress"><span class="n">leftStickPress</span></div>
+      <div class="icon" data-k="leftStickPressAlt" data-g="ps4" onclick="copy('leftStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickPressAlt.png" alt="leftStickPressAlt"><span class="n">leftStickPressAlt</span></div>
+      <div class="icon" data-k="leftStickRight" data-g="ps4" onclick="copy('leftStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickRight.png" alt="leftStickRight"><span class="n">leftStickRight</span></div>
+      <div class="icon" data-k="leftStickSimple" data-g="ps4" onclick="copy('leftStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickSimple.png" alt="leftStickSimple"><span class="n">leftStickSimple</span></div>
+      <div class="icon" data-k="leftStickUp" data-g="ps4" onclick="copy('leftStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickUp.png" alt="leftStickUp"><span class="n">leftStickUp</span></div>
+      <div class="icon" data-k="leftStickX" data-g="ps4" onclick="copy('leftStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickX.png" alt="leftStickX"><span class="n">leftStickX</span></div>
+      <div class="icon" data-k="leftStickY" data-g="ps4" onclick="copy('leftStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftStickY.png" alt="leftStickY"><span class="n">leftStickY</span></div>
+      <div class="icon" data-k="leftTrigger" data-g="ps4" onclick="copy('leftTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/leftTrigger.png" alt="leftTrigger"><span class="n">leftTrigger</span></div>
+      <div class="icon" data-k="rightShoulder" data-g="ps4" onclick="copy('rightShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightShoulder.png" alt="rightShoulder"><span class="n">rightShoulder</span></div>
+      <div class="icon" data-k="rightStick" data-g="ps4" onclick="copy('rightStick')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStick.png" alt="rightStick"><span class="n">rightStick</span></div>
+      <div class="icon" data-k="rightStickDown" data-g="ps4" onclick="copy('rightStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickDown.png" alt="rightStickDown"><span class="n">rightStickDown</span></div>
+      <div class="icon" data-k="rightStickLeft" data-g="ps4" onclick="copy('rightStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickLeft.png" alt="rightStickLeft"><span class="n">rightStickLeft</span></div>
+      <div class="icon" data-k="rightStickPress" data-g="ps4" onclick="copy('rightStickPress')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickPress.png" alt="rightStickPress"><span class="n">rightStickPress</span></div>
+      <div class="icon" data-k="rightStickPressAlt" data-g="ps4" onclick="copy('rightStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickPressAlt.png" alt="rightStickPressAlt"><span class="n">rightStickPressAlt</span></div>
+      <div class="icon" data-k="rightStickRight" data-g="ps4" onclick="copy('rightStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickRight.png" alt="rightStickRight"><span class="n">rightStickRight</span></div>
+      <div class="icon" data-k="rightStickSimple" data-g="ps4" onclick="copy('rightStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickSimple.png" alt="rightStickSimple"><span class="n">rightStickSimple</span></div>
+      <div class="icon" data-k="rightStickUp" data-g="ps4" onclick="copy('rightStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickUp.png" alt="rightStickUp"><span class="n">rightStickUp</span></div>
+      <div class="icon" data-k="rightStickX" data-g="ps4" onclick="copy('rightStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickX.png" alt="rightStickX"><span class="n">rightStickX</span></div>
+      <div class="icon" data-k="rightStickY" data-g="ps4" onclick="copy('rightStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightStickY.png" alt="rightStickY"><span class="n">rightStickY</span></div>
+      <div class="icon" data-k="rightTrigger" data-g="ps4" onclick="copy('rightTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/rightTrigger.png" alt="rightTrigger"><span class="n">rightTrigger</span></div>
+      <div class="icon" data-k="select" data-g="ps4" onclick="copy('select')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/select.png" alt="select"><span class="n">select</span></div>
+      <div class="icon" data-k="start" data-g="ps4" onclick="copy('start')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/start.png" alt="start"><span class="n">start</span></div>
+      <div class="icon" data-k="touchpadButton" data-g="ps4" onclick="copy('touchpadButton')"><img loading="lazy" src="../../Assets/_/Library/Input/PS4/touchpadButton.png" alt="touchpadButton"><span class="n">touchpadButton</span></div>
+    </div>
+    <div class="iconsec">PlayStation 5 · 40</div>
+    <div class="icons">
+      <div class="icon" data-k="buttonEast" data-g="ps5" onclick="copy('buttonEast')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonEast.png" alt="buttonEast"><span class="n">buttonEast</span></div>
+      <div class="icon" data-k="buttonEastSimple" data-g="ps5" onclick="copy('buttonEastSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonEastSimple.png" alt="buttonEastSimple"><span class="n">buttonEastSimple</span></div>
+      <div class="icon" data-k="buttonNorth" data-g="ps5" onclick="copy('buttonNorth')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonNorth.png" alt="buttonNorth"><span class="n">buttonNorth</span></div>
+      <div class="icon" data-k="buttonNorthSimple" data-g="ps5" onclick="copy('buttonNorthSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonNorthSimple.png" alt="buttonNorthSimple"><span class="n">buttonNorthSimple</span></div>
+      <div class="icon" data-k="buttonSouth" data-g="ps5" onclick="copy('buttonSouth')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonSouth.png" alt="buttonSouth"><span class="n">buttonSouth</span></div>
+      <div class="icon" data-k="buttonSouthSimple" data-g="ps5" onclick="copy('buttonSouthSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonSouthSimple.png" alt="buttonSouthSimple"><span class="n">buttonSouthSimple</span></div>
+      <div class="icon" data-k="buttonWest" data-g="ps5" onclick="copy('buttonWest')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonWest.png" alt="buttonWest"><span class="n">buttonWest</span></div>
+      <div class="icon" data-k="buttonWestSimple" data-g="ps5" onclick="copy('buttonWestSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/buttonWestSimple.png" alt="buttonWestSimple"><span class="n">buttonWestSimple</span></div>
+      <div class="icon" data-k="dpad" data-g="ps5" onclick="copy('dpad')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpad.png" alt="dpad"><span class="n">dpad</span></div>
+      <div class="icon" data-k="dpadDown" data-g="ps5" onclick="copy('dpadDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadDown.png" alt="dpadDown"><span class="n">dpadDown</span></div>
+      <div class="icon" data-k="dpadLeft" data-g="ps5" onclick="copy('dpadLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadLeft.png" alt="dpadLeft"><span class="n">dpadLeft</span></div>
+      <div class="icon" data-k="dpadRight" data-g="ps5" onclick="copy('dpadRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadRight.png" alt="dpadRight"><span class="n">dpadRight</span></div>
+      <div class="icon" data-k="dpadUp" data-g="ps5" onclick="copy('dpadUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadUp.png" alt="dpadUp"><span class="n">dpadUp</span></div>
+      <div class="icon" data-k="dpadX" data-g="ps5" onclick="copy('dpadX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadX.png" alt="dpadX"><span class="n">dpadX</span></div>
+      <div class="icon" data-k="dpadY" data-g="ps5" onclick="copy('dpadY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/dpadY.png" alt="dpadY"><span class="n">dpadY</span></div>
+      <div class="icon" data-k="leftShoulder" data-g="ps5" onclick="copy('leftShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftShoulder.png" alt="leftShoulder"><span class="n">leftShoulder</span></div>
+      <div class="icon" data-k="leftStick" data-g="ps5" onclick="copy('leftStick')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStick.png" alt="leftStick"><span class="n">leftStick</span></div>
+      <div class="icon" data-k="leftStickDown" data-g="ps5" onclick="copy('leftStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickDown.png" alt="leftStickDown"><span class="n">leftStickDown</span></div>
+      <div class="icon" data-k="leftStickLeft" data-g="ps5" onclick="copy('leftStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickLeft.png" alt="leftStickLeft"><span class="n">leftStickLeft</span></div>
+      <div class="icon" data-k="leftStickPressAlt" data-g="ps5" onclick="copy('leftStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickPressAlt.png" alt="leftStickPressAlt"><span class="n">leftStickPressAlt</span></div>
+      <div class="icon" data-k="leftStickRight" data-g="ps5" onclick="copy('leftStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickRight.png" alt="leftStickRight"><span class="n">leftStickRight</span></div>
+      <div class="icon" data-k="leftStickSimple" data-g="ps5" onclick="copy('leftStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickSimple.png" alt="leftStickSimple"><span class="n">leftStickSimple</span></div>
+      <div class="icon" data-k="leftStickUp" data-g="ps5" onclick="copy('leftStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickUp.png" alt="leftStickUp"><span class="n">leftStickUp</span></div>
+      <div class="icon" data-k="leftStickX" data-g="ps5" onclick="copy('leftStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickX.png" alt="leftStickX"><span class="n">leftStickX</span></div>
+      <div class="icon" data-k="leftStickY" data-g="ps5" onclick="copy('leftStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftStickY.png" alt="leftStickY"><span class="n">leftStickY</span></div>
+      <div class="icon" data-k="leftTrigger" data-g="ps5" onclick="copy('leftTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/leftTrigger.png" alt="leftTrigger"><span class="n">leftTrigger</span></div>
+      <div class="icon" data-k="rightShoulder" data-g="ps5" onclick="copy('rightShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightShoulder.png" alt="rightShoulder"><span class="n">rightShoulder</span></div>
+      <div class="icon" data-k="rightStick" data-g="ps5" onclick="copy('rightStick')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStick.png" alt="rightStick"><span class="n">rightStick</span></div>
+      <div class="icon" data-k="rightStickDown" data-g="ps5" onclick="copy('rightStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickDown.png" alt="rightStickDown"><span class="n">rightStickDown</span></div>
+      <div class="icon" data-k="rightStickLeft" data-g="ps5" onclick="copy('rightStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickLeft.png" alt="rightStickLeft"><span class="n">rightStickLeft</span></div>
+      <div class="icon" data-k="rightStickPressAlt" data-g="ps5" onclick="copy('rightStickPressAlt')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickPressAlt.png" alt="rightStickPressAlt"><span class="n">rightStickPressAlt</span></div>
+      <div class="icon" data-k="rightStickRight" data-g="ps5" onclick="copy('rightStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickRight.png" alt="rightStickRight"><span class="n">rightStickRight</span></div>
+      <div class="icon" data-k="rightStickSimple" data-g="ps5" onclick="copy('rightStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickSimple.png" alt="rightStickSimple"><span class="n">rightStickSimple</span></div>
+      <div class="icon" data-k="rightStickUp" data-g="ps5" onclick="copy('rightStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickUp.png" alt="rightStickUp"><span class="n">rightStickUp</span></div>
+      <div class="icon" data-k="rightStickX" data-g="ps5" onclick="copy('rightStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickX.png" alt="rightStickX"><span class="n">rightStickX</span></div>
+      <div class="icon" data-k="rightStickY" data-g="ps5" onclick="copy('rightStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightStickY.png" alt="rightStickY"><span class="n">rightStickY</span></div>
+      <div class="icon" data-k="rightTrigger" data-g="ps5" onclick="copy('rightTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/rightTrigger.png" alt="rightTrigger"><span class="n">rightTrigger</span></div>
+      <div class="icon" data-k="select" data-g="ps5" onclick="copy('select')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/select.png" alt="select"><span class="n">select</span></div>
+      <div class="icon" data-k="start" data-g="ps5" onclick="copy('start')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/start.png" alt="start"><span class="n">start</span></div>
+      <div class="icon" data-k="touchpadButton" data-g="ps5" onclick="copy('touchpadButton')"><img loading="lazy" src="../../Assets/_/Library/Input/PS5/touchpadButton.png" alt="touchpadButton"><span class="n">touchpadButton</span></div>
+    </div>
+    <div class="iconsec">Switch · 33</div>
+    <div class="icons">
+      <div class="icon" data-k="buttonEast" data-g="switch" onclick="copy('buttonEast')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/buttonEast.png" alt="buttonEast"><span class="n">buttonEast</span></div>
+      <div class="icon" data-k="buttonNorth" data-g="switch" onclick="copy('buttonNorth')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/buttonNorth.png" alt="buttonNorth"><span class="n">buttonNorth</span></div>
+      <div class="icon" data-k="buttonSouth" data-g="switch" onclick="copy('buttonSouth')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/buttonSouth.png" alt="buttonSouth"><span class="n">buttonSouth</span></div>
+      <div class="icon" data-k="buttonWest" data-g="switch" onclick="copy('buttonWest')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/buttonWest.png" alt="buttonWest"><span class="n">buttonWest</span></div>
+      <div class="icon" data-k="dpad" data-g="switch" onclick="copy('dpad')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpad.png" alt="dpad"><span class="n">dpad</span></div>
+      <div class="icon" data-k="dpadDown" data-g="switch" onclick="copy('dpadDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadDown.png" alt="dpadDown"><span class="n">dpadDown</span></div>
+      <div class="icon" data-k="dpadLeft" data-g="switch" onclick="copy('dpadLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadLeft.png" alt="dpadLeft"><span class="n">dpadLeft</span></div>
+      <div class="icon" data-k="dpadRight" data-g="switch" onclick="copy('dpadRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadRight.png" alt="dpadRight"><span class="n">dpadRight</span></div>
+      <div class="icon" data-k="dpadUp" data-g="switch" onclick="copy('dpadUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadUp.png" alt="dpadUp"><span class="n">dpadUp</span></div>
+      <div class="icon" data-k="dpadX" data-g="switch" onclick="copy('dpadX')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadX.png" alt="dpadX"><span class="n">dpadX</span></div>
+      <div class="icon" data-k="dpadY" data-g="switch" onclick="copy('dpadY')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/dpadY.png" alt="dpadY"><span class="n">dpadY</span></div>
+      <div class="icon" data-k="leftShoulder" data-g="switch" onclick="copy('leftShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftShoulder.png" alt="leftShoulder"><span class="n">leftShoulder</span></div>
+      <div class="icon" data-k="leftStick" data-g="switch" onclick="copy('leftStick')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStick.png" alt="leftStick"><span class="n">leftStick</span></div>
+      <div class="icon" data-k="leftStickDown" data-g="switch" onclick="copy('leftStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickDown.png" alt="leftStickDown"><span class="n">leftStickDown</span></div>
+      <div class="icon" data-k="leftStickLeft" data-g="switch" onclick="copy('leftStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickLeft.png" alt="leftStickLeft"><span class="n">leftStickLeft</span></div>
+      <div class="icon" data-k="leftStickRight" data-g="switch" onclick="copy('leftStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickRight.png" alt="leftStickRight"><span class="n">leftStickRight</span></div>
+      <div class="icon" data-k="leftStickSimple" data-g="switch" onclick="copy('leftStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickSimple.png" alt="leftStickSimple"><span class="n">leftStickSimple</span></div>
+      <div class="icon" data-k="leftStickUp" data-g="switch" onclick="copy('leftStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickUp.png" alt="leftStickUp"><span class="n">leftStickUp</span></div>
+      <div class="icon" data-k="leftStickX" data-g="switch" onclick="copy('leftStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickX.png" alt="leftStickX"><span class="n">leftStickX</span></div>
+      <div class="icon" data-k="leftStickY" data-g="switch" onclick="copy('leftStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftStickY.png" alt="leftStickY"><span class="n">leftStickY</span></div>
+      <div class="icon" data-k="leftTrigger" data-g="switch" onclick="copy('leftTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/leftTrigger.png" alt="leftTrigger"><span class="n">leftTrigger</span></div>
+      <div class="icon" data-k="rightShoulder" data-g="switch" onclick="copy('rightShoulder')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightShoulder.png" alt="rightShoulder"><span class="n">rightShoulder</span></div>
+      <div class="icon" data-k="rightStick" data-g="switch" onclick="copy('rightStick')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStick.png" alt="rightStick"><span class="n">rightStick</span></div>
+      <div class="icon" data-k="rightStickDown" data-g="switch" onclick="copy('rightStickDown')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickDown.png" alt="rightStickDown"><span class="n">rightStickDown</span></div>
+      <div class="icon" data-k="rightStickLeft" data-g="switch" onclick="copy('rightStickLeft')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickLeft.png" alt="rightStickLeft"><span class="n">rightStickLeft</span></div>
+      <div class="icon" data-k="rightStickRight" data-g="switch" onclick="copy('rightStickRight')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickRight.png" alt="rightStickRight"><span class="n">rightStickRight</span></div>
+      <div class="icon" data-k="rightStickSimple" data-g="switch" onclick="copy('rightStickSimple')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickSimple.png" alt="rightStickSimple"><span class="n">rightStickSimple</span></div>
+      <div class="icon" data-k="rightStickUp" data-g="switch" onclick="copy('rightStickUp')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickUp.png" alt="rightStickUp"><span class="n">rightStickUp</span></div>
+      <div class="icon" data-k="rightStickX" data-g="switch" onclick="copy('rightStickX')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickX.png" alt="rightStickX"><span class="n">rightStickX</span></div>
+      <div class="icon" data-k="rightStickY" data-g="switch" onclick="copy('rightStickY')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightStickY.png" alt="rightStickY"><span class="n">rightStickY</span></div>
+      <div class="icon" data-k="rightTrigger" data-g="switch" onclick="copy('rightTrigger')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/rightTrigger.png" alt="rightTrigger"><span class="n">rightTrigger</span></div>
+      <div class="icon" data-k="select" data-g="switch" onclick="copy('select')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/select.png" alt="select"><span class="n">select</span></div>
+      <div class="icon" data-k="start" data-g="switch" onclick="copy('start')"><img loading="lazy" src="../../Assets/_/Library/Input/Switch/start.png" alt="start"><span class="n">start</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 TXMSKA · txmska.com</p>
+  <span class="sp"></span>
+  <p class="stamp">recursos / input icons · generado de Assets/_/Library/Input</p>
+</footer>
+
+</article>
+</main>
+
+</div>
+
+<script>wireFilter('q', '#grid', 'n');</script>
+</body>
+</html>

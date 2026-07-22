@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — Palettes</title>
+<link rel="stylesheet" href="css/quark.css">
+<script src="js/quark.js"></script>
+<script src="js/search.js"></script>
+</head>
+<body>
+<div class="dotgrid"></div>
+<div class="app">
+
+<aside class="side">
+  <a class="logo" href="../index.html"><span class="q">⚛</span> Quark <em>docs</em></a>
+  <button class="sidesearch" onclick="openSearch()"><span>Buscar…</span><kbd>Ctrl K</kbd></button>
+  <nav>
+    <div class="ngroup">Fundamentos</div>
+    <a href="../index.html">Overview</a>
+    <a href="design.html">Design</a>
+    <a href="style.html">Style</a>
+    <div class="ngroup">Recursos</div>
+    <a href="palettes.html" class="active">Palettes</a>
+    <a href="controls.html">Controls</a>
+    <a href="icons.html">Input Icons</a>
+  </nav>
+  <div class="sidefoot">
+    <button class="iconbtn" onclick="toggleTheme()" title="Tema">◐</button>
+    <span class="sp"></span>
+    <span class="ver">v0.1 · genesis</span>
+  </div>
+</aside>
+
+<main>
+<article>
+
+<header>
+  <div class="kicker">Recursos</div>
+  <h1>Palettes</h1>
+  <p class="lead">Colores de las dos identidades del ecosistema. Click sobre un color copia el hex. Variables CSS exportadas en <code>Source/palette.css</code>.</p>
+  <div class="hr"></div>
+</header>
+
+<section id="quark">
+  <h2><span class="sec">01</span> Quark</h2>
+  <p class="muted">Scholar-futurist. Grises elegantes con naranja capsaicina y amarillo eléctrico.</p>
+  <div class="glanceGrid">
+    <div class="glanceCell"><div class="k">Mood</div><div class="v">Scholar · sharp · kinetic</div></div>
+    <div class="glanceCell"><div class="k">Shapes</div><div class="v">Crisp 2–6px · ruled lines</div></div>
+    <div class="glanceCell"><div class="k">Motifs</div><div class="v">Chalk rules, spice sparks</div></div>
+    <div class="glanceCell"><div class="k">Voice</div><div class="v">Annotate. Question. Prove.</div></div>
+  </div>
+  <h3>Núcleo</h3>
+  <div class="four">
+    <div class="colorChip" style="background:#18181F;color:#fff" onclick="copy('#18181F')"><div class="cl">BACKGROUND</div><div class="hx">#18181F</div></div>
+    <div class="colorChip" style="background:#EB622C;color:#fff" onclick="copy('#EB622C')"><div class="cl">FOREGROUND</div><div class="hx">#EB622C</div></div>
+    <div class="colorChip" style="background:#FFF9DA;color:#222" onclick="copy('#FFF9DA')"><div class="cl">TITLE</div><div class="hx">#FFF9DA</div></div>
+    <div class="colorChip" style="background:#C0E9C4;color:#222" onclick="copy('#C0E9C4')"><div class="cl">TEXT</div><div class="hx">#C0E9C4</div></div>
+  </div>
+  <h3>Escala completa</h3>
+  <div class="palRow">
+    <div class="palSw" style="background:#18181F" onclick="copy('#18181F')"><span>#18181F</span></div>
+    <div class="palSw" style="background:#2A2A33" onclick="copy('#2A2A33')"><span>#2A2A33</span></div>
+    <div class="palSw" style="background:#4A4A55" onclick="copy('#4A4A55')"><span>#4A4A55</span></div>
+    <div class="palSw" style="background:#8B8B96" onclick="copy('#8B8B96')"><span>#8B8B96</span></div>
+    <div class="palSw" style="background:#EB622C" onclick="copy('#EB622C')"><span>#EB622C</span></div>
+    <div class="palSw" style="background:#FFD84D" onclick="copy('#FFD84D')"><span>#FFD84D</span></div>
+    <div class="palSw" style="background:#FFF9DA" onclick="copy('#FFF9DA')"><span>#FFF9DA</span></div>
+  </div>
+</section>
+
+<section id="atomos">
+  <h2><span class="sec">02</span> AtomOS</h2>
+  <p class="muted">Corporate-smooth. Grises calmos con señales pastel desaturadas.</p>
+  <div class="glanceGrid">
+    <div class="glanceCell"><div class="k">Mood</div><div class="v">Corporate calm · smooth</div></div>
+    <div class="glanceCell"><div class="k">Shapes</div><div class="v">Soft radii</div></div>
+    <div class="glanceCell"><div class="k">Motifs</div><div class="v">Dots, orbits, whitespace</div></div>
+    <div class="glanceCell"><div class="k">Voice</div><div class="v">Structured. Quiet. Resolute.</div></div>
+  </div>
+  <h3>Núcleo</h3>
+  <div class="four">
+    <div class="colorChip" style="background:#ECE9E8;color:#222" onclick="copy('#ECE9E8')"><div class="cl">BACKGROUND</div><div class="hx">#ECE9E8</div></div>
+    <div class="colorChip" style="background:#C4643C;color:#fff" onclick="copy('#C4643C')"><div class="cl">FOREGROUND</div><div class="hx">#C4643C</div></div>
+    <div class="colorChip" style="background:#383940;color:#fff" onclick="copy('#383940')"><div class="cl">TITLE</div><div class="hx">#383940</div></div>
+    <div class="colorChip" style="background:#5A5A63;color:#fff" onclick="copy('#5A5A63')"><div class="cl">TEXT</div><div class="hx">#5A5A63</div></div>
+  </div>
+  <h3>Escala clara</h3>
+  <div class="palRow">
+    <div class="palSw" style="background:#ECE9E8" onclick="copy('#ECE9E8')"><span>#ECE9E8</span></div>
+    <div class="palSw" style="background:#D8D5D3" onclick="copy('#D8D5D3')"><span>#D8D5D3</span></div>
+    <div class="palSw" style="background:#B0AEB2" onclick="copy('#B0AEB2')"><span>#B0AEB2</span></div>
+    <div class="palSw" style="background:#8A8A92" onclick="copy('#8A8A92')"><span>#8A8A92</span></div>
+    <div class="palSw" style="background:#5A5A63" onclick="copy('#5A5A63')"><span>#5A5A63</span></div>
+    <div class="palSw" style="background:#C4643C" onclick="copy('#C4643C')"><span>#C4643C</span></div>
+    <div class="palSw" style="background:#383940" onclick="copy('#383940')"><span>#383940</span></div>
+  </div>
+  <h3>Escala oscura</h3>
+  <div class="palRow">
+    <div class="palSw" style="background:#1B1B1F" onclick="copy('#1B1B1F')"><span>#1B1B1F</span></div>
+    <div class="palSw" style="background:#242429" onclick="copy('#242429')"><span>#242429</span></div>
+    <div class="palSw" style="background:#2B2B31" onclick="copy('#2B2B31')"><span>#2B2B31</span></div>
+    <div class="palSw" style="background:#84848C" onclick="copy('#84848C')"><span>#84848C</span></div>
+    <div class="palSw" style="background:#B9B7BC" onclick="copy('#B9B7BC')"><span>#B9B7BC</span></div>
+    <div class="palSw" style="background:#D8794E" onclick="copy('#D8794E')"><span>#D8794E</span></div>
+    <div class="palSw" style="background:#ECE9E8" onclick="copy('#ECE9E8')"><span>#ECE9E8</span></div>
+  </div>
+  <div class="note">El skin del editor (<b>Charm</b>) usa la escala oscura de AtomOS. La documentación usa la paleta Quark.</div>
+</section>
+
+<footer>
+  <p>© 2026 TXMSKA · txmska.com</p>
+  <span class="sp"></span>
+  <p class="stamp">recursos / palettes</p>
+</footer>
+
+</article>
+</main>
+
+</div>
+</body>
+</html>

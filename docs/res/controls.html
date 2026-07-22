@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quark — Controls</title>
+<link rel="stylesheet" href="css/quark.css">
+<script src="js/quark.js"></script>
+<script src="js/search.js"></script>
+<style>
+  .bind.ps, .bind.sw { display: none; }
+  body.only-kbm .bind:not(.kbm), body.only-xbox .bind:not(.xbox), body.only-ps .bind:not(.ps), body.only-sw .bind:not(.sw) { display: none !important; }
+  body.only-ps .bind.ps, body.only-sw .bind.sw { display: flex; }
+  body.only-kbm .ctl, body.only-xbox .ctl, body.only-ps .ctl, body.only-sw .ctl { grid-template-columns: 165px 1fr; }
+  @media (max-width: 900px) { body.only-kbm .ctl, body.only-xbox .ctl, body.only-ps .ctl, body.only-sw .ctl { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="dotgrid"></div>
+<div class="app">
+
+<aside class="side">
+  <a class="logo" href="../index.html"><span class="q">⚛</span> Quark <em>docs</em></a>
+  <button class="sidesearch" onclick="openSearch()"><span>Buscar…</span><kbd>Ctrl K</kbd></button>
+  <nav>
+    <div class="ngroup">Fundamentos</div>
+    <a href="../index.html">Overview</a>
+    <a href="design.html">Design</a>
+    <a href="style.html">Style</a>
+    <div class="ngroup">Recursos</div>
+    <a href="palettes.html">Palettes</a>
+    <a href="controls.html" class="active">Controls</a>
+    <a href="icons.html">Input Icons</a>
+  </nav>
+  <div class="sidefoot">
+    <button class="iconbtn" onclick="toggleTheme()" title="Tema">◐</button>
+    <span class="sp"></span>
+    <span class="ver">v0.1 · genesis</span>
+  </div>
+</aside>
+
+<main>
+<article>
+
+<header>
+  <div class="kicker">Recursos</div>
+  <h1>Controls</h1>
+  <p class="lead">Mapa de acciones del enum <code>Control</code> con su binding e ícono por plataforma. Click sobre una fila copia el identificador; el mismo asset resuelve <code>controls.Icon(Control.X)</code> en runtime. Por defecto se muestran KBM y Xbox — los chips cambian de plataforma.</p>
+  <div class="hr"></div>
+</header>
+
+<section>
+  <div class="toolrow">
+    <input id="q" class="search" type="search" placeholder="Filtrar acciones…">
+    <div class="chips">
+      <button class="chip" data-p="kbm">KBM</button>
+      <button class="chip" data-p="xbox">Xbox</button>
+      <button class="chip" data-p="ps">PlayStation</button>
+      <button class="chip" data-p="sw">Switch</button>
+    </div>
+    <span class="count" id="n"></span>
+  </div>
+
+  <div id="grid">
+    <div class="ctl" data-k="move wasd leftstick mover caminar" onclick="copy('Control.Move')">
+      <div><div class="cname">Move</div><div class="cdesc">Vector2 · composite</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/wasd.png" alt="WASD"><div><span class="plat">KBM</span><span class="blabel">W A S D</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/leftStick.png" alt="Left Stick"><div><span class="plat">Xbox</span><span class="blabel">Left Stick</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/leftStick.png" alt="Left Stick"><div><span class="plat">PS</span><span class="blabel">Left Stick</span></div></div>
+      <div class="bind sw"><img src="../../Assets/_/Library/Input/Switch/leftStick.png" alt="Left Stick"><div><span class="plat">Switch</span><span class="blabel">Left Stick</span></div></div>
+    </div>
+    <div class="ctl" data-k="look delta rightstick camara mirar" onclick="copy('Control.Look')">
+      <div><div class="cname">Look</div><div class="cdesc">Vector2 · delta</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/delta.png" alt="Mouse"><div><span class="plat">KBM</span><span class="blabel">Mouse</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/rightStick.png" alt="Right Stick"><div><span class="plat">Xbox</span><span class="blabel">Right Stick</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/rightStick.png" alt="Right Stick"><div><span class="plat">PS</span><span class="blabel">Right Stick</span></div></div>
+      <div class="bind sw"><img src="../../Assets/_/Library/Input/Switch/rightStick.png" alt="Right Stick"><div><span class="plat">Switch</span><span class="blabel">Right Stick</span></div></div>
+    </div>
+    <div class="ctl" data-k="jump space buttonsouth saltar" onclick="copy('Control.Jump')">
+      <div><div class="cname">Jump</div><div class="cdesc">Button</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/space.png" alt="Space"><div><span class="plat">KBM</span><span class="blabel">Space</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/buttonSouth.png" alt="A"><div><span class="plat">Xbox</span><span class="blabel">A · buttonSouth</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/buttonSouth.png" alt="Cross"><div><span class="plat">PS</span><span class="blabel">Cross · buttonSouth</span></div></div>
+      <div class="bind sw"><img src="../../Assets/_/Library/Input/Switch/buttonSouth.png" alt="B"><div><span class="plat">Switch</span><span class="blabel">B · buttonSouth</span></div></div>
+    </div>
+    <div class="ctl" data-k="sprint shift leftstickpress correr" onclick="copy('Control.Sprint')">
+      <div><div class="cname">Sprint</div><div class="cdesc">Button · hold</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/shift.png" alt="Shift"><div><span class="plat">KBM</span><span class="blabel">Left Shift</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/leftStickPress.png" alt="L3"><div><span class="plat">Xbox</span><span class="blabel">L3</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/leftStickPress.png" alt="L3"><div><span class="plat">PS</span><span class="blabel">L3</span></div></div>
+      <div class="bind sw"><span class="none">sin ícono en el pack</span></div>
+    </div>
+    <div class="ctl" data-k="crouch c rightstickpress agacharse toggle" onclick="copy('Control.Crouch')">
+      <div><div class="cname">Crouch</div><div class="cdesc">Button · toggle</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/c.png" alt="C"><div><span class="plat">KBM</span><span class="blabel">C</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/rightStickPress.png" alt="R3"><div><span class="plat">Xbox</span><span class="blabel">R3</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/rightStickPress.png" alt="R3"><div><span class="plat">PS</span><span class="blabel">R3</span></div></div>
+      <div class="bind sw"><span class="none">sin ícono en el pack</span></div>
+    </div>
+    <div class="ctl" data-k="crouchhold ctrl agacharse hold" onclick="copy('Control.CrouchHold')">
+      <div><div class="cname">CrouchHold</div><div class="cdesc">Button · hold</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/ctrl.png" alt="Ctrl"><div><span class="plat">KBM</span><span class="blabel">Left Ctrl</span></div></div>
+      <div class="bind xbox"><span class="none">sin binding</span></div>
+      <div class="bind ps"><span class="none">sin binding</span></div>
+      <div class="bind sw"><span class="none">sin binding</span></div>
+    </div>
+    <div class="ctl" data-k="interact e buttonwest interactuar usar" onclick="copy('Control.Interact')">
+      <div><div class="cname">Interact</div><div class="cdesc">Button</div></div>
+      <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/e.png" alt="E"><div><span class="plat">KBM</span><span class="blabel">E</span></div></div>
+      <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/buttonWest.png" alt="X"><div><span class="plat">Xbox</span><span class="blabel">X · buttonWest</span></div></div>
+      <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/buttonWest.png" alt="Square"><div><span class="plat">PS</span><span class="blabel">Square · buttonWest</span></div></div>
+      <div class="bind sw"><img src="../../Assets/_/Library/Input/Switch/buttonWest.png" alt="Y"><div><span class="plat">Switch</span><span class="blabel">Y · buttonWest</span></div></div>
+    </div>
+  </div>
+
+  <div class="note">Alta de una acción: enum <code>Control</code> → <code>Controls.inputactions</code> → esta página → índice del buscador. PlayStation usa el set PS5 (<code>Input.PlayStation</code>). Switch no trae íconos de stick press en el pack; su Scheme todavía no existe en runtime.</div>
+</section>
+
+<footer>
+  <p>© 2026 TXMSKA · txmska.com</p>
+  <span class="sp"></span>
+  <p class="stamp">recursos / controls</p>
+</footer>
+
+</article>
+</main>
+
+</div>
+
+<script>
+  const rows = [...document.querySelectorAll('.ctl')];
+  const q = document.getElementById('q'), n = document.getElementById('n');
+  const pchips = [...document.querySelectorAll('.chip[data-p]')];
+  const modes = { kbm: 'only-kbm', xbox: 'only-xbox', ps: 'only-ps', sw: 'only-sw' };
+  function apply() {
+    const s = q.value.trim().toLowerCase();
+    let shown = 0;
+    rows.forEach(r => {
+      const hit = !s || r.dataset.k.includes(s) || r.querySelector('.cname').textContent.toLowerCase().includes(s);
+      r.classList.toggle('hidden', !hit);
+      if (hit) shown++;
+    });
+    n.textContent = shown + ' / ' + rows.length;
+  }
+  q.addEventListener('input', apply);
+  pchips.forEach(ch => ch.addEventListener('click', () => {
+    const on = !ch.classList.contains('active');
+    pchips.forEach(o => o.classList.remove('active'));
+    document.body.classList.remove(...Object.values(modes));
+    if (on) { ch.classList.add('active'); document.body.classList.add(modes[ch.dataset.p]); }
+  }));
+  apply();
+</script>
+</body>
+</html>
