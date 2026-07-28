@@ -162,25 +162,29 @@ MonoBehaviour:
       data:
         <Enabled>k__BackingField: 1
         speed: 3
-        acceleration: 15
-        deceleration: 10
-        addons:
-        - rid: 4095787959339188289
-        - rid: 4095787959339188290
-        - rid: 4095787959339188291
-    - rid: 4095787959339188289
-      type: {class: Jump, ns: Quark, asm: Assembly-CSharp}
+        acceleration: 30
+        deceleration: 15
+        nucleus:
+          addons:
+          - rid: 4095788116645511168
+          - rid: 4095788116645511169
+          - rid: 4095788116645511170
+    - rid: 4095787964879601664
+      type: {class: FirstPersonCamera, ns: Quark, asm: Assembly-CSharp}
       data:
         <Enabled>k__BackingField: 1
-        force: 5
-        airControl: 1
-    - rid: 4095787959339188290
-      type: {class: Sprint, ns: Quark, asm: Assembly-CSharp}
-      data:
-        <Enabled>k__BackingField: 1
-        speed: 6
-        drain: 3
-    - rid: 4095787959339188291
+        cameraRoot: {fileID: 1323055034}
+        eyeOffset: 0.15
+        sensitivity: 0.15
+        turnRate: 150
+        smoothing: 0
+        minPitch: -89
+        maxPitch: 89
+        nucleus:
+          addons:
+          - rid: 4095788116645511171
+          - rid: 4095788116645511172
+    - rid: 4095788116645511168
       type: {class: Crouch, ns: Quark, asm: Assembly-CSharp}
       data:
         <Enabled>k__BackingField: 1
@@ -194,22 +198,28 @@ MonoBehaviour:
         crouchRadius: 0.5
         blockers:
           serializedVersion: 2
-          m_Bits: 193
-    - rid: 4095787964879601664
-      type: {class: FirstPersonCamera, ns: Quark, asm: Assembly-CSharp}
+          m_Bits: 4294967295
+    - rid: 4095788116645511169
+      type: {class: Jump, ns: Quark, asm: Assembly-CSharp}
       data:
         <Enabled>k__BackingField: 1
-        cameraRoot: {fileID: 1323055034}
-        eyeOffset: 0.15
-        sensitivity: 0.15
-        turnRate: 150
-        smoothing: 0
-        minPitch: -89
-        maxPitch: 89
-        addons:
-        - rid: 4095787964879601665
-        - rid: 4095787964879601666
-    - rid: 4095787964879601665
+        force: 5
+        airControl: 1
+    - rid: 4095788116645511170
+      type: {class: Sprint, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        speed: 6
+        drain: 3
+    - rid: 4095788116645511171
+      type: {class: Headbob, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        frequency: 6
+        amplitude: {x: 0.025, y: 0.035}
+        speedReference: 3
+        returnSpeed: 12
+    - rid: 4095788116645511172
       type: {class: Interaction, ns: Quark, asm: Assembly-CSharp}
       data:
         <Enabled>k__BackingField: 1
@@ -218,14 +228,6 @@ MonoBehaviour:
           layer:
             serializedVersion: 2
             m_Bits: 193
-    - rid: 4095787964879601666
-      type: {class: Headbob, ns: Quark, asm: Assembly-CSharp}
-      data:
-        <Enabled>k__BackingField: 1
-        frequency: 6
-        amplitude: {x: 0.025, y: 0.035}
-        speedReference: 3.3333333
-        returnSpeed: 12
 --- !u!143 &165123732
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1081,12 +1083,6 @@ MonoBehaviour:
       data:
         <Enabled>k__BackingField: 1
         actions: {fileID: -944628639613478452, guid: 7742bba9ff6455749bf711715cde1dc4, type: 3}
-        prompts:
-          keyboardMouse: {fileID: 0}
-          gamepad: {fileID: 0}
-          xbox: {fileID: 0}
-          playstation: {fileID: 0}
-          fallback: {fileID: 0}
 --- !u!4 &1151121315
 Transform:
   m_ObjectHideFlags: 0

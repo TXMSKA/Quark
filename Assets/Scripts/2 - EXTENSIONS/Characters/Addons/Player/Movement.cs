@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Quark
@@ -12,7 +11,7 @@ namespace Quark
         [SerializeField] private float speed = 3f;
         [SerializeField] private float acceleration = 20f;
         [SerializeField] private float deceleration = 25f;
-        [SerializeReference] private List<Addon> addons = new();
+        [SerializeField] private Nucleus nucleus = new();
 
         #endregion
 
@@ -27,22 +26,10 @@ namespace Quark
         {
             base.Hook(owner);
             controls = GameManager.Find<Controls>();
-            foreach (var addon in addons)
-            {
-                addon?.Hook(this);
-                switch (addon)
-                {
-                    case Crouch c:
-                        crouch = c;
-                        break;
-                    case Sprint s:
-                        sprint = s;
-                        break;
-                    case Jump j:
-                        jump = j;
-                        break;
-                }
-            }
+            nucleus.Initialize(this);
+            crouch = nucleus.Get<Crouch>();
+            sprint = nucleus.Get<Sprint>();
+            jump = nucleus.Get<Jump>();
         }
 
         public override void Handle()
@@ -51,9 +38,7 @@ namespace Quark
             var moving = axis.sqrMagnitude > 0.01f;
             Owner.Values.Set("IsMoving", moving);
 
-            foreach (var addon in addons)
-                if (addon != null && addon.Enabled)
-                    addon.Handle();
+            nucleus.Handle();
 
             var dir = Owner.transform.right * axis.x + Owner.transform.forward * axis.y;
             if (dir.sqrMagnitude > 1f) dir.Normalize();
@@ -76,7 +61,7 @@ namespace Quark
 
         public override void Unhook()
         {
-            foreach (var addon in addons) addon?.Unhook();
+            nucleus.Teardown();
             controls = null;
             velocityY = 0f;
             planar = default;

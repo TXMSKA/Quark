@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +20,7 @@ namespace Quark
         [SerializeField] private float minPitch = -89f;
         [SerializeField] private float maxPitch = 89f;
 
-        [SerializeReference] private List<Addon> addons = new();
+        [SerializeField] private Nucleus nucleus = new();
 
         #endregion
 
@@ -41,7 +40,7 @@ namespace Quark
             if (cameraRoot != null) rest = cameraRoot.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            foreach (var addon in addons) addon?.Hook(this);
+            nucleus.Initialize(this);
         }
 
         public override void Handle()
@@ -58,14 +57,12 @@ namespace Quark
                 cameraRoot.localPosition = new Vector3(rest.x, controller.center.y + controller.height * 0.5f - eyeOffset, rest.z);
             }
 
-            foreach (var addon in addons)
-                if (addon != null && addon.Enabled)
-                    addon.Handle();
+            nucleus.Handle();
         }
 
         public override void Unhook()
         {
-            foreach (var addon in addons) addon?.Unhook();
+            nucleus.Teardown();
             look = null;
             controls = null;
             smoothed = default;

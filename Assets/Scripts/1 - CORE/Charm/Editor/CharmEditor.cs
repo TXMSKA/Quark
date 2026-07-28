@@ -33,7 +33,7 @@ namespace Quark
         bool IsNucleus(SerializedProperty p)
         {
             var info = Reflect.Info(target.GetType(), p.name);
-            return info != null && info.FieldType.IsGenericType && info.FieldType.GetGenericTypeDefinition() == typeof(Nucleus<>);
+            return info != null && typeof(Nucleus).IsAssignableFrom(info.FieldType);
         }
 
         SerializedProperty Addons(SerializedProperty p) => IsNucleus(p) ? p.FindPropertyRelative("addons") : p;

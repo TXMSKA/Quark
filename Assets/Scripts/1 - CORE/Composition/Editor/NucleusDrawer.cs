@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Quark
 {
-    [CustomPropertyDrawer(typeof(Nucleus<>))]
-    sealed class NucleusDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(Nucleus))]
+    class NucleusDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
             AddonList.Height(property.FindPropertyRelative("addons"));
@@ -15,6 +15,9 @@ namespace Quark
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
             AddonList.Draw(position, property.FindPropertyRelative("addons"), property.serializedObject.targetObject.GetType());
     }
+
+    [CustomPropertyDrawer(typeof(Nucleus<>))]
+    sealed class NucleusGenericDrawer : NucleusDrawer { }
 
     // Charm-styled renderer for any [SerializeReference] List<Addon>, at any nesting depth.
     static class AddonList
@@ -33,6 +36,15 @@ namespace Quark
                 : type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>) ? type.GetGenericArguments()[0]
                 : null;
             return element != null && typeof(Addon).IsAssignableFrom(element);
+        }
+
+        // The addon array behind a child: a direct [SerializeReference] list, or one wrapped in a Nucleus.
+        public static SerializedProperty Inner(object host, SerializedProperty p)
+        {
+            if (p.isArray) return Is(host, p) ? p : null;
+            if (host == null || p.propertyType != SerializedPropertyType.Generic) return null;
+            var info = Reflect.Info(host.GetType(), p.name);
+            return info != null && typeof(Nucleus).IsAssignableFrom(info.FieldType) ? p.FindPropertyRelative("addons") : null;
         }
 
         public static void Layout(SerializedProperty list, Type host) =>
@@ -96,7 +108,8 @@ namespace Quark
             foreach (var child in Children(element))
             {
                 if (child.name == EnabledField) continue;
-                h += (Is(value, child) ? Height(child) : EditorGUI.GetPropertyHeight(child, true)) + 2f;
+                var list = Inner(value, child);
+                h += (list != null ? Height(list) : EditorGUI.GetPropertyHeight(child, true)) + 2f;
             }
             return h;
         }
@@ -154,13 +167,13 @@ namespace Quark
                 foreach (var child in Children(element))
                 {
                     if (child.name == EnabledField) continue;
-                    var nested = Is(value, child);
-                    if (nested != (pass == 1)) continue;
+                    var nested = Inner(value, child);
+                    if ((nested != null) != (pass == 1)) continue;
                     float h;
-                    if (nested)
+                    if (nested != null)
                     {
-                        h = Height(child);
-                        Draw(new Rect(r.x + 12f, y, r.width - 20f, h), child, value.GetType(), depth + 1);
+                        h = Height(nested);
+                        Draw(new Rect(r.x + 12f, y, r.width - 20f, h), nested, value.GetType(), depth + 1);
                     }
                     else
                     {
