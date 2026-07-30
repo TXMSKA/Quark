@@ -114,9 +114,11 @@ namespace Quark
 
         static readonly string[] Builtin =
         {
-            "Folder Icon", "Prefab Icon", "GameObject Icon", "Camera Icon", "Light Icon", "AudioSource Icon",
-            "Canvas Icon", "EventSystem Icon", "Terrain Icon", "ParticleSystem Icon", "Rigidbody Icon",
-            "BoxCollider Icon", "Animator Icon", "cs Script Icon", "Favorite Icon", "SceneAsset Icon",
+            "Folder Icon", "Prefab Icon", "GameObject Icon", "SceneAsset Icon", "AssemblyDefinitionAsset Icon", "Asset Store@2x", "cs Script Icon",
+            "Camera Icon", "Light Icon", "Terrain Icon", "ParticleSystem Icon", "Rigidbody Icon", "BoxCollider Icon", "BlendDistance On@2x",
+            "AudioSource Icon", "AudioClip Icon",
+            "Animator Icon", "AvatarMask On Icon", "animationvisibilitytoggleon@2x", "BrushAttributes@2x", "AISparkle Icon",
+            "Canvas Icon", "EventSystem Icon", "Favorite Icon",
         };
 
         readonly string id;
@@ -129,8 +131,13 @@ namespace Quark
         public override Vector2 GetWindowSize()
         {
             Warm(CharmStyles.Instance);
-            var rows = 2 + Rows(unity.Length + 1) + Rows(sprites.Length) + 1;
-            return new Vector2(Pad * 2f + Cell * Columns, Mathf.Min(Pad * 2f + rows * Cell, 320f));
+            return new Vector2(Pad * 2f + Cell * Columns, Mathf.Min(Pad * 2f + Height(CharmStyles.Instance), 360f));
+        }
+
+        float Height(CharmStyles styles)
+        {
+            var colors = styles != null ? styles.colors.Length : 0;
+            return Rows(colors + 1) * Cell + 4f + Rows(1 + unity.Length + sprites.Length) * Cell;
         }
 
         static int Rows(int count) => count == 0 ? 0 : Mathf.CeilToInt(count / (float)Columns);
@@ -141,51 +148,41 @@ namespace Quark
             if (styles == null) return;
             Warm(styles);
 
-            var height = Pad * 2f + (2 + Rows(unity.Length + 1) + Rows(sprites.Length) + 1) * Cell;
-            scroll = GUI.BeginScrollView(rect, scroll, new Rect(0f, 0f, rect.width - 16f, height));
+            var content = Pad * 2f + Height(styles);
+            var width = content > rect.height ? rect.width - 16f : rect.width;
+            scroll = GUI.BeginScrollView(rect, scroll, new Rect(0f, 0f, width, content));
 
             var x = Pad;
             var y = Pad;
+            var column = 0;
 
             if (Cross(new Rect(x, y, 18f, 18f))) Apply(styles, entry => entry.color = -1);
-            x += Cell;
+            Advance(ref x, ref y, ref column);
             for (var i = 0; i < styles.colors.Length; i++)
             {
                 var swatch = new Rect(x, y, 18f, 18f);
                 EditorGUI.DrawRect(swatch, styles.colors[i]);
                 var pick = i;
                 if (Click(swatch)) Apply(styles, entry => entry.color = pick);
-                x += Cell;
-                if (x + Cell > rect.width - Pad) { x = Pad; y += Cell; }
-            }
-
-            y += Cell + 4f;
-            GUI.Label(new Rect(Pad, y, rect.width, 14f), "UNITY", EditorStyles.centeredGreyMiniLabel);
-            y += 16f;
-            x = Pad;
-
-            if (Cross(new Rect(x, y, 18f, 18f))) Apply(styles, entry => entry.icon = null);
-            x += Cell;
-            var column = 1;
-            foreach (var name in unity)
-            {
-                var texture = EditorGUIUtility.IconContent(name).image;
-                Slot(new Rect(x, y, 18f, 18f), texture, "u:" + name, styles);
                 Advance(ref x, ref y, ref column);
             }
 
-            if (sprites.Length > 0)
+            if (column > 0) y += Cell;
+            x = Pad;
+            column = 0;
+            y += 4f;
+
+            if (Cross(new Rect(x, y, 18f, 18f))) Apply(styles, entry => entry.icon = null);
+            Advance(ref x, ref y, ref column);
+            foreach (var name in unity)
             {
-                x = Pad;
-                y += Cell + 4f;
-                GUI.Label(new Rect(Pad, y, rect.width, 14f), "PALETTE", EditorStyles.centeredGreyMiniLabel);
-                y += 16f;
-                column = 0;
-                foreach (var sprite in sprites)
-                {
-                    Slot(new Rect(x, y, 18f, 18f), sprite.texture, sprite.name, styles);
-                    Advance(ref x, ref y, ref column);
-                }
+                Slot(new Rect(x, y, 18f, 18f), EditorGUIUtility.IconContent(name).image, "u:" + name, styles);
+                Advance(ref x, ref y, ref column);
+            }
+            foreach (var sprite in sprites)
+            {
+                Slot(new Rect(x, y, 18f, 18f), sprite.texture, sprite.name, styles);
+                Advance(ref x, ref y, ref column);
             }
 
             GUI.EndScrollView();
@@ -219,7 +216,10 @@ namespace Quark
             {
                 var valid = new List<string>(Builtin.Length);
                 foreach (var name in Builtin)
-                    if (EditorGUIUtility.IconContent(name)?.image != null) valid.Add(name);
+                {
+                    var content = EditorGUIUtility.IconContent(name);
+                    if (content != null && content.image != null) valid.Add(name);
+                }
                 unity = valid.ToArray();
             }
 
