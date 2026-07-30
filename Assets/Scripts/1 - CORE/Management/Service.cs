@@ -13,9 +13,15 @@ namespace Quark
 
         #region LIFETIME
 
-        protected virtual void Awake() => nucleus.Initialize(this);
+        protected virtual void Awake() => GameManager.Register(this);
         protected virtual void Update() => nucleus.Handle();
-        protected virtual void OnDestroy() => nucleus.Teardown();
+        protected virtual void OnDestroy()
+        {
+            GameManager.Unregister(this);
+            nucleus.Teardown();
+        }
+
+        internal void Boot() => nucleus.Initialize(this);
 
         #endregion
 

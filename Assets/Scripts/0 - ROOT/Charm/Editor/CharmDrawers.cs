@@ -36,6 +36,30 @@ namespace Quark
         }
     }
 
+    [CustomPropertyDrawer(typeof(MinMaxAttribute))]
+    sealed class MinMaxCharm : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (property.propertyType != SerializedPropertyType.Vector2)
+            {
+                EditorGUI.PropertyField(position, property, label, true);
+                return;
+            }
+
+            var attr = (MinMaxAttribute)attribute;
+            var value = property.vector2Value;
+            var rect = EditorGUI.PrefixLabel(position, label);
+            var left = new Rect(rect.x, rect.y, 40f, rect.height);
+            var right = new Rect(rect.xMax - 40f, rect.y, 40f, rect.height);
+            var slider = new Rect(left.xMax + 6f, rect.y, rect.width - 92f, rect.height);
+            value.x = EditorGUI.FloatField(left, value.x);
+            value.y = EditorGUI.FloatField(right, value.y);
+            EditorGUI.MinMaxSlider(slider, ref value.x, ref value.y, attr.Min, attr.Max);
+            property.vector2Value = value;
+        }
+    }
+
     [CustomPropertyDrawer(typeof(ShowIfAttribute))]
     sealed class ShowIfCharm : PropertyDrawer
     {

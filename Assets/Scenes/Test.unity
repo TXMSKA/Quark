@@ -119,6 +119,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &68852062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 68852063}
+  - component: {fileID: 68852065}
+  - component: {fileID: 68852064}
+  m_Layer: 5
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &68852063
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68852062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 850636363}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 64, y: 64}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &68852064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68852062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8784314}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: bc80c9130069de44ca1a4beaadbda437, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &68852065
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68852062}
+  m_CullTransparentMesh: 1
 --- !u!1 &165123730
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +205,7 @@ GameObject:
   - component: {fileID: 165123733}
   - component: {fileID: 165123732}
   - component: {fileID: 165123731}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -162,6 +237,7 @@ MonoBehaviour:
       data:
         <Enabled>k__BackingField: 1
         speed: 3
+        walkSpeed: 2
         acceleration: 30
         deceleration: 15
         nucleus:
@@ -419,8 +495,10 @@ GameObject:
   - component: {fileID: 335441684}
   - component: {fileID: 335441683}
   - component: {fileID: 335441682}
+  - component: {fileID: 335441687}
+  - component: {fileID: 335441686}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,6 +597,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &335441686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1855726ca06684d974947195b147ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Quark.CrosshairOverride
+  <Enabled>k__BackingField: 1
+  custom: 0
+  customId: 
+--- !u!114 &335441687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335441681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6461394ce5fc424f89ae26f2b5409aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Quark.Item
+  <Id>k__BackingField: 
+  nucleus:
+    addons: []
+  sfx:
+    library: {fileID: 11400000, guid: 217bd5dbc62b68548a9128faa54fe449, type: 2}
+    volume: 1
+    spatial: 1
+    minDistance: 5
+    maxDistance: 40
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +1100,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 68852063}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1005,11 +1123,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Quark.Flow
   <Priority>k__BackingField: 0
   nucleus:
-    addons: []
+    addons:
+    - rid: 4095788143602565120
   duration: 0.25
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4095788143602565120
+      type: {class: Crosshair, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        image: {fileID: 68852064}
+        icons: {fileID: 11400000, guid: 3cf011e74862aa04b9ae5c6fcbce1de8, type: 2}
 --- !u!1 &852846982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1200,7 @@ MonoBehaviour:
   nucleus:
     addons:
     - rid: 4095787959339188288
+    - rid: 4095788157144924160
   references:
     version: 2
     RefIds:
@@ -1083,6 +1209,13 @@ MonoBehaviour:
       data:
         <Enabled>k__BackingField: 1
         actions: {fileID: -944628639613478452, guid: 7742bba9ff6455749bf711715cde1dc4, type: 3}
+    - rid: 4095788157144924160
+      type: {class: Audio, ns: Quark, asm: Assembly-CSharp}
+      data:
+        <Enabled>k__BackingField: 1
+        master: 1
+        capacity: 16
+        library: {fileID: 0}
 --- !u!4 &1151121315
 Transform:
   m_ObjectHideFlags: 0

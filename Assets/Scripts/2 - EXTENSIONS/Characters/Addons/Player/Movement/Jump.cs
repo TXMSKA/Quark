@@ -30,7 +30,7 @@ namespace Quark
         private void Perform()
         {
             if (!Enabled) return;
-            Owner.Owner.Values.TryGet("IsCrouching", out bool crouching);
+            Owner.Owner.Values.TryGet(Crouch.IsCrouching, out bool crouching);
             if (Owner.Owner.Controller.isGrounded && !crouching) Owner.velocityY = force;
         }
     }

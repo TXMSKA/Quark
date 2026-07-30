@@ -8,7 +8,10 @@ namespace Quark
     {
         #region FIELDS
 
+        public const string IsMoving = nameof(IsMoving);
+
         [SerializeField] private float speed = 3f;
+        [SerializeField] private float walkSpeed = 2f;
         [SerializeField] private float acceleration = 20f;
         [SerializeField] private float deceleration = 25f;
         [SerializeField] private Nucleus nucleus = new();
@@ -17,6 +20,7 @@ namespace Quark
 
         internal Controls controls;
         internal float velocityY;
+        private bool walking;
         private Vector3 planar;
         private Crouch crouch;
         private Sprint sprint;
@@ -26,6 +30,7 @@ namespace Quark
         {
             base.Hook(owner);
             controls = GameManager.Find<Controls>();
+            controls?.Subscribe(Control.Walk, Walk);
             nucleus.Initialize(this);
             crouch = nucleus.Get<Crouch>();
             sprint = nucleus.Get<Sprint>();
@@ -36,7 +41,7 @@ namespace Quark
         {
             var axis = controls?.Axis(Control.Move) ?? default;
             var moving = axis.sqrMagnitude > 0.01f;
-            Owner.Values.Set("IsMoving", moving);
+            Owner.Values.Set(IsMoving, moving);
 
             nucleus.Handle();
 
@@ -47,9 +52,9 @@ namespace Quark
             if (grounded && velocityY < 0f) velocityY = -2f;
             else velocityY += Physics.gravity.y * Time.deltaTime;
 
-            Owner.Values.TryGet("IsCrouching", out bool crouching);
-            Owner.Values.TryGet("IsSprinting", out bool sprinting);
-            var cap = crouching && crouch != null ? crouch.Speed : sprinting && sprint != null ? sprint.Speed : speed;
+            Owner.Values.TryGet(Crouch.IsCrouching, out bool crouching);
+            Owner.Values.TryGet(Sprint.IsSprinting, out bool sprinting);
+            var cap = crouching && crouch != null ? crouch.Speed : sprinting && sprint != null ? sprint.Speed : walking ? walkSpeed : speed;
 
             var target = dir * cap;
             var rate = moving ? acceleration : deceleration;
@@ -59,10 +64,14 @@ namespace Quark
             Owner.Controller.Move((planar + Vector3.up * velocityY) * Time.deltaTime);
         }
 
+        private void Walk() => walking = !walking;
+
         public override void Unhook()
         {
             nucleus.Teardown();
+            controls?.Unsubscribe(Control.Walk, Walk);
             controls = null;
+            walking = false;
             velocityY = 0f;
             planar = default;
             crouch = null;

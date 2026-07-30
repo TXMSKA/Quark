@@ -8,6 +8,8 @@ namespace Quark
     {
         #region FIELDS
 
+        public const string IsCrouching = nameof(IsCrouching);
+
         [SerializeField] private float speed = 1.5f;
         [SerializeField, Min(0f)] private float timeToCrouch = 0.133f;
 
@@ -41,7 +43,7 @@ namespace Quark
         public override void Handle()
         {
             var target = toggled || held || (amount > 0f && Blocked);
-            Owner.Owner.Values.Set("IsCrouching", target);
+            Owner.Owner.Values.Set(IsCrouching, target);
             if (!target && amount == 0f) return;
 
             amount = Mathf.MoveTowards(amount, target ? 1f : 0f, Time.deltaTime / timeToCrouch);
@@ -55,7 +57,7 @@ namespace Quark
         {
             Owner.controls?.Unsubscribe(Control.Crouch, Toggle);
             Owner.controls?.Unsubscribe(Control.CrouchHold, Hold, Release);
-            Owner.Owner.Values.Set("IsCrouching", false);
+            Owner.Owner.Values.Set(IsCrouching, false);
             toggled = held = false;
             amount = 0f;
             base.Unhook();

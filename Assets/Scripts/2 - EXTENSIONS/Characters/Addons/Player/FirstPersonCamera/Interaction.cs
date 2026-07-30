@@ -15,6 +15,7 @@ namespace Quark
         public override void Hook(FirstPersonCamera owner)
         {
             base.Hook(owner);
+            owner.controls?.Subscribe(Control.Use, Use);
             owner.controls?.Subscribe(Control.Interact, Perform);
         }
 
@@ -26,6 +27,7 @@ namespace Quark
 
         public override void Unhook()
         {
+            Owner.controls?.Unsubscribe(Control.Use, Use);
             Owner.controls?.Unsubscribe(Control.Interact, Perform);
             caster.Clear();
             base.Unhook();
@@ -34,6 +36,11 @@ namespace Quark
         private void Perform()
         {
             if (Enabled && caster.Target is Prop prop) prop.Interact(new Context());
+        }
+
+        private void Use()
+        {
+            if (Enabled && caster.Target is Prop prop) prop.Use(new Context());
         }
     }
 }

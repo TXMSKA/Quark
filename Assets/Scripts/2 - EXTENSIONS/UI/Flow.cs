@@ -11,6 +11,22 @@ namespace Quark
 
         #endregion
 
+        #region LIFETIME
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (GameManager.Instance != null) GameManager.Instance.Values.Set(nameof(Flow), this);
+        }
+
+        protected override void OnDestroy()
+        {
+            if (GameManager.Instance != null) GameManager.Instance.Values.Forget(nameof(Flow));
+            base.OnDestroy();
+        }
+
+        #endregion
+
         #region API
 
         public void Set(CanvasGroup root)

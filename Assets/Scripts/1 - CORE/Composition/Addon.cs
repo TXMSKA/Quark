@@ -17,7 +17,7 @@ namespace Quark
     [Serializable]
     public abstract class Addon<T> : Addon
     {
-        public T Owner { get; private set; }
+        [field: NonSerialized] public T Owner { get; private set; }
 
         public virtual void Hook(T owner) => Owner = owner;
         public override void Hook(object owner) => Hook((T)owner);

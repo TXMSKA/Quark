@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Quark
@@ -8,7 +9,7 @@ namespace Quark
 
         [field: SerializeField] public bool Enabled { get; set; } = true;
 
-        public T Owner { get; private set; }
+        [field: NonSerialized] public T Owner { get; private set; }
 
         public virtual void Hook(T owner) => Owner = owner;
         public virtual void Handle() { }

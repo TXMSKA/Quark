@@ -42,6 +42,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Walk",
+                    "type": "Button",
+                    "id": "c1a00000-0009-4c00-9c00-000000000100",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SprintToggle",
+                    "type": "Button",
+                    "id": "c1a00000-0008-4c00-9c00-000000000100",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "c1a00000-0004-4c00-9c00-000000000100",
@@ -54,6 +72,15 @@
                     "name": "CrouchHold",
                     "type": "Button",
                     "id": "c1a00000-0005-4c00-9c00-000000000100",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use",
+                    "type": "Button",
+                    "id": "c1a00000-000a-4c00-9c00-000000000100",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -163,7 +190,7 @@
                     "id": "c1a00000-1602-4c00-9c00-000000000100",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=100,y=100)",
+                    "processors": "",
                     "groups": ";Gamepad",
                     "action": "Look",
                     "isComposite": false,
@@ -193,6 +220,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c1a00000-7001-4c00-9c00-000000000100",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c1a00000-3001-4c00-9c00-000000000100",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -209,7 +247,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Sprint",
+                    "action": "SprintToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1a00000-3003-4c00-9c00-000000000100",
+                    "path": "<XRController>{LeftHand}/thumbstickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XR",
+                    "action": "SprintToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -253,7 +302,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Interact",
+                    "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -261,6 +310,28 @@
                     "name": "",
                     "id": "c1a00000-6002-4c00-9c00-000000000100",
                     "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1a00000-6003-4c00-9c00-000000000100",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1a00000-6004-4c00-9c00-000000000100",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.XInput;
 
 namespace Quark
 {
-    public enum Control { Move, Look, Jump, Sprint, Crouch, CrouchHold, Interact }
+    public enum Control { Move, Look, Jump, Walk, Sprint, SprintToggle, Crouch, CrouchHold, Use, Interact }
 
     [Serializable]
     public class Controls : Addon<GameManager>
@@ -21,7 +24,8 @@ namespace Quark
         public override void Hook(GameManager owner)
         {
             base.Hook(owner);
-            owner.Values.Set("Controls", this);
+            owner.Values.Set(nameof(Controls), this);
+            InputSystem.onEvent += Detect;
             if (actions == null) { Debug.LogWarning("Controls: no InputActionAsset assigned."); return; }
             foreach (var action in actions)
             {
@@ -33,7 +37,8 @@ namespace Quark
 
         public override void Unhook()
         {
-            if (Owner != null) Owner.Values.Forget("Controls");
+            InputSystem.onEvent -= Detect;
+            if (Owner != null) Owner.Values.Forget(nameof(Controls));
             if (actions != null)
             {
                 actions.Disable();
@@ -51,6 +56,9 @@ namespace Quark
         #endregion
 
         #region API
+
+        public Scheme Active { get; private set; } = Scheme.KeyboardMouse;
+        public event Action<Scheme> OnSchemeChanged;
 
         public InputAction Get(Control control)
         {
@@ -71,9 +79,30 @@ namespace Quark
         private readonly Events events = new();
         private readonly Dictionary<Control, InputAction> cache = new();
 
+        private void Detect(InputEventPtr eventPtr, InputDevice device)
+        {
+            if (device == null || !eventPtr.valid) return;
+            var next = Classify(device);
+            if (next == Scheme.Other || next == Active) return;
+            Active = next;
+            OnSchemeChanged?.Invoke(next);
+        }
+
+        private static Scheme Classify(InputDevice device) => device switch
+        {
+            XInputController => Scheme.Xbox,
+            DualShockGamepad => Scheme.PlayStation,
+            Gamepad => Scheme.Gamepad,
+            TrackedDevice => Scheme.XR,
+            Keyboard or Mouse => Scheme.KeyboardMouse,
+            _ => Scheme.Other,
+        };
+
         #endregion
 
         #region CLASSES
+
+        public enum Scheme { KeyboardMouse, Gamepad, Xbox, PlayStation, XR, Other }
 
         private class Events
         {

@@ -25,7 +25,7 @@ namespace Quark
                     Debug.LogWarning($"Stats: duplicate key '{stat.Key}' on {owner.name}.", owner);
                 stat.Apply(stat.StartingValue);
             }
-            if (GameManager.Instance != null && GameManager.Instance.Values.TryGet("Tick", out tick))
+            if (GameManager.Instance != null && GameManager.Instance.Values.TryGet(nameof(Tick), out tick))
                 tick.OnTick += OnTick;
         }
 

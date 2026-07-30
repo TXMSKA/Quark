@@ -14,6 +14,14 @@ namespace Quark
     public sealed class ReadOnlyAttribute : PropertyAttribute { }
 
     [AttributeUsage(AttributeTargets.Field)]
+    public sealed class MinMaxAttribute : PropertyAttribute
+    {
+        public float Min { get; }
+        public float Max { get; }
+        public MinMaxAttribute(float min, float max) { Min = min; Max = max; }
+    }
+
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class ShowIfAttribute : PropertyAttribute
     {
         public string Member { get; }

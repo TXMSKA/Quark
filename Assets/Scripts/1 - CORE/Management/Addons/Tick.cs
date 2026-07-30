@@ -19,7 +19,7 @@ namespace Quark
         public override void Hook(GameManager owner)
         {
             base.Hook(owner);
-            owner.Values.Set("Tick", this);
+            owner.Values.Set(nameof(Tick), this);
             Set(StartsTicking);
         }
 
@@ -38,7 +38,7 @@ namespace Quark
         public override void Unhook()
         {
             Set(false);
-            if (Owner != null) Owner.Values.Forget("Tick");
+            if (Owner != null) Owner.Values.Forget(nameof(Tick));
             base.Unhook();
         }
 
