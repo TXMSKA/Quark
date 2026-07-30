@@ -9,19 +9,19 @@ namespace Quark
     [InitializeOnLoad]
     static class CharmHierarchy
     {
-        static readonly Dictionary<int, string> ids = new();
+        static readonly Dictionary<EntityId, string> ids = new();
         static Texture2D gradient;
         static GUIStyle label;
 
         static CharmHierarchy()
         {
-            EditorApplication.hierarchyWindowItemOnGUI += Draw;
+            EditorApplication.hierarchyWindowItemByEntityIdOnGUI += Draw;
             EditorApplication.hierarchyChanged += ids.Clear;
         }
 
         internal static string Id(GameObject go)
         {
-            var key = go.GetInstanceID();
+            var key = go.GetEntityId();
             if (!ids.TryGetValue(key, out var id))
                 ids[key] = id = GlobalObjectId.GetGlobalObjectIdSlow(go).ToString();
             return id;
@@ -40,9 +40,9 @@ namespace Quark
             }
         }
 
-        static void Draw(int instanceID, Rect rect)
+        static void Draw(EntityId entityId, Rect rect)
         {
-            if (EditorUtility.InstanceIDToObject(instanceID) is not GameObject go) return;
+            if (EditorUtility.EntityIdToObject(entityId) is not GameObject go) return;
             var styles = CharmStyles.Instance;
             if (styles == null) return;
 
@@ -52,7 +52,7 @@ namespace Quark
             var styled = own != null && (own.color >= 0 || !string.IsNullOrEmpty(own.icon));
 
             if (styled)
-                EditorGUI.DrawRect(new Rect(rect.x, rect.y, EditorGUIUtility.currentViewWidth - rect.x, rect.height), Background(instanceID));
+                EditorGUI.DrawRect(new Rect(rect.x, rect.y, EditorGUIUtility.currentViewWidth - rect.x, rect.height), Background(entityId));
 
             if (tint >= 0)
             {
@@ -87,9 +87,9 @@ namespace Quark
             }
         }
 
-        static Color Background(int instanceID)
+        static Color Background(EntityId entityId)
         {
-            if (Selection.Contains(instanceID)) return new Color32(44, 93, 135, 255);
+            if (Selection.Contains(entityId)) return new Color32(44, 93, 135, 255);
             return EditorGUIUtility.isProSkin ? new Color32(56, 56, 56, 255) : new Color32(200, 200, 200, 255);
         }
 

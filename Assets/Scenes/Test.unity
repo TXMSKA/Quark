@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 335441682}
   - component: {fileID: 335441687}
   - component: {fileID: 335441686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -949,8 +949,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452562004}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.000030517578, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1167,6 +1167,37 @@ Transform:
   - {fileID: 423540993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &978927403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978927404}
+  m_Layer: 0
+  m_Name: =====
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &978927404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978927403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.0826, y: -0, z: -0.89449}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1151121313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1246,9 @@ MonoBehaviour:
         <Enabled>k__BackingField: 1
         master: 1
         capacity: 16
-        library: {fileID: 0}
+        library: {fileID: 11400000, guid: cdcc9c70f64a4ae4aace3c76a79caf51, type: 2}
+        sfx: {fileID: -4353255525950760252, guid: c469769bac659ec4fb0a45c7f77982b5, type: 2}
+        ui: {fileID: 4831207450112938465, guid: c469769bac659ec4fb0a45c7f77982b5, type: 2}
 --- !u!4 &1151121315
 Transform:
   m_ObjectHideFlags: 0
@@ -1357,10 +1390,11 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 410087041}
   - {fileID: 165123733}
-  - {fileID: 852846983}
   - {fileID: 850636363}
-  - {fileID: 452562007}
   - {fileID: 1151121315}
+  - {fileID: 978927404}
+  - {fileID: 410087041}
+  - {fileID: 852846983}
+  - {fileID: 452562007}
   - {fileID: 335441685}

@@ -12,7 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a73fb62ea4ea5646a0ba1c35cd10bf5, type: 3}
   m_Name: CharmStyles
   m_EditorClassIdentifier: Assembly-CSharp-Editor::Quark.CharmStyles
-  entries: []
+  entries:
+  - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-165123730-0
+    color: 6
+    icon: u:AvatarMask On Icon
+  - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1151121313-0
+    color: 3
+    icon: u:BrushAttributes@2x
+  - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-850636359-0
+    color: 4
+    icon: u:Canvas Icon
   icons: {fileID: 0}
   colors:
   - {r: 0.42, g: 0.42, b: 0.42, a: 1}

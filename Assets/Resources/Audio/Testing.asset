@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Quark.SFXLibrary
   entries:
   - <Id>k__BackingField: item.interact
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 3f6910eee7b27ea4da3375f42c1344db, type: 3}
     pitch: {x: 1, y: 1}
   - <Id>k__BackingField: item.use
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 9f41b186379d8bf498e358c352367c69, type: 3}
     pitch: {x: 1, y: 1}
