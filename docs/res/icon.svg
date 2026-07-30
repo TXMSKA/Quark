@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <mask id="q">
+    <rect width="64" height="64" fill="white"/>
+    <circle cx="43.8" cy="41.8" r="11" fill="black"/>
+  </mask>
+  <circle cx="29" cy="27" r="16" fill="none" stroke="#EB622C" stroke-width="6" mask="url(#q)"/>
+  <circle cx="43.8" cy="41.8" r="7.5" fill="#FFD84D"/>
+</svg>
