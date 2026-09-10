@@ -25,9 +25,9 @@ MonoBehaviour:
   - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1458887584-0
     color: 2
     icon: u:BlendDistance On@2x
-  - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-571429606-0
+  - id: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-2064414478-0
     color: 0
-    icon: 
+    icon: u:Folder Icon
   icons: {fileID: 0}
   colors:
   - {r: 0.42, g: 0.42, b: 0.42, a: 1}
