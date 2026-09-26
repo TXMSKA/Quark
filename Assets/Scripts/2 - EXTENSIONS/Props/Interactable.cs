@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Quark
 {
-    public class Item : Prop
+    public class Interactable : Prop
     {
         #region FIELDS
 
@@ -25,13 +25,16 @@ namespace Quark
         public override void Use(Context context)
         {
             base.Use(context);
-            sfx.Play("item.use");
+            if (context != null && context.TryGet(Context.Stage, out var phase) && phase == Context.Phase.Press)
+                sfx.Play("item.use");
         }
 
         public override void Interact(Context context)
         {
             base.Interact(context);
-            sfx.Play("item.interact");
+            if (context != null && context.TryGet(Context.Stage, out var phase) && phase == Context.Phase.Press &&
+                context.TryGet(Context.Input, out var channel) && channel == Context.Channel.Primary)
+                sfx.Play("item.interact");
         }
 
         #endregion
