@@ -65,7 +65,7 @@ namespace Quark
 
         private void Toggle() { if (Enabled) toggled = !toggled; }
         private void Hold() => held = Enabled;
-        private void Release() => held = false;
+        private void Release() => held = toggled = false;
 
         private bool Blocked
         {
