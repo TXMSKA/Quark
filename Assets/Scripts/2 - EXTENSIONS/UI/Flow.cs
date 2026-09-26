@@ -16,12 +16,12 @@ namespace Quark
         protected override void Awake()
         {
             base.Awake();
-            if (GameManager.Instance != null) GameManager.Instance.Values.Set(nameof(Flow), this);
+            if (GameManager.Instance != null) GameManager.Instance.Values.Set(Key<Flow>.Default, this);
         }
 
         protected override void OnDestroy()
         {
-            if (GameManager.Instance != null) GameManager.Instance.Values.Forget(nameof(Flow));
+            if (GameManager.Instance != null) GameManager.Instance.Values.Forget(Key<Flow>.Default);
             base.OnDestroy();
         }
 

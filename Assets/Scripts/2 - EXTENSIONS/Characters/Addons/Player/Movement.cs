@@ -8,7 +8,7 @@ namespace Quark
     {
         #region FIELDS
 
-        public const string IsMoving = nameof(IsMoving);
+        public static readonly Key<bool> IsMoving = new();
 
         [SerializeField] private float speed = 3f;
         [SerializeField] private float walkSpeed = 2f;

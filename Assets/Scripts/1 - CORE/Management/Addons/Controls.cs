@@ -24,7 +24,7 @@ namespace Quark
         public override void Hook(GameManager owner)
         {
             base.Hook(owner);
-            owner.Values.Set(nameof(Controls), this);
+            owner.Values.Set(Key<Controls>.Default, this);
             InputSystem.onEvent += Detect;
             if (actions == null) { Debug.LogWarning("Controls: no InputActionAsset assigned."); return; }
             foreach (var action in actions)
@@ -38,7 +38,7 @@ namespace Quark
         public override void Unhook()
         {
             InputSystem.onEvent -= Detect;
-            if (Owner != null) Owner.Values.Forget(nameof(Controls));
+            if (Owner != null) Owner.Values.Forget(Key<Controls>.Default);
             if (actions != null)
             {
                 actions.Disable();

@@ -8,7 +8,7 @@ namespace Quark
     {
         #region FIELDS
 
-        public const string IsCrouching = nameof(IsCrouching);
+        public static readonly Key<bool> IsCrouching = new();
 
         [SerializeField] private float speed = 1.5f;
         [SerializeField, Min(0f)] private float timeToCrouch = 0.133f;

@@ -24,7 +24,7 @@ namespace Quark
         public override void Hook(GameManager owner)
         {
             base.Hook(owner);
-            owner.Values.Set(nameof(Audio), this);
+            owner.Values.Set(Key<Audio>.Default, this);
             AudioListener.volume = master;
         }
 
@@ -59,7 +59,7 @@ namespace Quark
             count = 0;
             if (host != null) UnityEngine.Object.Destroy(host);
             host = null;
-            if (Owner != null) Owner.Values.Forget(nameof(Audio));
+            if (Owner != null) Owner.Values.Forget(Key<Audio>.Default);
             base.Unhook();
         }
 

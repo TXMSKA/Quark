@@ -40,8 +40,8 @@ namespace Quark
 
         public static GameManager Instance { get; private set; }
 
-        public static T Find<T>(string key = null) where T : class =>
-            Instance != null && Instance.Values.TryGet(key ?? typeof(T).Name, out T value) ? value : null;
+        public static T Find<T>(Key<T> key = null) where T : class =>
+            Instance != null && Instance.Values.TryGet(key ?? Key<T>.Default, out T value) ? value : null;
 
         internal static void Register(Service service)
         {
