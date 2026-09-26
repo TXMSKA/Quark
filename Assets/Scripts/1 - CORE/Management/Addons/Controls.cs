@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.XInput;
 
 namespace Quark
 {
-    public enum Control { Move, Look, Jump, Walk, Sprint, SprintToggle, Crouch, CrouchHold, Use, Interact }
+    public enum Control { Move, Look, Jump, Walk, Sprint, SprintToggle, Crouch, CrouchHold, Use, Interact, Secondary }
 
     [Serializable]
     public class Controls : Addon<GameManager>
