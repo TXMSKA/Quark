@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Quark
 {
-    public abstract class Identifiable : MonoBehaviour
+    public abstract class Identifiable : Host
     {
         #region FIELDS
 

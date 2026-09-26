@@ -18,27 +18,47 @@ namespace Quark
         public Identifiable Target { get; private set; }
         public RaycastHit Hit { get; private set; }
 
-        public void Cast(Ray ray) => Cast(ray, distance);
-        public void Cast(Vector3 from, Vector3 to) => Cast(new Ray(from, to - from), Vector3.Distance(from, to));
+        public void Cast(Ray ray, Host source = null) => Cast(ray, distance, source);
+        public void Cast(Vector3 from, Vector3 to, Host source = null) =>
+            Cast(new Ray(from, to - from), Vector3.Distance(from, to), source);
 
         public void Clear()
         {
-            if (Target != null) Target.Unfocus(new Context());
+            var previous = Target;
+            var context = focus;
             Target = null;
+            Hit = default;
+            focus = null;
+            if (previous != null) previous.Unfocus(context);
         }
 
         #endregion
 
         #region MISC
 
-        private void Cast(Ray ray, float range)
+        private Context focus;
+
+        private void Cast(Ray ray, float range, Host source)
         {
-            Hit = Physics.Raycast(ray, out var hit, range, layer) ? hit : default;
-            var found = Hit.collider != null ? Hit.collider.GetComponentInParent<Identifiable>() : null;
-            if (found == Target) return;
-            if (Target != null) Target.Unfocus(new Context());
-            Target = found;
-            if (Target != null) Target.Focus(new Context());
+            var found = Physics.Raycast(ray, out var hit, range, layer)
+                ? hit.collider.GetComponentInParent<Identifiable>()
+                : null;
+            if (found == null) { Clear(); return; }
+
+            var changed = found != Target || focus == null || !ReferenceEquals(focus.Source, source);
+            if (changed)
+            {
+                Clear();
+                Target = found;
+                focus = new Context(source, found);
+            }
+
+            Hit = hit;
+            focus.Set(Context.Point, hit.point);
+            focus.Set(Context.Normal, hit.normal);
+            focus.Set(Context.View, ray);
+            focus.Set(Context.SampleTime, Time.time);
+            if (changed) Target.Focus(focus);
         }
 
         #endregion

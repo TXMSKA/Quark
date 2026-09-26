@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Quark
 {
-    public abstract class Service : MonoBehaviour
+    public abstract class Service : Host
     {
         #region FIELDS
 
@@ -27,7 +27,7 @@ namespace Quark
 
         #region API
 
-        public Values Values => nucleus.Values;
+        public override Values Values => nucleus.Values;
 
         public T Get<T>() where T : class => nucleus.Get<T>();
 

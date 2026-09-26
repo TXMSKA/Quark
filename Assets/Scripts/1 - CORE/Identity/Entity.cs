@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Quark
@@ -20,9 +21,15 @@ namespace Quark
 
         #region API
 
-        public Values Values => nucleus.Values;
+        public override Values Values => nucleus.Values;
 
         public T Get<T>() where T : class => nucleus.Get<T>();
+
+        public event Action<Context> OnBirth;
+        public event Action<Context> OnDeath;
+
+        public virtual void Birth(Context context) => OnBirth?.Invoke(context);
+        public virtual void Death(Context context) => OnDeath?.Invoke(context);
 
         #endregion
     }
