@@ -65,8 +65,9 @@
     <tr><th>Tema</th><th>Convención</th></tr>
     <tr><td>Inspector</td><td>Atributos nativos (<code>[Header]</code>, <code>[Tooltip]</code>, <code>[Range]</code>). El agrupado visual lo aporta Charm, no Odin.</td></tr>
     <tr><td>API</td><td>El consumidor habla con la clase pública; las nested privadas operan por dentro. Se exponen métodos, no estructuras internas.</td></tr>
+    <tr><td>Nombres</td><td>Los scripts nuevos usan una sola palabra: Key, Host, Physical, Motion, Lock, Hub. Los nombres existentes no se cambian por esta regla.</td></tr>
     <tr><td>Config agrupada</td><td>Clase nested <code>[Serializable]</code> como campo (foldout) — no un Addon.</td></tr>
-    <tr><td>Estado compartido</td><td>Flags efímeros entre addons → <code>Values</code>. Referencias directas → se cachean en <code>Hook</code>, nunca se resuelven por frame.</td></tr>
+    <tr><td>Estado compartido</td><td>Datos compartidos → <code>Values</code> con claves <code>static readonly Key&lt;T&gt;</code> declaradas por el comportamiento que las define. Los servicios únicos usan <code>Key&lt;T&gt;.Default</code>. Referencias directas → se cachean en <code>Hook</code>, nunca se resuelven por frame.</td></tr>
   </table>
 </section>
 

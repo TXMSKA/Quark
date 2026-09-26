@@ -71,14 +71,16 @@
   <p>Todo lo que existe en un juego hecho con Quark es un <b>Entity</b> (personaje), un <b>Prop</b> (objeto de escena con comportamiento) o un <b>Service</b> (sistema sin cuerpo). Si algo no encaja en las tres, es comportamiento para componer sobre una de ellas.</p>
   <table>
     <tr><th>Pieza</th><th>Rol</th></tr>
+    <tr><td><b>Host</b></td><td>Contrato común de Values para Entity, Prop y Service; conserva el estado y ciclo de vida de cada dueño.</td></tr>
     <tr><td><b>Identifiable</b></td><td>Raíz de Entity y Prop: un <code>Id</code> legible más un <code>Uid</code> único generado en el primer acceso.</td></tr>
     <tr><td><b>Addon&lt;T&gt;</b></td><td>Comportamiento serializable que vive dentro de su dueño y se arma desde el inspector. Puede anidar sus propios addons.</td></tr>
     <tr><td><b>Mod&lt;T&gt;</b></td><td>Componente que modifica a su dueño desde la escena; el dueño lo detecta solo en su jerarquía.</td></tr>
     <tr><td><b>Nucleus&lt;T&gt;</b></td><td>Resuelve addons, mods y su ciclo de vida en un solo lugar; cada base lo usa en tres líneas.</td></tr>
-    <tr><td><b>Values</b></td><td>Estado compartido por dueño (<code>IsCrouching</code>, referencias a servicios) sin acoplar addons entre sí.</td></tr>
+    <tr><td><b>Values</b></td><td>Estado compartido por dueño con claves <code>Key&lt;T&gt;</code>. Cada clave tiene identidad propia y fija el tipo del dato. Las escrituras reutilizan su celda tipada.</td></tr>
+    <tr><td><b>Context</b></td><td>Referencia con Source y Target inmutables de tipo Host; crea Values al recibir datos. Conserva la operación mientras cambian sus muestras.</td></tr>
     <tr><td><b>GameManager</b></td><td>Service singleton que orquesta el juego; <b>Atom</b> es la implementación por defecto.</td></tr>
   </table>
-  <p class="muted">Piezas de soporte: <b>Palette</b> (assets por nombre), <b>Quantum</b> (utilidades estáticas), <b>Charm</b> (skin del editor). La jerarquía completa es corta a propósito: <code>Identifiable → Entity / Prop</code> · <code>Service → GameManager → Atom</code>.</p>
+  <p class="muted">Piezas de soporte: <b>Palette</b> (assets por nombre), <b>Quantum</b> (utilidades estáticas), <b>Charm</b> (skin del editor). La jerarquía completa es corta a propósito: <code>Host → Identifiable → Entity / Prop</code> · <code>Host → Service → GameManager → Atom</code>.</p>
 </section>
 
 <section id="proyecto">
@@ -87,16 +89,44 @@
   <div class="flow"><b>0 - ROOT</b>          static      no depende de nada
 <b>1 - CORE</b>          abstract    Identity / Composition / Management / Charm
 <b>2 - EXTENSIONS</b>    concreto    lo que deriva de CORE</div>
-  <p>El ciclo de vida es simétrico y siempre lo dispara el dueño a través de su Nucleus:</p>
+  <p>El dueño dispara el ciclo de vida a través de su Nucleus:</p>
   <div class="flow">Awake      → <b>Hook</b>       addons en orden de lista, después mods
 Update     → <b>Handle</b>     solo piezas con Enabled
-OnDestroy  → <b>Unhook</b>     orden inverso</div>
+OnDestroy  → <b>Unhook</b>     addons en orden de lista, después mods</div>
   <p>Por eso, si una subclase necesita <code>Awake</code> u <code>OnDestroy</code>, los declara <code>override</code> y llama a <code>base</code>: el pipeline vive en la clase base.</p>
   <p class="muted">Convenciones de carpetas: <code>Editor/</code> queda fuera del build a cualquier profundidad · <code>Assets/_/Library/</code> assets de terceros integrados · <code>Assets/Resources/</code> assets cargables por nombre · <code>Source/</code> material crudo fuera de <code>Assets/</code>, que Unity no importa.</p>
 </section>
 
+<section id="interaction">
+  <h2><span class="sec">04</span> Interaction</h2>
+  <p><code>Prop</code> sigue siendo abstracto. <code>Interactable</code> reemplaza a Item conservando su GUID y los IDs de sonido. El comportamiento se elige componiendo motores independientes:</p>
+  <table>
+    <tr><th>Pieza</th><th>Comportamiento</th></tr>
+    <tr><td><code>Physical</code> · Mod</td><td>Primary Press agarra; Release suelta. La cámara guía el punto tomado mediante fuerzas limitadas, con respuesta distinta según la masa. Secondary Press lanza un cuerpo libre sostenido; no lanza mecanismos con joint.</td></tr>
+    <tr><td><code>Motion</code> · Mod</td><td>Use Press abre si el recorrido está en 0–50%, y cierra si supera 50%. Tiene respuesta positiva en reposo, aumenta con la velocidad real del personaje y se limita al agacharse. Sprint sin desplazamiento no agrega fuerza.</td></tr>
+    <tr><td><code>Lock</code> · Addon</td><td>Se activa solo dentro de la tolerancia de cerrado. Impide ambos motores; al desbloquear restaura los límites originales. Un cuerpo libre sin recorrido no admite Lock.</td></tr>
+  </table>
+  <p>Un agarre aceptado cancela Motion desde la posición actual. Use se ignora durante el agarre. Al soltar, el mecanismo conserva su coordenada; el ajuste opcional cerca de cerrado viene activado. La resistencia cancela el movimiento automático y ese ajuste, sin convertir el obstáculo en un bloqueo.</p>
+  <h3>Configuración</h3>
+  <p>Bisagra: HingeJoint con límites activos, mínimo cerrado y máximo abierto.</p>
+  <p>Corredera: ConfigurableJoint con un eje lineal Limited, los otros dos Locked y todas las rotaciones Locked. Los extremos negativo y positivo del límite simétrico representan cerrado y abierto; ejes y anclas definen esa orientación.</p>
+  <p>Tween: el recorrido define posición y rotación local de ambos extremos. El objeto debe comenzar sobre ese recorrido. Se usa el arco corto de rotación. Puede tener un Rigidbody cinemático; un Rigidbody libre dinámico corresponde a Physical.</p>
+  <p>Colliders del tween: Box, Sphere, Capsule o Mesh convexo, incluidos hijos del mismo cuerpo. El barrido comprueba traslación y giro; la envolvente conservadora de los meshes puede detenerlos antes del contacto visual. La geometría permanece fija y sin deformación; los giros requieren padres con escala uniforme.</p>
+  <p>Motion y Physical comparten el mismo target al combinarse. Cada Lock corresponde a un target del Prop. La respuesta, amortiguación y fuerza máxima dependen del tamaño y la masa del mecanismo.</p>
+  <h3>Context y eventos</h3>
+  <p>Use e Interact son solicitudes. Interact identifica Primary/Secondary y Press/Release en Context. Caster conserva un Context de foco; cada botón mantiene el suyo hasta Release aunque cambie el foco. Physical calcula velocidad y aceleración de muestras nuevas de vista con tiempo.</p>
+  <p>Grab y Release notifican control aceptado y terminado. OnMove se limita por intervalo; Opening/Closing informan dirección medida y Opened/Closed/OnLimit indican llegada. Los resultados usan otro Context con Strength entre 0 y 1; OnLimit incluye la clave Motion.Limit. Un lanzamiento no inventa una liberación del botón.</p>
+  <p>Physical observa cuando está activo; Motion lo reemplaza cuando falta o se desactiva. Los motores conservan un único escritor y restauran solo los ajustes que controlan. Entity.Birth/Death y sus eventos se invocan explícitamente, separados de Awake/OnDestroy.</p>
+</section>
+
+<section id="hub">
+  <h2><span class="sec">05</span> Hub</h2>
+  <p><code>Hub : Service</code> vive en <code>Extensions/Hub/Scripts</code>. Cada zona asigna un GameObject raíz y un MonoBehaviour como dependencia. Una referencia ausente o sin asignar oculta la zona; una dependencia desactivada conserva su estado original.</p>
+  <p>El autor compone el mapa y los materiales, modelos y demás recursos de Hub. Al quitar Interaction, el código base y Hub permanecen; los componentes y referencias serializadas faltantes requieren limpieza manual.</p>
+</section>
+
 <section id="roadmap">
-  <h2><span class="sec">04</span> Roadmap</h2>
+  <h2><span class="sec">06</span> Roadmap</h2>
   <p class="muted">Anotado, sin construir. Se implementa cuando un sistema real lo pida:</p>
   <ul>
     <li><b>Settings</b> — layers de mundo e interacción, sonidos por superficie, preferencias del jugador.</li>

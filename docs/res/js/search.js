@@ -14,9 +14,12 @@ const QINDEX = [
 
   /* secciones — design */
   { t: 'Filosofía', c: 'Design', u: 'res/design.html#filosofia', k: 'principios reglas yagni lazy reusar componer herencia null comentarios one-liner', y: 'sección' },
-  { t: 'Arquitectura', c: 'Design', u: 'res/design.html#arquitectura', k: 'entity prop service identifiable addon mod nucleus values gamemanager atom bases vocabulario', y: 'sección' },
+  { t: 'Arquitectura', c: 'Design', u: 'res/design.html#arquitectura', k: 'entity prop service host context key identifiable addon mod nucleus values gamemanager atom birth death bases vocabulario', y: 'sección' },
   { t: 'Proyecto', c: 'Design', u: 'res/design.html#proyecto', k: 'root core extensions capas carpetas ciclo vida hook handle unhook library resources source', y: 'sección' },
   { t: 'Roadmap', c: 'Design', u: 'res/design.html#roadmap', k: 'settings services packaging asmdef vision', y: 'sección' },
+
+  { t: 'Interaction', c: 'Design', u: 'res/design.html#interaction', k: 'interactable physical motion lock joint hinge corredera collider fuerza agarrar liberar abrir cerrar context', y: 'sección' },
+  { t: 'Hub', c: 'Design', u: 'res/design.html#hub', k: 'zonas dependencias modulos recursos referencias', y: 'sección' },
 
   /* secciones — style */
   { t: 'Regiones', c: 'Style', u: 'res/style.html#regiones', k: 'fields lifetime api misc', y: 'sección' },
@@ -30,8 +33,10 @@ const QINDEX = [
   { t: 'Jump', c: 'Space · A', u: 'res/controls.html', k: 'saltar space buttonsouth', y: 'control' },
   { t: 'Sprint', c: 'Shift · L3', u: 'res/controls.html', k: 'correr shift leftstickpress', y: 'control' },
   { t: 'Crouch', c: 'C · R3', u: 'res/controls.html', k: 'agacharse toggle rightstickpress', y: 'control' },
-  { t: 'CrouchHold', c: 'Ctrl', u: 'res/controls.html', k: 'agacharse hold', y: 'control' },
-  { t: 'Interact', c: 'E · X', u: 'res/controls.html', k: 'interactuar usar buttonwest', y: 'control' },
+  { t: 'CrouchHold', c: 'Ctrl', u: 'res/controls.html', k: 'agacharse hold ctrl soltar borra toggle', y: 'control' },
+  { t: 'Use', c: 'E · X', u: 'res/controls.html', k: 'usar abrir cerrar motion buttonwest', y: 'control' },
+  { t: 'Interact', c: 'LMB · RT', u: 'res/controls.html', k: 'primary press release agarrar soltar leftbutton righttrigger', y: 'control' },
+  { t: 'Secondary', c: 'RMB · LT', u: 'res/controls.html', k: 'secondary press release lanzar throw rightbutton lefttrigger', y: 'control' },
 
   /* íconos (generado) */
   // @icons

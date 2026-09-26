@@ -46,7 +46,7 @@
 <header>
   <div class="kicker">Recursos</div>
   <h1>Controls</h1>
-  <p class="lead">Mapa de acciones del enum <code>Control</code> con su binding e ícono por plataforma. Click sobre una fila copia el identificador; el mismo asset resuelve <code>controls.Icon(Control.X)</code> en runtime. Por defecto se muestran KBM y Xbox — los chips cambian de plataforma.</p>
+  <p class="lead">Acciones de <code>Control</code> con bindings e íconos por plataforma. Cada fila copia el identificador al pulsarla. Los bindings se configuran en <code>Controls.inputactions</code>; los íconos son referencias de esta documentación. KBM y Xbox aparecen por defecto. Los chips cambian de plataforma.</p>
   <div class="hr"></div>
 </header>
 
@@ -105,14 +105,31 @@
       <div class="bind ps"><span class="none">sin binding</span></div>
       <div class="bind sw"><span class="none">sin binding</span></div>
     </div>
-    <div class="ctl" data-k="interact e buttonwest interactuar usar" onclick="copy('Control.Interact')">
-      <div><div class="cname">Interact</div><div class="cdesc">Button</div></div>
+    <div class="ctl" data-k="use e buttonwest usar abrir cerrar motion" onclick="copy('Control.Use')">
+      <div><div class="cname">Use</div><div class="cdesc">Button · Motion en Press</div></div>
       <div class="bind kbm"><img src="../../Assets/_/Library/Input/KeyboardMouse/e.png" alt="E"><div><span class="plat">KBM</span><span class="blabel">E</span></div></div>
       <div class="bind xbox"><img src="../../Assets/_/Library/Input/Xbox/buttonWest.png" alt="X"><div><span class="plat">Xbox</span><span class="blabel">X · buttonWest</span></div></div>
       <div class="bind ps"><img src="../../Assets/_/Library/Input/PS5/buttonWest.png" alt="Square"><div><span class="plat">PS</span><span class="blabel">Square · buttonWest</span></div></div>
       <div class="bind sw"><img src="../../Assets/_/Library/Input/Switch/buttonWest.png" alt="Y"><div><span class="plat">Switch</span><span class="blabel">Y · buttonWest</span></div></div>
     </div>
+    <div class="ctl" data-k="interact primary lmb leftbutton righttrigger agarrar soltar" onclick="copy('Control.Interact')">
+      <div><div class="cname">Interact</div><div class="cdesc">Primary · Press / Release</div></div>
+      <div class="bind kbm"><div><span class="plat">KBM</span><span class="blabel">LMB</span></div></div>
+      <div class="bind xbox"><div><span class="plat">Xbox</span><span class="blabel">RT</span></div></div>
+      <div class="bind ps"><div><span class="plat">PS</span><span class="blabel">R2</span></div></div>
+      <div class="bind sw"><div><span class="plat">Switch</span><span class="blabel">ZR</span></div></div>
+    </div>
+    <div class="ctl" data-k="secondary rmb rightbutton lefttrigger lanzar throw" onclick="copy('Control.Secondary')">
+      <div><div class="cname">Secondary</div><div class="cdesc">Secondary · Press / Release</div></div>
+      <div class="bind kbm"><div><span class="plat">KBM</span><span class="blabel">RMB</span></div></div>
+      <div class="bind xbox"><div><span class="plat">Xbox</span><span class="blabel">LT</span></div></div>
+      <div class="bind ps"><div><span class="plat">PS</span><span class="blabel">L2</span></div></div>
+      <div class="bind sw"><div><span class="plat">Switch</span><span class="blabel">ZL</span></div></div>
+    </div>
   </div>
+
+  <p>Los bindings son remapeables. Primary Press intenta agarrar y Release suelta. Secondary Press lanza solo un cuerpo libre sostenido. Use Press activa Motion: abre hasta el 50% inclusive y cierra por encima; se ignora durante el agarre.</p>
+  <p>C alterna el agachado; Ctrl lo mantiene y, al soltarlo, borra también la intención activada con C. Ambas acciones conviven. El gamepad usa toggle. La comprobación de espacio para ponerse de pie sigue activa.</p>
 
   <div class="note">Alta de una acción: enum <code>Control</code> → <code>Controls.inputactions</code> → esta página → índice del buscador. PlayStation usa el set PS5 (<code>Input.PlayStation</code>). Switch no trae íconos de stick press en el pack; su Scheme todavía no existe en runtime.</div>
 </section>
