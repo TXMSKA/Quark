@@ -8,8 +8,8 @@ is deliberate, update this file in the same change.
 
 ## Layers (`Assets/Scripts/`, one-way dependency, top to bottom)
 
-- `0 - ROOT`: static support, depends on nothing. Pieces: `Anima`, `Palette`,
-  `Quantum`, `SpritePalette`, and `Charm/` (editor skin, with its `Editor/`).
+- `0 - ROOT`: static support, depends on nothing. Pieces: `Palette`,
+  `SpritePalette`, and `Charm/` (editor skin, with its `Editor/`).
 - `1 - CORE`: abstract foundations. Domains: `Identity/`, `Composition/`,
   `Management/`.
 - `2 - EXTENSIONS`: concrete gameplay, derives from CORE. Domains today:
@@ -28,12 +28,14 @@ breaks).
   `Host → Identifiable → Entity / Prop`;
   `Host → Service → GameManager → Atom` (default implementation).
 - Pieces: `Addon<T>` (serialized behavior inside its owner, may nest),
-  `Mod<T>` (scene component the owner detects in its hierarchy),
-  `Nucleus<T>` (resolves addons, mods and lifecycle), `Values` (shared
+  `Mod<T>` (scene component the owner detects in its hierarchy; its
+  `Enabled` is the component switch), `Nucleus<T>` (resolves addons, mods
+  and lifecycle; `Get<T>` looks in addons, then mods), `Values` (shared
   per-owner state).
 - Lifecycle is owner-driven through Nucleus: `Awake → Hook` (list order,
-  addons then mods), `Update → Handle` (only `Enabled`), `OnDestroy → Unhook`
-  (forward: addons, then mods). Subclasses that need `Awake`/`OnDestroy` override and call base.
+  addons then mods), `Update → Handle` (addons with `Enabled`, active mods),
+  `OnDestroy → Unhook` (forward: addons, then mods). Subclasses that need
+  `Awake`/`OnDestroy` override and call base.
 
 ## Interaction contracts
 
@@ -42,10 +44,11 @@ breaks).
   `Mod<Prop>` components; `Lock` is an optional `Addon<Prop>`.
 - `Context` is a retained reference with immutable `Host Source/Target` and
   lazy typed data. Input reports Primary/Secondary and Press/Release. Use is
-  a separate request. Result events get their own context and strength 0..1.
+  a separate request. Grab and Release results get their own context.
 - `Values` uses feature-owned `Key<T>` identities and retains its typed cells.
-  Two keys of the same payload type are distinct. `Key<T>.Default` is the
-  single-service registration token; `GameManager.Find<T>()` uses it.
+  Two keys of the same payload type are distinct. System addons register
+  under `Key<T>.Default`; `GameManager.Find<T>()` checks that key, then the
+  registered Services by type.
 - `Entity.Birth/Death(Context)` dispatch explicit gameplay events independently
   of Unity creation/destruction.
 - Primary grabs/releases. Secondary throws held free bodies. Use opens at
@@ -53,14 +56,17 @@ breaks).
   Use during a grab is ignored. Released joints hold their coordinate, with
   optional near-closed snap. Obstruction cancels movement without setting Lock.
 - Hinge and slider bounds are authored on the joint: minimum closed, maximum
-  open. Sliders use both signed ends of their symmetric linear limit. Lock
-  accepts only a closed mechanism and restores the authored limits on unlock.
+  open. Sliders use both signed ends of their symmetric linear limit.
+  Interactable joints carry no motor, spring or drive; both motors move them
+  with forces only. Lock accepts only a closed mechanism and freezes a
+  jointed body (kinematic) until unlock; a tween refuses Use while locked.
 - Motion tweens Transform-only or authored kinematic targets; free dynamic
   bodies use Physical. Tween collision geometry uses primitives or convex
-  meshes, including compound children, with swept checks before each move.
-- Motor settings are cached before driving. Direct sibling references select
-  one writer and one movement observer. Both motors guard custom Enabled and
-  Unity activation; their local physics cleanup does not change Nucleus.
+  meshes, including compound children. Each move advances in substeps and
+  stops at the last one that pushes into nothing, honoring the layer
+  collision matrix and ignored pairs.
+- Motion pairs with the Physical on its target, so one writer moves a body:
+  Physical holds it while Motion is idle, and a grab stops Motion.
 - `Hub : Service` lives outside removable Interaction. Each zone pairs a root
   with a generic MonoBehaviour requirement. Missing dependencies hide zones;
   present disabled components preserve the authored state. Scene composition,
@@ -99,5 +105,3 @@ only, via GitHub Desktop.
   roadmap.
 - `Charm` is listed as a CORE domain in the documentation but lives in `0 - ROOT`;
   `CharmEditor` sits in `1 - CORE/Composition/Editor/`. Pending unification.
-- A stray `CLASSES` region exists in `Management/Addons/Audio.cs` and
-  `Controls.cs`; the declared set has no such region.
