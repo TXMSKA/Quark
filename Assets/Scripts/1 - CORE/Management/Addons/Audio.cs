@@ -13,9 +13,7 @@ namespace Quark
         [Header("Audio")]
         [SerializeField, Range(0f, 1f)] private float master = 1f;
         [SerializeField, Min(1)] private int capacity = 16;
-        [SerializeField] private SFXLibrary library;
         [SerializeField] private AudioMixerGroup sfx;
-        [SerializeField] private AudioMixerGroup ui;
 
         #endregion
 
@@ -31,25 +29,7 @@ namespace Quark
         public override void Handle()
         {
             for (var i = active.Count - 1; i >= 0; i--)
-            {
-                var voice = active[i];
-                if (voice.Source == null) { active.RemoveAt(i); continue; }
-
-                if (voice.Duration > 0f)
-                {
-                    voice.Elapsed += Time.unscaledDeltaTime;
-                    var t = Mathf.Clamp01(voice.Elapsed / voice.Duration);
-                    voice.Source.volume = Mathf.Lerp(voice.From, voice.To, t);
-                    if (t < 1f) continue;
-                    voice.Duration = 0f;
-                    if (voice.Releasing) { Recycle(i); continue; }
-                }
-
-                if (voice.Source.loop || voice.Source.isPlaying) continue;
-                var ended = voice.OnEnded;
-                Recycle(i);
-                ended?.Invoke();
-            }
+                if (active[i] == null || !active[i].isPlaying) Recycle(i);
         }
 
         public override void Unhook()
@@ -67,32 +47,8 @@ namespace Quark
 
         #region API
 
-        public float Master
-        {
-            get => master;
-            set { master = Mathf.Clamp01(value); AudioListener.volume = master; }
-        }
-
-        // 2D one-shot with no owner: UI, stingers.
-        public void Play(string id, float scale = 1f)
-        {
-            if (library == null || !library.TryGet(id, out var entry)) return;
-            var clip = entry.Clip;
-            if (clip == null) return;
-
-            var source = Take(null, null);
-            if (source == null) return;
-
-            if (ui != null) source.outputAudioMixerGroup = ui;
-            source.clip = clip;
-            source.volume = Mathf.Clamp01(scale);
-            source.pitch = entry.Pitch;
-            source.loop = false;
-            source.spatialBlend = 0f;
-            source.Play();
-        }
-
-        public AudioSource Take(Action onEnded, Transform follow)
+        // The source returns to the pool on the first frame it is not playing.
+        public AudioSource Take(Transform follow)
         {
             var source = Rent();
             if (source == null) return null;
@@ -102,42 +58,15 @@ namespace Quark
             t.SetParent(follow != null ? follow : Host.transform, false);
             t.localPosition = Vector3.zero;
 
-            active.Add(new Voice { Source = source, OnEnded = onEnded });
+            active.Add(source);
             return source;
-        }
-
-        public void Release(AudioSource source, float fade = 0f)
-        {
-            var index = IndexOf(source);
-            if (index < 0) return;
-            if (fade <= 0f) { Recycle(index); return; }
-
-            var voice = active[index];
-            voice.From = source.volume;
-            voice.To = 0f;
-            voice.Duration = fade;
-            voice.Elapsed = 0f;
-            voice.Releasing = true;
-        }
-
-        public void Fade(AudioSource source, float to, float time)
-        {
-            var index = IndexOf(source);
-            if (index < 0) return;
-
-            var voice = active[index];
-            voice.From = source.volume;
-            voice.To = to;
-            voice.Duration = Mathf.Max(time, 0.0001f);
-            voice.Elapsed = 0f;
-            voice.Releasing = false;
         }
 
         #endregion
 
         #region MISC
 
-        private readonly List<Voice> active = new();
+        private readonly List<AudioSource> active = new();
         private readonly Stack<AudioSource> pool = new();
         private GameObject host;
         private int count;
@@ -170,10 +99,8 @@ namespace Quark
 
         private void Recycle(int index)
         {
-            var voice = active[index];
+            var source = active[index];
             active.RemoveAt(index);
-
-            var source = voice.Source;
             if (source == null) return;
 
             source.Stop();
@@ -182,25 +109,6 @@ namespace Quark
             source.transform.SetParent(Host.transform, false);
             source.transform.localPosition = Vector3.zero;
             pool.Push(source);
-        }
-
-        private int IndexOf(AudioSource source)
-        {
-            for (var i = 0; i < active.Count; i++)
-                if (active[i].Source == source) return i;
-            return -1;
-        }
-
-        #endregion
-
-        #region CLASSES
-
-        private class Voice
-        {
-            public AudioSource Source;
-            public Action OnEnded;
-            public float From, To, Duration, Elapsed;
-            public bool Releasing;
         }
 
         #endregion
