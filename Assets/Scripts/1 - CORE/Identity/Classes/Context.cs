@@ -7,7 +7,6 @@ namespace Quark
         public static readonly Key<Channel> Input = new();
         public static readonly Key<Phase> Stage = new();
         public static readonly Key<Vector3> Point = new();
-        public static readonly Key<Vector3> Normal = new();
         public static readonly Key<Ray> View = new();
         public static readonly Key<float> SampleTime = new();
         public static readonly Key<Vector3> Velocity = new();

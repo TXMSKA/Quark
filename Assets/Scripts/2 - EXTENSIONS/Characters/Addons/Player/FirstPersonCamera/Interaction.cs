@@ -77,16 +77,7 @@ namespace Quark
             operation = new Context(Owner.Owner, target);
             operation.Set(Context.Stage, Context.Phase.Press);
             if (channel.HasValue) operation.Set(Context.Input, channel.Value);
-            if (caster.Target == target && caster.Hit.collider != null)
-            {
-                operation.Set(Context.Point, caster.Hit.point);
-                operation.Set(Context.Normal, caster.Hit.normal);
-            }
-            else if (primary != null && primary.Target == target)
-            {
-                if (primary.TryGet(Context.Point, out var point)) operation.Set(Context.Point, point);
-                if (primary.TryGet(Context.Normal, out var normal)) operation.Set(Context.Normal, normal);
-            }
+            if (caster.Target == target && caster.Hit.collider != null) operation.Set(Context.Point, caster.Hit.point);
             Sample(operation);
 
             if (channel == Context.Channel.Primary)
