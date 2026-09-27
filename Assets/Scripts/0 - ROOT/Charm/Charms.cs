@@ -3,16 +3,6 @@ using UnityEngine;
 
 namespace Quark
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public sealed class ButtonAttribute : Attribute
-    {
-        public string Label { get; }
-        public ButtonAttribute(string label = null) => Label = label;
-    }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public sealed class ReadOnlyAttribute : PropertyAttribute { }
-
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class MinMaxAttribute : PropertyAttribute
     {

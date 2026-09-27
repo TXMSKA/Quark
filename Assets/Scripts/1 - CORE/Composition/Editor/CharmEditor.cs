@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace Quark
 {
-    // Global skin: hides the script row, routes addon lists through AddonList, draws [Button] pills.
+    // Global skin: hides the script row and routes addon lists through AddonList.
     // Any editor registered for a more specific type still wins.
     [CustomEditor(typeof(MonoBehaviour), true), CanEditMultipleObjects]
     sealed class CharmEditor : Editor
@@ -27,7 +25,6 @@ namespace Quark
 
             Box(fields, lists);
             serializedObject.ApplyModifiedProperties();
-            Buttons();
         }
 
         bool IsNucleus(SerializedProperty p)
@@ -73,25 +70,5 @@ namespace Quark
             EditorGUIUtility.labelWidth = old;
             GUILayout.Space(4f);
         }
-
-        void Buttons()
-        {
-            foreach (var method in Methods())
-            {
-                GUILayout.Space(6f);
-                var label = method.GetCustomAttribute<ButtonAttribute>().Label ?? ObjectNames.NicifyVariableName(method.Name);
-                if (!Charm.Pill(GUILayoutUtility.GetRect(0f, 26f, GUILayout.ExpandWidth(true)), label)) continue;
-                foreach (var t in targets)
-                {
-                    Undo.RecordObject(t, method.Name);
-                    method.Invoke(t, null);
-                    EditorUtility.SetDirty(t);
-                }
-            }
-        }
-
-        IEnumerable<MethodInfo> Methods() =>
-            target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => m.GetParameters().Length == 0 && m.IsDefined(typeof(ButtonAttribute), true));
     }
 }

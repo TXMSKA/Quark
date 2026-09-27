@@ -47,9 +47,6 @@ namespace Quark
             return info != null && typeof(Nucleus).IsAssignableFrom(info.FieldType) ? p.FindPropertyRelative("addons") : null;
         }
 
-        public static void Layout(SerializedProperty list, Type host) =>
-            Draw(GUILayoutUtility.GetRect(0f, Height(list), GUILayout.ExpandWidth(true)), list, host);
-
         public static float Height(SerializedProperty list)
         {
             var h = Head + Gap;

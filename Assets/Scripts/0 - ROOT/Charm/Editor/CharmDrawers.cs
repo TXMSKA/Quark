@@ -23,19 +23,6 @@ namespace Quark
         }
     }
 
-    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-    sealed class ReadOnlyCharm : PropertyDrawer
-    {
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-            EditorGUI.GetPropertyHeight(property, label, true);
-
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            using (new EditorGUI.DisabledScope(true))
-                EditorGUI.PropertyField(position, property, label, true);
-        }
-    }
-
     [CustomPropertyDrawer(typeof(MinMaxAttribute))]
     sealed class MinMaxCharm : PropertyDrawer
     {
