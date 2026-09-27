@@ -13,9 +13,6 @@ namespace Quark
 
         #region API
 
-        private string uid;
-        public string Uid => string.IsNullOrEmpty(uid) ? (uid = Quantum.NewUid()) : uid;
-
         public event Action<Context> OnFocus;
         public event Action<Context> OnUnfocus;
 
