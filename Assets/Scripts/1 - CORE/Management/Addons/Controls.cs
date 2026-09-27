@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.InputSystem.XInput;
 
 namespace Quark
 {
@@ -25,30 +22,29 @@ namespace Quark
         {
             base.Hook(owner);
             owner.Values.Set(Key<Controls>.Default, this);
-            InputSystem.onEvent += Detect;
             if (actions == null) { Debug.LogWarning("Controls: no InputActionAsset assigned."); return; }
             foreach (var action in actions)
             {
-                action.performed += events.Performed;
-                action.canceled += events.Released;
+                action.performed += Performed;
+                action.canceled += Released;
             }
             actions.Enable();
         }
 
         public override void Unhook()
         {
-            InputSystem.onEvent -= Detect;
             if (Owner != null) Owner.Values.Forget(Key<Controls>.Default);
             if (actions != null)
             {
                 actions.Disable();
                 foreach (var action in actions)
                 {
-                    action.performed -= events.Performed;
-                    action.canceled -= events.Released;
+                    action.performed -= Performed;
+                    action.canceled -= Released;
                 }
             }
-            events.Clear();
+            performed.Clear();
+            released.Clear();
             cache.Clear();
             base.Unhook();
         }
@@ -56,9 +52,6 @@ namespace Quark
         #endregion
 
         #region API
-
-        public Scheme Active { get; private set; } = Scheme.KeyboardMouse;
-        public event Action<Scheme> OnSchemeChanged;
 
         public InputAction Get(Control control)
         {
@@ -69,83 +62,33 @@ namespace Quark
 
         public Vector2 Axis(Control control) => Get(control)?.ReadValue<Vector2>() ?? default;
 
-        public void Subscribe(Control control, Action onPerformed, Action onReleased = null) => events.Subscribe(control, onPerformed, onReleased);
-        public void Unsubscribe(Control control, Action onPerformed, Action onReleased = null) => events.Unsubscribe(control, onPerformed, onReleased);
+        public void Subscribe(Control control, Action onPerformed, Action onReleased = null)
+        {
+            var name = control.ToString();
+            performed[name] = performed.GetValueOrDefault(name) + onPerformed;
+            released[name] = released.GetValueOrDefault(name) + onReleased;
+        }
+
+        public void Unsubscribe(Control control, Action onPerformed, Action onReleased = null)
+        {
+            var name = control.ToString();
+            performed[name] = performed.GetValueOrDefault(name) - onPerformed;
+            released[name] = released.GetValueOrDefault(name) - onReleased;
+        }
 
         #endregion
 
         #region MISC
 
-        private readonly Events events = new();
+        private readonly Dictionary<string, Action> performed = new();
+        private readonly Dictionary<string, Action> released = new();
         private readonly Dictionary<Control, InputAction> cache = new();
 
-        private void Detect(InputEventPtr eventPtr, InputDevice device)
-        {
-            if (device == null || !eventPtr.valid) return;
-            var next = Classify(device);
-            if (next == Scheme.Other || next == Active) return;
-            Active = next;
-            OnSchemeChanged?.Invoke(next);
-        }
+        private void Performed(InputAction.CallbackContext context) =>
+            performed.GetValueOrDefault(context.action.name)?.Invoke();
 
-        private static Scheme Classify(InputDevice device) => device switch
-        {
-            XInputController => Scheme.Xbox,
-            DualShockGamepad => Scheme.PlayStation,
-            Gamepad => Scheme.Gamepad,
-            TrackedDevice => Scheme.XR,
-            Keyboard or Mouse => Scheme.KeyboardMouse,
-            _ => Scheme.Other,
-        };
-
-        #endregion
-
-        #region CLASSES
-
-        public enum Scheme { KeyboardMouse, Gamepad, Xbox, PlayStation, XR, Other }
-
-        private class Events
-        {
-            private readonly Dictionary<string, Action> performed = new(), released = new();
-
-            public void Subscribe(Control control, Action onPerformed, Action onReleased)
-            {
-                Add(performed, control, onPerformed);
-                Add(released, control, onReleased);
-            }
-
-            public void Unsubscribe(Control control, Action onPerformed, Action onReleased)
-            {
-                Remove(performed, control, onPerformed);
-                Remove(released, control, onReleased);
-            }
-
-            public void Performed(InputAction.CallbackContext context) => Dispatch(performed, context);
-            public void Released(InputAction.CallbackContext context) => Dispatch(released, context);
-
-            public void Clear()
-            {
-                performed.Clear();
-                released.Clear();
-            }
-
-            private static void Dispatch(Dictionary<string, Action> bus, InputAction.CallbackContext context)
-            {
-                if (bus.TryGetValue(context.action.name, out var callback)) callback?.Invoke();
-            }
-
-            private static void Add(Dictionary<string, Action> bus, Control control, Action callback)
-            {
-                if (callback == null) return;
-                bus.TryGetValue(control.ToString(), out var current);
-                bus[control.ToString()] = current + callback;
-            }
-
-            private static void Remove(Dictionary<string, Action> bus, Control control, Action callback)
-            {
-                if (bus.TryGetValue(control.ToString(), out var current)) bus[control.ToString()] = current - callback;
-            }
-        }
+        private void Released(InputAction.CallbackContext context) =>
+            released.GetValueOrDefault(context.action.name)?.Invoke();
 
         #endregion
     }
