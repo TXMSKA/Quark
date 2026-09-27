@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Quark
@@ -40,8 +41,11 @@ namespace Quark
 
         public static GameManager Instance { get; private set; }
 
-        public static T Find<T>(Key<T> key = null) where T : class =>
-            Instance != null && Instance.Values.TryGet(key ?? Key<T>.Default, out T value) ? value : null;
+        // Addons register under their default key; Services are found by type, without registering.
+        public static T Find<T>() where T : class =>
+            Instance != null && Instance.Values.TryGet(Key<T>.Default, out T value)
+                ? value
+                : services.OfType<T>().FirstOrDefault();
 
         internal static void Register(Service service)
         {
