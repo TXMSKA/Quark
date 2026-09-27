@@ -25,9 +25,6 @@ namespace Quark
             return false;
         }
 
-        public T Get<T>(Key<T> key) => TryGet(key, out T value) ? value : throw new KeyNotFoundException();
-
-        public bool Has<T>(Key<T> key) => table.ContainsKey(key);
         public bool Forget<T>(Key<T> key) => table.Remove(key);
     }
 }

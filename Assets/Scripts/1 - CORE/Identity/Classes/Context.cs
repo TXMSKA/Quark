@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Quark
@@ -27,13 +26,11 @@ namespace Quark
         private Values values;
 
         public void Set<T>(Key<T> key, T value) => (values ??= new()).Set(key, value);
-        public T Get<T>(Key<T> key) => TryGet(key, out T value) ? value : throw new KeyNotFoundException();
 
         public bool TryGet<T>(Key<T> key, out T value)
         {
-            if (values != null) return values.TryGet(key, out value);
             value = default;
-            return false;
+            return values != null && values.TryGet(key, out value);
         }
 
         public enum Channel { Primary, Secondary }

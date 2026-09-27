@@ -14,8 +14,6 @@ namespace Quark
 
         #region API
 
-        public T Get(string key) => TryGet(key, out var value) ? value : null;
-
         public bool TryGet(string key, out T value)
         {
             if (lookup == null)
