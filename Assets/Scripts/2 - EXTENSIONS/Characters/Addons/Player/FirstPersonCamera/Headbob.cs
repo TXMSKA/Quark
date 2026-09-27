@@ -27,8 +27,6 @@ namespace Quark
         private float fall;
         private bool grounded = true;
 
-        public float Phase => phase;
-
         public override void Handle()
         {
             var root = Owner.Root;

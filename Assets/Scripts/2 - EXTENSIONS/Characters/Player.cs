@@ -13,8 +13,6 @@ namespace Quark
 
         #region LIFETIME
 
-        private void Reset() => Controller = GetComponent<CharacterController>();
-
         protected override void Awake()
         {
             base.Awake();
