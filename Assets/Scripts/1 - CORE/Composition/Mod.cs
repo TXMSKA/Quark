@@ -7,7 +7,7 @@ namespace Quark
     {
         #region API
 
-        [field: SerializeField] public bool Enabled { get; set; } = true;
+        public bool Enabled { get => enabled; set => enabled = value; }
 
         [field: NonSerialized] public T Owner { get; private set; }
 

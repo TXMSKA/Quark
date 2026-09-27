@@ -13,7 +13,8 @@ namespace Quark
         private Values values;
         public Values Values => values ??= new();
 
-        public TAddon Get<TAddon>() where TAddon : class => addons.OfType<TAddon>().FirstOrDefault();
+        public virtual TBehavior Get<TBehavior>() where TBehavior : class =>
+            addons.OfType<TBehavior>().FirstOrDefault();
 
         public virtual void Initialize(object owner)
         {
@@ -43,7 +44,9 @@ namespace Quark
     {
         private Mod<T>[] mods;
 
-        public TMod Has<TMod>() where TMod : class => mods.OfType<TMod>().FirstOrDefault();
+        // Mods hook after addons, so an addon asking during its own Hook finds only addons.
+        public override TBehavior Get<TBehavior>() =>
+            base.Get<TBehavior>() ?? mods?.OfType<TBehavior>().FirstOrDefault();
 
         public override void Initialize(object owner)
         {
@@ -66,7 +69,7 @@ namespace Quark
             base.Handle();
 
             foreach (var m in mods)
-                if (m != null && m.Enabled)
+                if (m != null && m.isActiveAndEnabled)
                     m.Handle();
         }
 
