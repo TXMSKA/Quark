@@ -11,7 +11,6 @@ namespace Quark
         public static readonly Key<float> SampleTime = new();
         public static readonly Key<Vector3> Velocity = new();
         public static readonly Key<bool> Stealth = new();
-        public static readonly Key<float> Strength = new();
 
         public Host Source { get; }
         public Host Target { get; }

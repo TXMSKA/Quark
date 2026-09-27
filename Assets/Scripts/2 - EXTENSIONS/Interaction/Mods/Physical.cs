@@ -22,10 +22,6 @@ namespace Quark
         [SerializeField, Range(0.001f, 0.1f)] private float tolerance = 0.01f;
         [SerializeField, Min(0.02f)] private float obstructionTime = 0.4f;
 
-        [Header("Events")]
-        [SerializeField, Min(0.01f)] private float interval = 0.05f;
-        [SerializeField, Min(0.01f)] private float speedReference = 1f;
-
         #endregion
 
         #region LIFETIME
@@ -34,19 +30,11 @@ namespace Quark
         {
             base.Hook(owner);
             body = GetComponent<Rigidbody>();
-
-            foreach (var candidate in owner.GetComponentsInChildren<Motion>(true))
-                if (candidate.GetComponentInParent<Prop>(true) == owner && candidate.Target(owner) == transform)
-                    motion = candidate;
-
-            travel = motion != null && motion.Owner == owner && motion.Mechanism != null
-                ? motion.Mechanism
-                : new Motion.Travel(transform);
-            policy = owner.Get<Lock>();
+            travel = new Motion.Travel(transform);
             valid = body != null && !body.isKinematic && GetComponentInParent<Prop>(true) == owner && travel.Valid;
             if (!valid)
             {
-                Debug.LogWarning("Physical requires an owned dynamic body and a supported joint configuration.", this);
+                Debug.LogWarning("Physical: " + (travel.Error ?? "needs a dynamic Rigidbody owned by this Prop."), this);
                 return;
             }
 
@@ -56,24 +44,9 @@ namespace Quark
 
         private void FixedUpdate()
         {
-            if (!Active) { Cancel(); return; }
-
-            if (!observing)
-            {
-                observation.Seed(travel.Progress, body.position, body.rotation, travel.Constrained, tolerance);
-                observing = true;
-            }
-
-            observation.Step(Owner, Held ? hand : (motion != null && motion.Running ? motion.Cause : cause),
-                travel.Progress, travel.Constrained, body.position, body.rotation,
-                Time.fixedDeltaTime, interval, speedReference, tolerance);
-
+            if (!Active) { End(); return; }
             if (Held && (!Live(hand.Source) || !Sample())) End();
-            if (policy != null && policy.Locked) { ApplyLock(true); return; }
-            if (motion != null && motion.Active && motion.Running) { Yield(); return; }
-
-            Own();
-            travel.Clamp(false);
+            if (motion != null && motion.Active && motion.Running) return;
 
             if (Held)
             {
@@ -136,7 +109,6 @@ namespace Quark
         public bool Grab(Context context)
         {
             if (!Active || Held || context == null || context.Target != Owner || !Live(context.Source) ||
-                (policy != null && policy.Locked) ||
                 !context.TryGet(Context.Point, out var point) || !Finite(point) ||
                 !Read(context, out var view, out var time))
                 return false;
@@ -164,11 +136,9 @@ namespace Quark
             fresh = false;
 
             if (motion != null) motion.Stop();
-            if (motion != null) motion.Yield();
-            hand = cause = context;
+            hand = context;
             snapping = blocked = false;
-            Own();
-            Owner.Grab(Motion.Observation.Result(Owner, context, 0f));
+            Owner.Grab(new Context(context.Source, Owner));
             return true;
         }
 
@@ -186,15 +156,10 @@ namespace Quark
         #region MISC
 
         private Rigidbody body;
-        private Motion motion;
-        private Lock policy;
         private Motion.Travel travel;
-        private readonly Motion.Observation observation = new();
-        private Context hand, cause;
+        private Context hand;
 
         private bool valid;
-        private bool driving;
-        private bool observing;
         private bool fresh;
         private bool snapping;
         private bool blocked;
@@ -208,13 +173,15 @@ namespace Quark
         private float rest;
         private float best, stalled;
 
+        // Set by the Motion that drives this body, whichever of the two hooks first.
+        internal Motion motion;
+
         internal Motion.Travel Mechanism => travel;
 
         internal bool Active =>
-            valid && Enabled && isActiveAndEnabled && Owner != null && Owner.isActiveAndEnabled &&
+            valid && isActiveAndEnabled && Owner != null && Owner.isActiveAndEnabled &&
             body != null && !body.isKinematic && travel != null && travel.Valid;
 
-        internal bool Bounded => Active && travel.Constrained;
         internal float Progress => travel != null ? travel.Progress : 0f;
 
         internal void Rest(float value, bool obstructed)
@@ -226,36 +193,6 @@ namespace Quark
             stalled = 0f;
         }
 
-        internal void ApplyLock(bool locked)
-        {
-            if (!Active) return;
-
-            if (locked)
-            {
-                End();
-                if (motion != null) motion.Stop();
-            }
-            if (motion != null && motion.Active && motion.Running) return;
-
-            Own();
-            travel.Clamp(locked);
-        }
-
-        internal void Yield()
-        {
-            if (!driving) return;
-            travel.Restore();
-            driving = false;
-        }
-
-        private void Own()
-        {
-            if (driving) return;
-            if (motion != null) motion.Yield();
-            travel.Suspend();
-            driving = true;
-        }
-
         private void End()
         {
             if (!Held) return;
@@ -265,16 +202,13 @@ namespace Quark
             Rest(travel.Progress, false);
             targetVelocity = targetAcceleration = Vector3.zero;
             fresh = false;
-            if (Owner != null) Owner.Release(Motion.Observation.Result(Owner, previous, 0f));
+            if (Owner != null) Owner.Release(new Context(previous.Source, Owner));
         }
 
+        // Hands the resting pose to Motion so that it does not pull the body back to an older one.
         private void Cancel()
         {
-            if (!Held && !driving && !observing) return;
-
             End();
-            Yield();
-            observing = false;
             if (motion != null && motion.Active && !motion.Running) motion.Rest(Progress, blocked);
         }
 

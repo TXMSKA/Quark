@@ -18,46 +18,18 @@ namespace Quark
         public override void Hook(Prop owner)
         {
             base.Hook(owner);
-            compatible = true;
-            Transform target = null;
-
-            foreach (var candidate in owner.GetComponentsInChildren<Physical>(true))
-            {
-                if (candidate.GetComponentInParent<Prop>(true) == owner)
-                {
-                    if (target != null && target != candidate.transform) compatible = false;
-                    target = candidate.transform;
-                    physical = candidate;
-                }
-            }
-
-            foreach (var candidate in owner.GetComponentsInChildren<Motion>(true))
-            {
-                if (candidate.GetComponentInParent<Prop>(true) == owner)
-                {
-                    if (target != null && target != candidate.Target(owner)) compatible = false;
-                    target = candidate.Target(owner);
-                    motion = candidate;
-                }
-            }
-
             pending = initiallyLocked;
-            locked = false;
         }
 
+        // The first Handle runs after the owner's mods have hooked, which the closed check needs.
         public override void Handle()
         {
-            if (!pending) return;
-            pending = false;
-            Set(true);
+            if (pending) Set(true);
         }
 
         public override void Unhook()
         {
             Set(false);
-            pending = false;
-            physical = null;
-            motion = null;
             base.Unhook();
         }
 
@@ -65,33 +37,39 @@ namespace Quark
 
         #region API
 
-        public bool Locked
-        {
-            get
-            {
-                if (!Enabled) locked = false;
-                return locked && Owner != null && Owner.isActiveAndEnabled;
-            }
-        }
+        public bool Locked { get; private set; }
 
         public bool Set(bool value)
         {
             pending = false;
+            if (value == Locked) return true;
+
             if (value)
             {
-                if (!compatible || !Enabled || Owner == null || !Owner.isActiveAndEnabled) return false;
-                if (Locked) return true;
+                if (!Enabled || Owner == null || !Owner.isActiveAndEnabled) return false;
+                var physical = Owner.Get<Physical>();
+                var motion = Owner.Get<Motion>();
+                var mechanism = physical != null && physical.Active ? physical.Mechanism
+                    : motion != null && motion.Active ? motion.Mechanism
+                    : null;
+                var closed = mechanism != null &&
+                    (mechanism.Constrained ? mechanism.Progress <= tolerance : motion != null && motion.Closed(tolerance));
+                if (!closed) return false;
 
-                if (physical != null && physical.Bounded)
+                if (motion != null) motion.Stop();
+                if (mechanism.Constrained)
                 {
-                    if (physical.Progress > tolerance) return false;
+                    frozen = mechanism.Body;
+                    frozen.isKinematic = true;
                 }
-                else if (motion == null || !motion.Closed(tolerance)) return false;
+            }
+            else if (frozen != null)
+            {
+                frozen.isKinematic = false;
+                frozen = null;
             }
 
-            locked = value;
-            if (physical != null && physical.Active) physical.ApplyLock(value);
-            else if (motion != null && motion.Active) motion.ApplyLock(value);
+            Locked = value;
             return true;
         }
 
@@ -99,11 +77,8 @@ namespace Quark
 
         #region MISC
 
-        private Physical physical;
-        private Motion motion;
-        private bool locked;
+        private Rigidbody frozen;
         private bool pending;
-        private bool compatible;
 
         #endregion
     }

@@ -29,23 +29,11 @@ namespace Quark
         public event Action<Context> OnInteract;
         public event Action<Context> OnGrab;
         public event Action<Context> OnRelease;
-        public event Action<Context> OnMove;
-        public event Action<Context> OnOpening;
-        public event Action<Context> OnClosing;
-        public event Action<Context> OnOpened;
-        public event Action<Context> OnClosed;
-        public event Action<Context> OnLimit;
 
         public virtual void Use(Context context) => OnUse?.Invoke(context);
         public virtual void Interact(Context context) => OnInteract?.Invoke(context);
         public virtual void Grab(Context context) => OnGrab?.Invoke(context);
         public virtual void Release(Context context) => OnRelease?.Invoke(context);
-        public virtual void Move(Context context) => OnMove?.Invoke(context);
-        public virtual void Opening(Context context) => OnOpening?.Invoke(context);
-        public virtual void Closing(Context context) => OnClosing?.Invoke(context);
-        public virtual void Opened(Context context) => OnOpened?.Invoke(context);
-        public virtual void Closed(Context context) => OnClosed?.Invoke(context);
-        public virtual void Limit(Context context) => OnLimit?.Invoke(context);
 
         #endregion
     }
