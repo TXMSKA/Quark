@@ -25,19 +25,15 @@ namespace Quark
                     Debug.LogWarning($"Stats: duplicate key '{stat.Key}' on {owner.name}.", owner);
                 stat.Apply(stat.StartingValue);
             }
-            if (GameManager.Instance != null && GameManager.Instance.Values.TryGet(Key<Tick>.Default, out tick))
-                tick.OnTick += OnTick;
         }
 
         public override void Handle()
         {
-            if (tick != null) return;
-            Step(Time.deltaTime);
+            foreach (var stat in stats) stat.Step(Time.deltaTime);
         }
 
         public override void Unhook()
         {
-            if (tick != null) { tick.OnTick -= OnTick; tick = null; }
             lookup.Clear();
             base.Unhook();
         }
@@ -56,10 +52,6 @@ namespace Quark
         #region MISC
 
         private readonly Dictionary<string, Stat> lookup = new();
-        private Tick tick;
-
-        private void OnTick() => Step(tick.RealDelta);
-        private void Step(float delta) { foreach (var stat in stats) stat.Step(delta); }
 
         #endregion
 
