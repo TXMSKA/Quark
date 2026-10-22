@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Quark.sln",
+    "dotnet.defaultSolution": "Quark.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
