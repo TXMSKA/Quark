@@ -15,6 +15,7 @@ namespace Quark
 
         const float Width = 140f, Gap = 4f, MinTray = 80f;
         static readonly string[] Modes = { "Place", "Paint", "Move" };
+        static readonly float[] Steps = { 15f, 45f, 90f };
         static GUIStyle hint, value, empty;
         static GUIStyle Value => value ??= new GUIStyle(Charm.MiniAccent) { alignment = TextAnchor.MiddleRight };
         static GUIStyle Hint => hint ??= new GUIStyle(Charm.MiniDim) { wordWrap = true, fontSize = 9 };
@@ -63,7 +64,7 @@ namespace Quark
             ModeRow();
             Divider();
             GridRows(shelf);
-            if (Builder.Mode == Builder.Tool.Place) PlaceRows();
+            if (Builder.Mode == Builder.Tool.Place) PlaceRows(shelf);
             if (Builder.Mode == Builder.Tool.Paint) Brush(shelf);
             Divider();
             Tray(shelf);
@@ -114,13 +115,25 @@ namespace Quark
             if (Library.Button(new Rect(r.xMax - 46f, r.y, 46f, r.height), "Fit")) Builder.MatchGrid();
         }
 
-        static void PlaceRows()
+        static void PlaceRows(Shelf shelf)
         {
             GUILayout.Space(2f);
             var r = Row(20f);
             GUI.Label(new Rect(r.x, r.y, 36f, r.height), "Turn", Charm.MiniDim);
             GUI.Label(new Rect(r.x + 36f, r.y, r.width - 84f, r.height), Builder.Turned, Charm.MiniAccent);
             if (Library.Button(new Rect(r.xMax - 46f, r.y, 46f, r.height), "Reset")) Builder.ResetTurn();
+
+            GUILayout.Space(2f);
+            r = Row(20f);
+            GUI.Label(new Rect(r.x, r.y, 36f, r.height), "Step", Charm.MiniDim);
+            for (var i = 0; i < Steps.Length; i++)
+            {
+                var c = new Rect(r.xMax - (Steps.Length - i) * 32f + 2f, r.y, 30f, r.height);
+                var on = Mathf.Approximately(shelf.turnStep, Steps[i]);
+                if (!Library.Button(c, $"{Steps[i]}°", on) || on) continue;
+                shelf.Edit("Turn Step");
+                shelf.turnStep = Steps[i];
+            }
 
             GUILayout.Space(2f);
             r = Row(20f);

@@ -182,11 +182,11 @@ namespace Quark
         [Shortcut("Quark/Map/Turn Z Back", typeof(SceneView), KeyCode.O, ShortcutModifiers.Shift)]
         static void TurnZBack() => Turn(Vector3.forward, -1f);
 
-        // 45 degree steps around world axes, applied to the piece being placed.
+        // Steps of the shelf's turn angle around world axes, applied to the piece being placed.
         static void Turn(Vector3 axis, float sign)
         {
             if (ToolManager.activeToolType != typeof(Builder)) return;
-            turn = Quaternion.AngleAxis(45f * sign, axis) * turn;
+            turn = Quaternion.AngleAxis(Shelf.Instance.turnStep * sign, axis) * turn;
             aim = true;
             SceneView.RepaintAll();
         }

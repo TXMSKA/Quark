@@ -21,6 +21,7 @@ namespace Quark
         public int slot;
         [SerializeField, HideInInspector] List<GameObject> tray = new();
         public bool snap = true;
+        [Min(1f)] public float turnStep = 45f;
         public float radius = 4f;
         [Range(0f, 1f)] public float strength = 0.5f;
         [Range(0f, 90f)] public float slope = 30f;
